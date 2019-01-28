@@ -1,1 +1,11 @@
 questions:
+  - variable: env.environment_parent
+    type: enum
+    label: Environment Parent
+    description: The name of the parent environment we will deploy into and funcation as.
+    required: true
+    options:
+      - sandbox
+      - canary
+      - production
+    default: sandbox
