@@ -13,9 +13,8 @@ questions:
     type: enum
     label: Environment Modifier
     description: The modifier name for the environment we will deploy into and funcation as.
-    required: true
+    required: false
     options:
-      -
       - prime
       - qa
       - 01
