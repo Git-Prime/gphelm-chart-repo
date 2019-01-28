@@ -30,3 +30,9 @@ questions:
       - 09
       - 10
     default: ""
+  - variable: build.dataPipeline.commitSHA
+    type: string
+    label: Data Pipeline Build SHA
+    description: The commit SHA of the GitPrime Data Pipeline build you want to deploy.
+    required: true
+    group: "Versioning"
