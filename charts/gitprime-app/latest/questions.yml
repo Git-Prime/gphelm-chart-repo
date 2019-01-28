@@ -35,4 +35,4 @@ questions:
     label: Data Pipeline Build SHA
     description: The commit SHA of the GitPrime Data Pipeline build you want to deploy.
     required: true
-    group: "Versioning"
+    group: "Data Pipeline"
