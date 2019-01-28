@@ -3,6 +3,7 @@ questions:
     type: enum
     label: Environment Parent
     description: The name of the parent environment we will deploy into and funcation as.
+    group: "Environment"
     required: true
     options:
       - sandbox
@@ -13,6 +14,7 @@ questions:
     type: enum
     label: Environment Modifier
     description: The modifier name for the environment we will deploy into and funcation as.
+    group: "Environment"
     required: false
     options:
       - prime
