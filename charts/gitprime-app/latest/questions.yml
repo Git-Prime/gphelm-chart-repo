@@ -1,21 +1,23 @@
 questions:
+  # General environment settings
   - variable: env.environment_parent
     type: enum
+    required: true
+    group: "Environment"
     label: Environment Parent
     description: The name of the parent environment we will deploy into and funcation as.
-    group: "Environment"
-    required: true
     options:
       - sandbox
       - canary
       - production
     default: sandbox
+
   - variable: env.environment_modifier
     type: enum
+    required: false
+    group: "Environment"
     label: Environment Modifier
     description: The modifier name for the environment we will deploy into and funcation as.
-    group: "Environment"
-    required: false
     options:
       - prime
       - qa
@@ -30,9 +32,19 @@ questions:
       - 09
       - 10
     default: ""
-  - variable: build.dataPipeline.commitSHA
+
+  # Data Pipeline specific settings
+  - variable: dataPipeline.build.commitSHA
     type: string
-    label: Data Pipeline Build SHA
-    description: The commit SHA of the GitPrime Data Pipeline build you want to deploy.
     required: true
     group: "Data Pipeline"
+    label: Data Pipeline Build SHA
+    description: The commit SHA of the GitPrime Data Pipeline build you want to deploy.
+
+  - variable: dataPipeline.deploy.replicateCount
+    type: int
+    required: true
+    group: "Data Pipeline"
+    label: Number of Pods
+    description: The number of pods to deploy
+    default: 1

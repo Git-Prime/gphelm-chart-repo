@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gitprime-app-stack
+  labels:
+    app: gitprime-app-stack
+spec:
+  replicas: 0
+  selector:
+    matchLabels:
+      app: gitprime-app-stack
+  template:
+    metadata:
+      labels:
+        app: gitprime-app-stack
+    spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: app
+                    operator: In
+                    values:
+                      - data-pipeline-worker
+              topologyKey: kubernetes.io/hostname
+      containers:
+        - name: data-pipeline-worker
+          image: gp-docker.gitprime-ops.com/integrations/data-pipeline-worker:{{build_tag}}
+          volumeMounts:
+            - mountPath: /etc/gitprime/data_pipeline/keys
+              name: key
+            - mountPath: /etc/gitprime/data_pipeline/
+              name: config
+          resources:
+            requests:
+              cpu: 15
+              memory: 21Gi
+      volumes:
+        - name: key
+          secret:
+            secretName: secret-key
+            items:
+              - key: master.key
+                path: master.key
+              - key: repo_key.key
+                path: repo_key.key
+        - name: config
+          secret:
+            secretName: settings
+            items:
+              - key: settings.json
+                path: settings.json
