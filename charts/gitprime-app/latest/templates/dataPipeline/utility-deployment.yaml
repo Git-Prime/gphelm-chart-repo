@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: gitprime-dp-{{- template "helpers.environment.fullName" .}}
+  name: gitprime-dp-{{- template "helpers.environment.fullName" .}}-utility
   labels:
-    app: gitprime-dp-{{- template "helpers.environment.fullName" .}}
+    app: gitprime-dp-{{- template "helpers.environment.fullName" .}}-utility
     gp-environment-parent: {{ .Values.environment.parentName }}
     gp-environment-modifier: {{ .Values.environment.modifierValue }}
     gp-environment-name: {{ template "helpers.environment.fullName" .}}
 spec:
-  replicas: {{ .Values.dataPipeline.deploy.replicaCount }}
+  replicas: 1
   selector:
     matchLabels:
-      app: gitprime-dp-{{- template "helpers.environment.fullName" .}}
+      app: gitprime-dp-{{- template "helpers.environment.fullName" .}}-utility
   template:
     metadata:
       labels:
-        app: gitprime-dp-{{- template "helpers.environment.fullName" .}}
+        app: gitprime-dp-{{- template "helpers.environment.fullName" .}}-utility
     spec:
       affinity:
         podAntiAffinity:
@@ -25,8 +25,8 @@ spec:
                   - key: app
                     operator: In
                     values:
-                      - gitprime-dp-{{- template "helpers.environment.fullName" .}}
+                      - gitprime-dp-{{- template "helpers.environment.fullName" .}}-utility
               topologyKey: kubernetes.io/hostname
       containers:
-        - name: gitprime-dp-{{- template "helpers.environment.fullName" .}}-worker
+        - name: gitprime-dp-{{- template "helpers.environment.fullName" .}}-utility
           image: gp-docker.gitprime-ops.com/integrations/gitprime-data-pipeline:{{ .Values.dataPipeline.build.commitSHA }}
