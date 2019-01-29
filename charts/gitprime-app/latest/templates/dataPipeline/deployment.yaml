@@ -6,7 +6,7 @@ metadata:
     app: gitprime-dp-{{- template "helpers.environment.fullName" .}}
     gp-environment-parent: {{ .Values.environment.parentName }}
     gp-environment-modifier: {{ .Values.environment.modifierValue }}
-    gp-environment-name: {{- template "helpers.environment.fullName" .}}
+    gp-environment-name: {{ template "helpers.environment.fullName" .}}
 spec:
   replicas: {{ .Values.dataPipeline.deploy.replicaCount }}
   selector:
