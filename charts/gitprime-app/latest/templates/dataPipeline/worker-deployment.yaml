@@ -25,5 +25,23 @@ spec:
                       - gitprime-dp-{{- template "helpers.environment.fullName" .}}-worker
               topologyKey: kubernetes.io/hostname
       containers:
-        - name: gitprime-dp-{{- template "helpers.environment.fullName" .}}-worker
+        - name: gitprime-dp-{{- template "helpers.environment.fullName" .}}-utility
           image: gp-docker.gitprime-ops.com/integrations/gitprime-data-pipeline:{{ .Values.dataPipeline.build.commitSHA }}
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: SYSTEM_ENV_PARENT
+              value: {{- template "helpers.environment.fullName" .}}
+            - name: SYSTEM_ENV
+              value: {{- template "helpers.environment.fullName" .}}
+            - name: SYSTEM_ENV
+              value: {{- template "helpers.environment.fullName" .}}
+          resources:
+            requests:
+              cpu: "1"
+              memory: 5632Mi
+
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
