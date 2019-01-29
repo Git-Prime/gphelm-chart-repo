@@ -9,9 +9,6 @@ spec:
   selector:
     matchLabels:
       app: gitprime-dp-{{- template "helpers.environment.fullName" .}}-worker
-      gp_environment_parent: {{ quote .Values.environment.parentName }}
-      gp_environment_modifier: {{ quote .Values.environment.modifierValue }}
-      gp_environment: {{ include "helpers.environment.fullName" . | quote }}
   template:
     metadata:
       labels:
