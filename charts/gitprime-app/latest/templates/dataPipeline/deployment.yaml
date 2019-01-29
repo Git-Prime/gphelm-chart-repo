@@ -30,7 +30,3 @@ spec:
       containers:
         - name: gitprime-dp-{{- template "helpers.environment.fullName" .}}-worker
           image: gp-docker.gitprime-ops.com/integrations/gitprime-data-pipeline:{{ .Values.dataPipeline.build.commitSHA }}
-          resources:
-            requests:
-              cpu: 15
-              memory: 21Gi
