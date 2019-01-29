@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gitprime-dp-{{- template environment.fullName }}
+  labels:
+    app: gitprime-dp-{{- template environment.fullName }}
+spec:
+  replicas: {{ .Values.dataPipeline.deploy.replicaCount }}
+  selector:
+    matchLabels:
+      app: gitprime-dp-{{- template environment.fullName }}
+  template:
+    metadata:
+      labels:
+        app: gitprime-dp-{{- template environment.fullName }}
+    spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: app
+                    operator: In
+                    values:
+                      - gitprime-dp-{{- template environment.fullName }}
+              topologyKey: kubernetes.io/hostname
+      containers:
+        - name: gitprime-dp-{{- template environment.fullName }}-worker
+          image: gp-docker.gitprime-ops.com/integrations/gitprime-data-pipeline{{ .Values.dataPipeline.build.commitSHA }}
+          resources:
+            requests:
+              cpu: 15
+              memory: 21Gi

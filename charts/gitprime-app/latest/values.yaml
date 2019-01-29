@@ -1,21 +1,11 @@
-# Default values for gitprime-app.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
+# We'll start with values for the environment we'll be living in
+environment:
+  parentName: sandbox
+  modifierValue: ""
 
-replicaCount: 1
+dataPipeline:
+  build:
+    commitSHA: ""
 
-image:
-  repository: nginx
-  tag:
-  pullPolicy: IfNotPresent
-
-nameOverride: ""
-fullnameOverride: "GitPrime Application Stack"
-
-resources: {}
-
-nodeSelector: {}
-
-tolerations: []
-
-affinity: {}
+  deploy:
+    replicaCount: 0

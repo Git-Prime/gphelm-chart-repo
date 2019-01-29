@@ -1,6 +1,6 @@
 questions:
   # General environment settings
-  - variable: env.environment_parent
+  - variable: environment.parentName
     type: enum
     required: true
     group: "Environment"
@@ -12,7 +12,7 @@ questions:
       - production
     default: sandbox
 
-  - variable: env.environment_modifier
+  - variable: environment.modifierValue
     type: enum
     required: false
     group: "Environment"
@@ -33,7 +33,7 @@ questions:
       - 10
     default: ""
 
-  # Data Pipeline specific settings
+  # GitPrime Data Pipeline specific settings
   - variable: dataPipeline.build.commitSHA
     type: string
     required: true
@@ -41,10 +41,12 @@ questions:
     label: Data Pipeline Build SHA
     description: The commit SHA of the GitPrime Data Pipeline build you want to deploy.
 
-  - variable: dataPipeline.deploy.replicateCount
+  - variable: dataPipeline.deploy.replicaCount
     type: int
     required: true
     group: "Data Pipeline"
     label: Number of Pods
     description: The number of pods to deploy
     default: 1
+
+  # Eventually we'll want to put the GitPrime Main application settings here
