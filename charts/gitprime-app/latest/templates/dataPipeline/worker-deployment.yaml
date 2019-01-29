@@ -4,9 +4,9 @@ metadata:
   name: gitprime-dp-{{- template "helpers.environment.fullName" .}}-worker
   labels:
     app: gitprime-dp-{{- template "helpers.environment.fullName" .}}-worker
-    gp-environment-parent: {{ .Values.environment.parentName }}
-    gp-environment-modifier: {{ .Values.environment.modifierValue }}
-    gp-environment-name: {{ template "helpers.environment.fullName" .}}
+    gp-environment-parent: {{ quote .Values.environment.parentName }}
+    gp-environment-modifier: {{ quote .Values.environment.modifierValue }}
+    gp-environment-name: {{ quote template "helpers.environment.fullName" .}}
 spec:
   replicas: {{ .Values.dataPipeline.deploy.replicaCount }}
   selector:
