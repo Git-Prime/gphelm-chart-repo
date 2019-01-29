@@ -1,0 +1,2 @@
+{{- $data := dict "Values" .Values "deployType" "utility" "replicaCount" 1 }}
+{{- include "helpers.dataPipeline.deployment" $data }}
