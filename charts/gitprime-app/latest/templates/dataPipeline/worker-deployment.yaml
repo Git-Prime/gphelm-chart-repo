@@ -9,6 +9,9 @@ spec:
   selector:
     matchLabels:
       app: gitprime-dp-{{- template "helpers.environment.fullName" .}}-worker
+      gp_environment_parent: {{ quote .Values.environment.parentName }}
+      gp_environment_modifier: {{ quote .Values.environment.modifierValue }}
+      gp_environment: {{ include "helpers.environment.fullName" . | quote }}
   template:
     metadata:
       labels:
@@ -30,11 +33,11 @@ spec:
           imagePullPolicy: IfNotPresent
           env:
             - name: SYSTEM_ENV_PARENT
-              value: {{- template "helpers.environment.fullName" .}}
+              value: {{ quote .Values.environment.parentName }}
+            - name: SYSTEM_ENV_MODIFIER
+              value: {{ quote .Values.environment.modifierValue }}
             - name: SYSTEM_ENV
-              value: {{- template "helpers.environment.fullName" .}}
-            - name: SYSTEM_ENV
-              value: {{- template "helpers.environment.fullName" .}}
+              value: {{ include "helpers.environment.fullName" . | quote }}
           resources:
             requests:
               cpu: "1"
