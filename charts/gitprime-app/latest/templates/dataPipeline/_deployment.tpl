@@ -1,14 +1,17 @@
+{{- /* This represents a deployment that runs the main Data Pipeline jar and moves into different modes based on */}}
+{{- /* environment variables and the like. */}}
+{{- define "dataPipeline.deploymentTemplate" }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: gitprime-dp-{{- template "helpers.environment.fullName" .}}-worker
+  name: gitprime-dp-{{- template "helpers.environment.fullName" .}}-{{ .templateVars.operationMode }}
   labels:
-    app: gitprime-dp-{{- template "helpers.environment.fullName" .}}-worker
+    app: gitprime-dp-{{- template "helpers.environment.fullName" .}}-{{ .templateVars.operationMode }}
 spec:
-  replicas: {{ .Values.dataPipeline.deploy.replicaCount }}
+  replicas: {{ .templateVars.replicaCount }}
   selector:
     matchLabels:
-      app: gitprime-dp-{{- template "helpers.environment.fullName" .}}-worker
+      app: gitprime-dp-{{- template "helpers.environment.fullName" .}}-{{ .templateVars.operationMode }}
   strategy:
     rollingUpdate:
       maxSurge: 25%
@@ -17,7 +20,7 @@ spec:
   template:
     metadata:
       labels:
-        app: gitprime-dp-{{- template "helpers.environment.fullName" .}}-worker
+        app: gitprime-dp-{{- template "helpers.environment.fullName" .}}-{{ .templateVars.operationMode }}
     spec:
       affinity:
         podAntiAffinity:
@@ -27,13 +30,15 @@ spec:
                   - key: app
                     operator: In
                     values:
-                      - gitprime-dp-{{- template "helpers.environment.fullName" .}}-worker
+                      - gitprime-dp-{{- template "helpers.environment.fullName" .}}-{{ .templateVars.operationMode }}
               topologyKey: kubernetes.io/hostname
       containers:
-        - name: gitprime-dp-{{- template "helpers.environment.fullName" .}}-utility
+        - name: gitprime-dp-{{- template "helpers.environment.fullName" .}}-{{ .templateVars.operationMode }}
           image: gp-docker.gitprime-ops.com/integrations/gitprime-data-pipeline:{{ .Values.dataPipeline.build.commitSHA }}
           imagePullPolicy: IfNotPresent
           env:
+            - name: SYSTEM_OPERATION_MODE
+              value: {{ quote .templateVars.operationMode }}
             - name: SYSTEM_ENV_PARENT
               value: {{ quote .Values.environment.parentName }}
             - name: SYSTEM_ENV_MODIFIER
@@ -55,3 +60,4 @@ spec:
       schedulerName: default-scheduler
       securityContext: {}
       terminationGracePeriodSeconds: 30
+{{- end }}

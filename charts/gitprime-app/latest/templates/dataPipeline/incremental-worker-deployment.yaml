@@ -1,0 +1,3 @@
+{{- $templateVars := dict "operationMode" "incr-repo-worker" "replicaCount" .Values.dataPipeline.deploy.incrementalRepoWorker.replicaCount }}
+{{- $templateData := dict "Values" .Values "templateVars" $templateVars }}
+{{- include "dataPipeline.deploymentTemplate" $templateData }}

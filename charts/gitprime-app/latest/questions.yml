@@ -41,12 +41,28 @@ questions:
     label: Data Pipeline Build SHA
     description: The commit SHA of the GitPrime Data Pipeline build you want to deploy.
 
-  - variable: dataPipeline.deploy.replicaCount
+  - variable: dataPipeline.deploy.newRepoWorker.replicaCount
     type: int
     required: true
     group: "Data Pipeline"
-    label: Number of Pods
-    description: The number of pods to deploy
+    label: Number of Pods for New Repo Workers
+    description: The number of pods to deploy for the workers that handle new repositories.
+    default: 1
+
+  - variable: dataPipeline.deploy.incrementalRepoWorker.replicaCount
+    type: int
+    required: true
+    group: "Data Pipeline"
+    label: Number of Pods for Incremental Repo Workers
+    description: The number of pods to deploy for the workers that handle older repositories that we're doing incremental work on.
+    default: 1
+
+  - variable: dataPipeline.deploy.aodWorker.replicaCount
+    type: int
+    required: true
+    group: "Data Pipeline"
+    label: Number of Pods for AOD Workers
+    description: The number of pods to deploy for the workers that handle advanced outlier detection logic.
     default: 1
 
   # Eventually we'll want to put the GitPrime Main application settings here

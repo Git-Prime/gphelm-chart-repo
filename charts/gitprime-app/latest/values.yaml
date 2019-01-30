@@ -8,4 +8,9 @@ dataPipeline:
     commitSHA: ""
 
   deploy:
-    replicaCount: 1
+    newRepoWorker:
+      replicaCount: 1
+    incrementalRepoWorker:
+      replicaCount: 1
+    aodWorker:
+      replicaCount: 1
