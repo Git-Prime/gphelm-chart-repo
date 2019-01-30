@@ -1,2 +1,49 @@
-{{- $data := dict "Values" .Values "deployType" "utility" "replicaCount" 1 }}
-{{- include "helpers.dataPipeline.deployment" $data }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gitprime-dp-{{- template "helpers.environment.fullName" .}}-utility
+  labels:
+    app: gitprime-dp-{{- template "helpers.environment.fullName" .}}-utility
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gitprime-dp-{{- template "helpers.environment.fullName" .}}-utility
+  template:
+    metadata:
+      labels:
+        app: gitprime-dp-{{- template "helpers.environment.fullName" .}}-utility
+    spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: app
+                    operator: In
+                    values:
+                      - gitprime-dp-{{- template "helpers.environment.fullName" .}}-utility
+              topologyKey: kubernetes.io/hostname
+      containers:
+        - name: gitprime-dp-{{- template "helpers.environment.fullName" .}}-utility
+          image: gp-docker.gitprime-ops.com/integrations/gitprime-data-pipeline:{{ .Values.dataPipeline.build.commitSHA }}
+          imagePullPolicy: IfNotPresent
+          args:
+            - "--utility-mode"
+          env:
+            - name: SYSTEM_ENV_PARENT
+              value: {{ quote .Values.environment.parentName }}
+            - name: SYSTEM_ENV_MODIFIER
+              value: {{ quote .Values.environment.modifierValue }}
+            - name: SYSTEM_ENV
+              value: {{ include "helpers.environment.fullName" . | quote }}
+          resources:
+            requests:
+              cpu: "1"
+              memory: 5632Mi
+
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
