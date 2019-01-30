@@ -37,11 +37,16 @@ spec:
               value: {{ quote .Values.environment.modifierValue }}
             - name: SYSTEM_ENV
               value: {{ include "helpers.environment.fullName" . | quote }}
+            - name: SYSTEM_POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
           resources:
             requests:
               cpu: "1"
               memory: 5632Mi
-
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
