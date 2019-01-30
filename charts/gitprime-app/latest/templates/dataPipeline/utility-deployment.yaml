@@ -28,8 +28,8 @@ spec:
         - name: gitprime-dp-{{- template "helpers.environment.fullName" .}}-utility
           image: gp-docker.gitprime-ops.com/integrations/gitprime-data-pipeline:{{ .Values.dataPipeline.build.commitSHA }}
           imagePullPolicy: IfNotPresent
-          args:
-            - "--utility-mode"
+          command: ["/var/lib/gitprime-app/entrypoints/worker-entrypoint.sh"]
+          args: ["--utility-mode"]
           env:
             - name: SYSTEM_ENV_PARENT
               value: {{ quote .Values.environment.parentName }}
