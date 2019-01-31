@@ -7,10 +7,44 @@ dataPipeline:
   build:
     commitSHA: ""
 
-  deploy:
-    newRepoWorker:
-      replicaCount: 1
-    incrementalRepoWorker:
-      replicaCount: 1
-    aodWorker:
-      replicaCount: 1
+  environment:
+    - name: GP_AOD_QUEUE_NAME
+      value: "java-aod-repo-process-request"
+    - name: GP_REQUEUE_AOD
+      value: true
+
+  newRepoWorker:
+    replicaCount: 1
+    environment:
+      - name: GP_REPO_PROCESSING_QUEUE_NAME
+        value: "java-new-repo-process-request"
+      - name: GP_COMMIT_PROCESSOR_THREADS
+        value: 2
+      - name: GP_MAX_REPO_PROCESSING_SECONDS
+        value: 2700
+      - name: JAVA_OPTS
+        value: "-d64 -Xms2g -Xmx4g"
+
+  incrementalRepoWorker:
+    replicaCount: 1
+    environment:
+      - name: GP_REPO_PROCESSING_QUEUE_NAME
+        value: "java-incremental-repo-process-request"
+      - name: GP_COMMIT_PROCESSOR_THREADS
+        value: 2
+      - name: GP_MAX_REPO_PROCESSING_SECONDS
+        value: 2700
+      - name: JAVA_OPTS
+        value: "-d64 -Xms2g -Xmx4g"
+
+  aodWorker:
+    replicaCount: 1
+    environment:
+      - name: GP_REPO_PROCESSING_QUEUE_NAME
+        value: "java-aod-repo-process-request"
+      - name: GP_COMMIT_PROCESSOR_THREADS
+        value: 2
+      - name: GP_MAX_REPO_PROCESSING_SECONDS
+        value: 2700
+      - name: JAVA_OPTS
+        value: "-d64 -Xms2g -Xmx4g"

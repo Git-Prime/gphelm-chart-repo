@@ -1,4 +1,4 @@
-{{- $templateVars := dict "operationMode" "utility" "replicaCount" 1 }}
-{{- $templateData := dict "Values" .Values "templateVars" $templateVars }}
+{{- $templateData := dict "operationMode" "utility" "replicaCount" 1 }}
+{{- $templateData := dict "Values" .Values "templateData" $templateData }}
 {{- include "dataPipeline.deploymentTemplate" $templateData }}
 

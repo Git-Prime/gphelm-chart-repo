@@ -1,17 +1,19 @@
 {{- /* This represents a deployment that runs the main Data Pipeline jar and moves into different modes based on */}}
 {{- /* environment variables and the like. */}}
 {{- define "dataPipeline.deploymentTemplate" }}
+{{- $globalEnvironment := .Values.dataPipeline.environment }}
+{{- $environment := .templateData.environment }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: gitprime-dp-{{- template "helpers.environment.fullName" .}}-{{ .templateVars.operationMode }}
+  name: gitprime-dp-{{- template "helpers.environment.fullName" .}}-{{ .templateData.operationMode }}
   labels:
-    app: gitprime-dp-{{- template "helpers.environment.fullName" .}}-{{ .templateVars.operationMode }}
+    app: gitprime-dp-{{- template "helpers.environment.fullName" .}}-{{ .templateData.operationMode }}
 spec:
-  replicas: {{ .templateVars.replicaCount }}
+  replicas: {{ .templateData.replicaCount }}
   selector:
     matchLabels:
-      app: gitprime-dp-{{- template "helpers.environment.fullName" .}}-{{ .templateVars.operationMode }}
+      app: gitprime-dp-{{- template "helpers.environment.fullName" .}}-{{ .templateData.operationMode }}
   strategy:
     rollingUpdate:
       maxSurge: 25%
@@ -20,7 +22,7 @@ spec:
   template:
     metadata:
       labels:
-        app: gitprime-dp-{{- template "helpers.environment.fullName" .}}-{{ .templateVars.operationMode }}
+        app: gitprime-dp-{{- template "helpers.environment.fullName" .}}-{{ .templateData.operationMode }}
     spec:
       affinity:
         podAntiAffinity:
@@ -30,15 +32,13 @@ spec:
                   - key: app
                     operator: In
                     values:
-                      - gitprime-dp-{{- template "helpers.environment.fullName" .}}-{{ .templateVars.operationMode }}
+                      - gitprime-dp-{{- template "helpers.environment.fullName" .}}-{{ .templateData.operationMode }}
               topologyKey: kubernetes.io/hostname
       containers:
-        - name: gitprime-dp-{{- template "helpers.environment.fullName" .}}-{{ .templateVars.operationMode }}
+        - name: gitprime-dp-{{- template "helpers.environment.fullName" .}}-{{ .templateData.operationMode }}
           image: gp-docker.gitprime-ops.com/integrations/gitprime-data-pipeline:{{ .Values.dataPipeline.build.commitSHA }}
           imagePullPolicy: IfNotPresent
           env:
-            - name: SYSTEM_OPERATION_MODE
-              value: {{ quote .templateVars.operationMode }}
             - name: SYSTEM_ENV_PARENT
               value: {{ quote .Values.environment.parentName }}
             - name: SYSTEM_ENV_MODIFIER
@@ -49,6 +49,16 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.name
+            - name: SYSTEM_OPERATION_MODE
+              value: {{ quote .templateData.operationMode }}
+          {{- range $globalEnvironment }}
+            - name: {{ .name }}
+              value: {{ .value | quote }}
+          {{- end }}
+          {{- range $environment }}
+            - name: {{ .name }}
+              value: {{ .value | quote }}
+          {{- end }}
           resources:
             requests:
               cpu: "1"
