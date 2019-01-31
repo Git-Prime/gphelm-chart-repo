@@ -1,3 +1,6 @@
-{{- $templateData := dict "operationMode" "aod-worker" "replicaCount" .Values.dataPipeline.aodWorker.replicaCount "environment" .Values.dataPipeline.aodWorker.environment }}
+{{- $templateData := dict "operationMode" "aod-worker" }}
+{{- $_ := set $templateData "replicaCount" .Values.dataPipeline.aodWorker.replicaCount }}
+{{- $_ := set $templateData "environment" .Values.dataPipeline.aodWorker.environment }}
+{{- $_ := set $templateData "javaOptions" .Values.dataPipeline.aodWorker.javaOptions }}
 {{- $templateData := dict "Values" .Values "templateData" $templateData }}
 {{- include "dataPipeline.deploymentTemplate" $templateData }}

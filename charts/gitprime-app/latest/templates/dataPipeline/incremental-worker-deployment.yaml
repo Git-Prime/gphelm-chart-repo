@@ -1,3 +1,6 @@
-{{- $templateData := dict "operationMode" "incr-repo-worker" "replicaCount" .Values.dataPipeline.incrementalRepoWorker.replicaCount "environment" .Values.dataPipeline.incrementalRepoWorker.environment }}
+{{- $templateData := dict "operationMode" "incr-repo-worker" }}
+{{- $_ := set $templateData "replicaCount" .Values.dataPipeline.incrementalRepoWorker.replicaCount }}
+{{- $_ := set $templateData "environment" .Values.dataPipeline.incrementalRepoWorker.environment }}
+{{- $_ := set $templateData "javaOptions" .Values.dataPipeline.incrementalRepoWorker.javaOptions }}
 {{- $templateData := dict "Values" .Values "templateData" $templateData }}
 {{- include "dataPipeline.deploymentTemplate" $templateData }}

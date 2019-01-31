@@ -44,25 +44,49 @@ questions:
   - variable: dataPipeline.deploy.newRepoWorker.replicaCount
     type: int
     required: true
-    group: "Data Pipeline"
+    group: "Data Pipeline / New Repo Workers"
     label: Number of Pods for New Repo Workers
     description: The number of pods to deploy for the workers that handle new repositories.
     default: 1
 
+  - variable: dataPipeline.deploy.newRepoWorker.javaOptions
+    type: String
+    required: true
+    group: "Data Pipeline / New Repo Workers"
+    label: New Repo Worker Java Options
+    description: The Java options for the new repository workers.
+    default: "-d64 -Xms2g -Xmx4g"
+
   - variable: dataPipeline.deploy.incrementalRepoWorker.replicaCount
     type: int
     required: true
-    group: "Data Pipeline"
+    group: "Data Pipeline / Incremental Repo Workers"
     label: Number of Pods for Incremental Repo Workers
     description: The number of pods to deploy for the workers that handle older repositories that we're doing incremental work on.
     default: 1
 
+  - variable: dataPipeline.deploy.incrementalRepoWorker.javaOptions
+    type: String
+    required: true
+    group: "Data Pipeline / Incremental Repo Workers"
+    label: Incremental Repo Worker Java Options
+    description: The Java options for the incremental repository workers.
+    default: "-d64 -Xms2g -Xmx4g"
+
   - variable: dataPipeline.deploy.aodWorker.replicaCount
     type: int
     required: true
-    group: "Data Pipeline"
+    group: "Data Pipeline / AOD Workers"
     label: Number of Pods for AOD Workers
     description: The number of pods to deploy for the workers that handle advanced outlier detection logic.
     default: 1
+
+  - variable: dataPipeline.deploy.incrementalRepoWorker.javaOptions
+    type: String
+    required: true
+    group: "Data Pipeline / AOD Workers"
+    label: AOD Worker Java Options
+    description: The Java options for the AOD workers.
+    default: "-d64 -Xms2g -Xmx4g"
 
   # Eventually we'll want to put the GitPrime Main application settings here

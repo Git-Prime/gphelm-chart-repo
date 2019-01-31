@@ -51,6 +51,10 @@ spec:
                   fieldPath: metadata.name
             - name: SYSTEM_OPERATION_MODE
               value: {{ quote .templateData.operationMode }}
+          {{- if .templateData.javaOptions }}
+            - name: JAVA_OPTS
+              value: {{ quote .templateData.javaOptions }}
+          {{- end }}
           {{- range $globalEnvironment }}
             - name: {{ .name }}
               value: {{ .value | quote }}
