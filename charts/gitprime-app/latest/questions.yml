@@ -44,7 +44,7 @@ questions:
     description: The commit SHA of the GitPrime Data Pipeline build you want to deploy.
 
   # New Repo Worker Settings
-  - variable: dataPipeline.deploy.newRepoWorker.replicaCount
+  - variable: dataPipeline.newRepoWorker.replicaCount
     type: int
     required: true
     group: "Data Pipeline / New Repo Workers"
@@ -52,7 +52,7 @@ questions:
     description: The number of pods to deploy for the workers that handle new repositories.
     default: 1
 
-  - variable: dataPipeline.deploy.newRepoWorker.javaOptions
+  - variable: dataPipeline.newRepoWorker.javaOptions
     type: string
     required: true
     group: "Data Pipeline / New Repo Workers"
@@ -60,7 +60,7 @@ questions:
     description: The Java options for the new repository workers.
     default: "-d64 -Xms2g -Xmx4g"
 
-  - variable: dataPipeline.deploy.newRepoWorker.processorThreadCount
+  - variable: dataPipeline.newRepoWorker.processorThreadCount
     type: int
     required: true
     group: "Data Pipeline / New Repo Workers"
@@ -68,7 +68,7 @@ questions:
     description: The number of threads to use for the new repository workers.
     default: 2
 
-  - variable: dataPipeline.deploy.newRepoWorker.maxConcurrentJobs
+  - variable: dataPipeline.newRepoWorker.maxConcurrentJobs
     type: int
     required: true
     group: "Data Pipeline / New Repo Workers"
@@ -77,7 +77,7 @@ questions:
     default: 1
 
   # Incremental Repo Worker Settings
-  - variable: dataPipeline.deploy.incrementalRepoWorker.replicaCount
+  - variable: dataPipeline.incrementalRepoWorker.replicaCount
     type: int
     required: true
     group: "Data Pipeline / Incremental Repo Workers"
@@ -85,7 +85,7 @@ questions:
     description: The number of pods to deploy for the workers that handle older repositories that we're doing incremental work on.
     default: 1
 
-  - variable: dataPipeline.deploy.incrementalRepoWorker.javaOptions
+  - variable: dataPipeline.incrementalRepoWorker.javaOptions
     type: string
     required: true
     group: "Data Pipeline / Incremental Repo Workers"
@@ -93,7 +93,7 @@ questions:
     description: The Java options for the incremental repository workers.
     default: "-d64 -Xms2g -Xmx4g"
 
-  - variable: dataPipeline.deploy.incrementalRepoWorker.processorThreadCount
+  - variable: dataPipeline.incrementalRepoWorker.processorThreadCount
     type: int
     required: true
     group: "Data Pipeline / Incremental Repo Workers"
@@ -101,7 +101,7 @@ questions:
     description: The number of threads to use for the incremental repository workers.
     default: 2
 
-  - variable: dataPipeline.deploy.incrementalRepoWorker.maxConcurrentJobs
+  - variable: dataPipeline.incrementalRepoWorker.maxConcurrentJobs
     type: int
     required: true
     group: "Data Pipeline / Incremental Repo Workers"
@@ -110,7 +110,7 @@ questions:
     default: 1
 
   # AOD Worker Settings
-  - variable: dataPipeline.deploy.aodWorker.replicaCount
+  - variable: dataPipeline.aodWorker.replicaCount
     type: int
     required: true
     group: "Data Pipeline / AOD Workers"
@@ -118,7 +118,7 @@ questions:
     description: The number of pods to deploy for the workers that handle advanced outlier detection logic.
     default: 1
 
-  - variable: dataPipeline.deploy.aodWorker.javaOptions
+  - variable: dataPipeline.aodWorker.javaOptions
     type: string
     required: true
     group: "Data Pipeline / AOD Workers"
@@ -126,7 +126,7 @@ questions:
     description: The Java options for the AOD workers.
     default: "-d64 -Xms2g -Xmx4g"
 
-  - variable: dataPipeline.deploy.aodWorker.processorThreadCount
+  - variable: dataPipeline.aodWorker.processorThreadCount
     type: int
     required: true
     group: "Data Pipeline / AOD Workers"
@@ -134,7 +134,7 @@ questions:
     description: The number of threads to use for the AOD workers.
     default: 2
 
-  - variable: dataPipeline.deploy.aodWorker.maxConcurrentJobs
+  - variable: dataPipeline.aodWorker.maxConcurrentJobs
     type: int
     required: true
     group: "Data Pipeline / AOD Workers"
