@@ -55,6 +55,14 @@ spec:
             - name: JAVA_OPTS
               value: {{ quote .templateData.javaOptions }}
           {{- end }}
+          {{- if .templateData.maxConcurrentJobs }}
+            - name: GP_MAX_CONCURRENT_JOBS
+              value: {{ quote .templateData.maxConcurrentJobs }}
+          {{- end }}
+          {{- if .templateData.processorThreadCount }}
+            - name: GP_COMMIT_PROCESSOR_THREADS
+              value: {{ quote .templateData.processorThreadCount }}
+          {{- end }}
           {{- range $globalEnvironment }}
             - name: {{ .name }}
               value: {{ .value | quote }}

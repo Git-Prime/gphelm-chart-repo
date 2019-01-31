@@ -2,5 +2,7 @@
 {{- $_ := set $templateData "replicaCount" .Values.dataPipeline.newRepoWorker.replicaCount }}
 {{- $_ := set $templateData "environment" .Values.dataPipeline.newRepoWorker.environment }}
 {{- $_ := set $templateData "javaOptions" .Values.dataPipeline.newRepoWorker.javaOptions }}
+{{- $_ := set $templateData "processorThreadCount" .Values.dataPipeline.newRepoWorker.processorThreadCount }}
+{{- $_ := set $templateData "maxConcurrentJobs" .Values.dataPipeline.newRepoWorker.maxConcurrentJobs }}
 {{- $templateData := dict "Values" .Values "templateData" $templateData }}
 {{- include "dataPipeline.deploymentTemplate" $templateData }}
