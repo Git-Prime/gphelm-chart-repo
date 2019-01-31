@@ -51,6 +51,8 @@ spec:
                   fieldPath: metadata.name
             - name: SYSTEM_OPERATION_MODE
               value: {{ quote .templateData.operationMode }}
+            - name: SYSTEM_CONFIG_SERVER_URL
+              value: {{ include "helpers.configServerURL" . }}
           {{- if .templateData.javaOptions }}
             - name: JAVA_OPTS
               value: {{ quote .templateData.javaOptions }}
