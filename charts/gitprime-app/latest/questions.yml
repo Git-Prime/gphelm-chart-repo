@@ -45,7 +45,7 @@ questions:
 
   # New Repo Worker Settings
   - variable: dataPipeline.newRepoWorker.replicaCount
-    type: int
+    type: string
     required: true
     group: "Data Pipeline / New Repo Workers"
     label: Number of Pods for New Repo Workers
@@ -61,7 +61,7 @@ questions:
     default: "-d64 -Xms2g -Xmx4g"
 
   - variable: dataPipeline.newRepoWorker.processorThreadCount
-    type: int
+    type: string
     required: true
     group: "Data Pipeline / New Repo Workers"
     label: New Repo Worker Thread Count
@@ -69,7 +69,7 @@ questions:
     default: 2
 
   - variable: dataPipeline.newRepoWorker.maxConcurrentJobs
-    type: int
+    type: string
     required: true
     group: "Data Pipeline / New Repo Workers"
     label: New Repo Worker Concurrent Jobs
@@ -78,7 +78,7 @@ questions:
 
   # Incremental Repo Worker Settings
   - variable: dataPipeline.incrementalRepoWorker.replicaCount
-    type: int
+    type: string
     required: true
     group: "Data Pipeline / Incremental Repo Workers"
     label: Number of Pods for Incremental Repo Workers
@@ -94,7 +94,7 @@ questions:
     default: "-d64 -Xms2g -Xmx4g"
 
   - variable: dataPipeline.incrementalRepoWorker.processorThreadCount
-    type: int
+    type: string
     required: true
     group: "Data Pipeline / Incremental Repo Workers"
     label: Incremental Repo Worker Thread Count
@@ -102,7 +102,7 @@ questions:
     default: 2
 
   - variable: dataPipeline.incrementalRepoWorker.maxConcurrentJobs
-    type: int
+    type: string
     required: true
     group: "Data Pipeline / Incremental Repo Workers"
     label: Incremental Repo Worker Concurrent Jobs
@@ -111,7 +111,7 @@ questions:
 
   # AOD Worker Settings
   - variable: dataPipeline.aodWorker.replicaCount
-    type: int
+    type: string
     required: true
     group: "Data Pipeline / AOD Workers"
     label: Number of Pods for AOD Workers
@@ -127,7 +127,7 @@ questions:
     default: "-d64 -Xms2g -Xmx4g"
 
   - variable: dataPipeline.aodWorker.processorThreadCount
-    type: int
+    type: string
     required: true
     group: "Data Pipeline / AOD Workers"
     label: AOD Worker Thread Count
@@ -135,7 +135,7 @@ questions:
     default: 2
 
   - variable: dataPipeline.aodWorker.maxConcurrentJobs
-    type: int
+    type: string
     required: true
     group: "Data Pipeline / AOD Workers"
     label: AOD Worker Concurrent Jobs
