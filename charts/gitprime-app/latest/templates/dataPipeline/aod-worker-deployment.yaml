@@ -4,7 +4,6 @@
 {{- $_ := set $templateData "javaOptions" .Values.dataPipeline.aodWorker.javaOptions }}
 {{- $_ := set $templateData "processorThreadCount" .Values.dataPipeline.aodWorker.processorThreadCount }}
 {{- $_ := set $templateData "maxConcurrentJobs" .Values.dataPipeline.aodWorker.maxConcurrentJobs }}
-{{- $_ := set $templateData "cpuLimits" .Values.dataPipeline.aodWorker.limits.cpu }}
-{{- $_ := set $templateData "memoryLimits" .Values.dataPipeline.aodWorker.limits.memory }}
+{{- $_ := set $templateData "resources" .Values.dataPipeline.aodWorker.resources }}
 {{- $templateData := dict "Values" .Values "templateData" $templateData }}
 {{- include "dataPipeline.deploymentTemplate" $templateData }}

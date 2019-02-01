@@ -76,7 +76,23 @@ questions:
     description: The number of concurrent jobs for the new repository workers.
     default: 1
 
-  - variable: dataPipeline.newRepoWorker.limits.cpu
+  - variable: dataPipeline.newRepoWorker.resources.requests.cpu
+    type: string
+    required: true
+    group: "Data Pipeline / New Repo Workers"
+    label: New Repo Worker Requested CPU
+    description: The number of CPUs the new repository workers will request.
+    default: "2"
+
+  - variable: dataPipeline.newRepoWorker.resources.requests.memory
+    type: string
+    required: true
+    group: "Data Pipeline / New Repo Workers"
+    label: New Repo Worker Requested Memory
+    description: The maximum amount of memory a new repository worker will request.
+    default: "4Gi"
+
+  - variable: dataPipeline.newRepoWorker.resources.limits.cpu
     type: string
     required: true
     group: "Data Pipeline / New Repo Workers"
@@ -84,7 +100,7 @@ questions:
     description: The maximum number of CPUs the new repository workers can use.
     default: "4"
 
-  - variable: dataPipeline.newRepoWorker.limits.memory
+  - variable: dataPipeline.newRepoWorker.resources.limits.memory
     type: string
     required: true
     group: "Data Pipeline / New Repo Workers"
@@ -125,7 +141,23 @@ questions:
     description: The number of concurrent jobs for the incremental repository workers.
     default: 1
 
-  - variable: dataPipeline.incrementalRepoWorker.limits.cpu
+  - variable: dataPipeline.incrementalRepoWorker.resources.requests.cpu
+    type: string
+    required: true
+    group: "Data Pipeline / Incremental Repo Workers"
+    label: Incremental Repo Worker Requested CPU
+    description: The number of CPUs the incremental repository workers will request.
+    default: "2"
+
+  - variable: dataPipeline.incrementalRepoWorker.resources.requests.memory
+    type: string
+    required: true
+    group: "Data Pipeline / Incremental Repo Workers"
+    label: Incremental Repo Worker Requested Memory
+    description: The maximum amount of memory an incremental repository worker will request.
+    default: "4Gi"
+
+  - variable: dataPipeline.incrementalRepoWorker.resources.limits.cpu
     type: string
     required: true
     group: "Data Pipeline / Incremental Repo Workers"
@@ -133,7 +165,7 @@ questions:
     description: The maximum number of CPUs the incremental repository workers can use.
     default: "4"
 
-  - variable: dataPipeline.incrementalRepoWorker.limits.memory
+  - variable: dataPipeline.incrementalRepoWorker.resources.limits.memory
     type: string
     required: true
     group: "Data Pipeline / Incremental Repo Workers"
@@ -174,7 +206,23 @@ questions:
     description: The number of concurrent jobs for the AOD workers.
     default: 1
 
-  - variable: dataPipeline.aodWorker.limits.cpu
+  - variable: dataPipeline.aodWorker.resources.requests.cpu
+    type: string
+    required: true
+    group: "Data Pipeline / AOD Workers"
+    label: AOD Worker Requested CPU
+    description: The number of CPUs the AOD workers will request.
+    default: "2"
+
+  - variable: dataPipeline.aodWorker.resources.requests.memory
+    type: string
+    required: true
+    group: "Data Pipeline / AOD Workers"
+    label: AOD Worker Requested Memory
+    description: The maximum amount of memory an AOD worker will request.
+    default: "4Gi"
+
+  - variable: dataPipeline.aodWorker.resources.limits.cpu
     type: string
     required: true
     group: "Data Pipeline / AOD Workers"
@@ -182,7 +230,7 @@ questions:
     description: The maximum number of CPUs the AOD workers can use.
     default: "4"
 
-  - variable: dataPipeline.aodWorker.limits.memory
+  - variable: dataPipeline.aodWorker.resources.limits.memory
     type: string
     required: true
     group: "Data Pipeline / AOD Workers"

@@ -24,16 +24,6 @@ spec:
       labels:
         app: gitprime-dp-{{- template "helpers.environment.fullName" .}}-{{ .templateData.operationMode }}
     spec:
-      affinity:
-        podAntiAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            - labelSelector:
-                matchExpressions:
-                  - key: app
-                    operator: In
-                    values:
-                      - gitprime-dp-{{- template "helpers.environment.fullName" .}}-{{ .templateData.operationMode }}
-              topologyKey: kubernetes.io/hostname
       containers:
         - name: gitprime-dp-{{- template "helpers.environment.fullName" .}}-{{ .templateData.operationMode }}
           image: gp-docker.gitprime-ops.com/integrations/gitprime-data-pipeline:{{ .Values.dataPipeline.build.commitSHA }}
@@ -74,17 +64,25 @@ spec:
               value: {{ .value | quote }}
           {{- end }}
           resources:
+          {{- if .templateData.resources }}
+          {{- if or (.templateData.resources.requests.cpu) (.templateData.resources.requests.memory) }}
             requests:
-              cpu: "1"
-              memory: 5632Mi
-          {{- if or (.templateData.cpuLimits) (.templateData.memoryLimits) }}
+            {{- if .templateData.resources.requests.cpu }}
+              cpu: {{ quote .templateData.resources.requests.cpu }}
+            {{- end }}
+            {{- if .templateData.resources.requests.memory }}
+              memory: {{ .templateData.resources.requests.memory }}
+            {{- end }}
+          {{- end }}
+          {{- if or (.templateData.resources.limits.cpu) (.templateData.resources.limits.memory) }}
             limits:
-            {{- if .templateData.cpuLimits }}
-              cpu: {{ quote .templateData.cpuLimits }}
+            {{- if .templateData.resources.limits.cpu }}
+              cpu: {{ quote .templateData.resources.limits.cpu }}
             {{- end }}
-            {{- if .templateData.memoryLimits }}
-              memory: {{ .templateData.memoryLimits }}
+            {{- if .templateData.resources.limits.memory }}
+              memory: {{ .templateData.resources.limits.memory }}
             {{- end }}
+          {{- end }}
           {{- end }}
           terminationMessagePath: /dev/termination-log
           terminationMessagePolicy: File
