@@ -43,6 +43,8 @@ spec:
               value: {{ quote .templateData.operationMode }}
             - name: SYSTEM_CONFIG_SERVER_URL
               value: {{ include "helpers.configServerURL" . }}
+            - name: GP_REQUEUE_AOD
+              value: {{ quote .templateData.requeueAOD | default true }}
           {{- if .templateData.javaOptions }}
             - name: JAVA_OPTS
               value: {{ quote .templateData.javaOptions }}
@@ -50,10 +52,6 @@ spec:
           {{- if .templateData.maxConcurrentJobs }}
             - name: GP_MAX_CONCURRENT_JOBS
               value: {{ quote .templateData.maxConcurrentJobs }}
-          {{- end }}
-          {{- if ne (len (trim (toString .templateData.requeueAOD) ) ) 0 }}
-            - name: GP_REQUEUE_AOD
-              value: {{ .templateData.requeueAOD }}
           {{- end }}
           {{- if .templateData.processorThreadCount }}
             - name: GP_COMMIT_PROCESSOR_THREADS
