@@ -43,27 +43,28 @@ questions:
     label: Data Pipeline Build SHA
     description: The commit SHA of the GitPrime Data Pipeline build you want to deploy.
 
-  - variable: dataPipeline.volumes.enableLocalMount
-    type: boolean
-    required: true
-    group: "Data Pipeline"
-    label: "Use Local Mount"
-    description: "If enabled, use the node's local storage directory for repository storage"
-    default: false
-    show_subquestion_if: "true"
-    subquestions:
-      - variable: dataPipeline.volumes.nodeMountDirectory
-        type: string
-        label: "Directory on Node"
-        description: "The directory on the node to use for repository storage"
-        required: true
-        default: "/mnt/repo-storage"
-      - variable: dataPipeline.volumes.podMountDirectory
-        type: string
-        label: "Directory on Pod"
-        description: "The directory inside the pod to mount the volume."
-        required: true
-        default: "/var/repos"
+# These volume settings can be used in the future.
+#  - variable: dataPipeline.volumes.enableLocalMount
+#    type: boolean
+#    required: true
+#    group: "Data Pipeline"
+#    label: "Use Local Mount"
+#    description: "If enabled, use the node's local storage directory for repository storage"
+#    default: false
+#    show_subquestion_if: "true"
+#    subquestions:
+#      - variable: dataPipeline.volumes.nodeMountDirectory
+#        type: string
+#        label: "Directory on Node"
+#        description: "The directory on the node to use for repository storage"
+#        required: true
+#        default: "/mnt/repo-storage"
+#      - variable: dataPipeline.volumes.podMountDirectory
+#        type: string
+#        label: "Directory on Pod"
+#        description: "The directory inside the pod to mount the volume."
+#        required: true
+#        default: "/var/repos"
 
   # New Repo Worker Settings
   - variable: dataPipeline.newRepoWorker.replicaCount
