@@ -1,0 +1,10 @@
+{{- if .Values.dataPipeline.volumes.enableLocalMount }}
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: repository-storage-claim
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: repository-storage-class
+{{- end }}

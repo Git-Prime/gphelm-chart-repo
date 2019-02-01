@@ -84,6 +84,11 @@ spec:
             {{- end }}
           {{- end }}
           {{- end }}
+          {{- if .Values.dataPipeline.volumes.enableLocalMount }}
+          volumeMounts:
+            -name: repository-storage-volume
+             mountPath: {{ quote .Values.dataPipeline.volumes.podMountDirectory }}
+          {{- end }}
           terminationMessagePath: /dev/termination-log
           terminationMessagePolicy: File
       dnsPolicy: ClusterFirst
@@ -91,4 +96,8 @@ spec:
       schedulerName: default-scheduler
       securityContext: {}
       terminationGracePeriodSeconds: 30
+      {{- if .Values.dataPipeline.volumes.enableLocalMount }}
+      volumes:
+        - name: repository-storage-volume
+      {{- end }}
 {{- end }}

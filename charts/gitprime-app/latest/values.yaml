@@ -13,6 +13,11 @@ dataPipeline:
     - name: GP_REQUEUE_AOD
       value: true
 
+  volumes:
+    enableLocalMount: false
+    nodeMountDirectory: /mnt/repo-storage
+    podMountDirectory: /var/repos
+
   newRepoWorker:
     replicaCount: 1
     javaOptions: "-d64 -Xms2g -Xmx4g"

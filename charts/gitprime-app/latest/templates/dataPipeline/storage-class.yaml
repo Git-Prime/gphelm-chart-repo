@@ -1,0 +1,8 @@
+{{- if .Values.dataPipeline.volumes.enableLocalMount }}
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: repository-storage-class
+provisioner: kubernetes.io/no-provisioner
+volumeBindingMode: WaitForFirstConsume
+{{- end }}
