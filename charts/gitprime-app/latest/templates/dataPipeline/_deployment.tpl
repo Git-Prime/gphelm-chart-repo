@@ -86,8 +86,9 @@ spec:
           {{- end }}
           {{- if .Values.dataPipeline.volumes.enableLocalMount }}
           volumeMounts:
-            - name: repository-storage-volume
-              mountPath: {{ quote .Values.dataPipeline.volumes.podMountDirectory }}
+            - mountPath: {{ quote .Values.dataPipeline.volumes.podMountDirectory }}
+              name: repository-storage-volume
+              subPath: {{ include "helpers.environment.fullName" . | quote }}
           {{- end }}
           terminationMessagePath: /dev/termination-log
           terminationMessagePolicy: File
@@ -98,6 +99,9 @@ spec:
       terminationGracePeriodSeconds: 30
       {{- if .Values.dataPipeline.volumes.enableLocalMount }}
       volumes:
-        - name: repository-storage-volume
+      - hostPath:
+          path: {{ quote .Values.dataPipeline.volumes.nodeMountDirectory }}
+          type: DirectoryOrCreate
+        name: vol2
       {{- end }}
 {{- end }}
