@@ -1,7 +1,7 @@
 {{- $templateData := dict "operationMode" "aod-worker" }}
 {{- $_ := set $templateData "operationMode" "utility" }}
 {{- $_ := set $templateData "replicaCount" 1 }}
-{{- $_ := set $templateData "requeueAOD" "" }}
+{{- $_ := set $templateData "requeueAOD" "false" }}
 {{- $templateData := dict "Values" .Values "templateData" $templateData }}
 {{- include "dataPipeline.deploymentTemplate" $templateData }}
 
