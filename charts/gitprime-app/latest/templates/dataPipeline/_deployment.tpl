@@ -86,8 +86,8 @@ spec:
           {{- end }}
           {{- if .Values.dataPipeline.volumes.enableLocalMount }}
           volumeMounts:
-            -name: repository-storage-volume
-             mountPath: {{ quote .Values.dataPipeline.volumes.podMountDirectory }}
+            - name: repository-storage-volume
+              mountPath: {{ quote .Values.dataPipeline.volumes.podMountDirectory }}
           {{- end }}
           terminationMessagePath: /dev/termination-log
           terminationMessagePolicy: File
