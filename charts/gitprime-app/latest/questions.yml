@@ -43,28 +43,27 @@ questions:
     label: Data Pipeline Build SHA
     description: The commit SHA of the GitPrime Data Pipeline build you want to deploy.
 
-# These volume settings can be used in the future.
-#  - variable: dataPipeline.volumes.enableLocalMount
-#    type: boolean
-#    required: true
-#    group: "Data Pipeline"
-#    label: "Use Local Mount"
-#    description: "If enabled, use the node's local storage directory for repository storage"
-#    default: false
-#    show_subquestion_if: "true"
-#    subquestions:
-#      - variable: dataPipeline.volumes.nodeMountDirectory
-#        type: string
-#        label: "Directory on Node"
-#        description: "The directory on the node to use for repository storage"
-#        required: true
-#        default: "/mnt/repo-storage"
-#      - variable: dataPipeline.volumes.podMountDirectory
-#        type: string
-#        label: "Directory on Pod"
-#        description: "The directory inside the pod to mount the volume."
-#        required: true
-#        default: "/var/repos"
+  - variable: dataPipeline.volumes.enableLocalMount
+    type: boolean
+    required: true
+    group: "Data Pipeline"
+    label: "Use Local Mount"
+    description: "If enabled, use the node's local storage directory for repository storage"
+    default: false
+    show_subquestion_if: "true"
+    subquestions:
+      - variable: dataPipeline.volumes.nodeMountDirectory
+        type: string
+        label: "Directory on Node"
+        description: "The directory on the node to use for repository storage"
+        required: true
+        default: "/mnt/repo-storage"
+      - variable: dataPipeline.volumes.podMountDirectory
+        type: string
+        label: "Directory on Pod"
+        description: "The directory inside the pod to mount the volume."
+        required: true
+        default: "/var/repos"
 
   # New Repo Worker Settings
   - variable: dataPipeline.newRepoWorker.replicaCount
@@ -131,6 +130,14 @@ questions:
     description: The maximum amount of memory a new repository worker can use.
     default: "8Gi"
 
+  - variable: dataPipeline.newRepoWorker.requeueAOD
+    type: boolean
+    required: true
+    group: "Data Pipeline / New Repo Workers"
+    label: Requeue AOD
+    description: Whether or not new repo workers should requeue AOD
+    default: true
+
   # Incremental Repo Worker Settings
   - variable: dataPipeline.incrementalRepoWorker.replicaCount
     type: string
@@ -196,6 +203,14 @@ questions:
     description: The maximum amount of memory an incremental repository worker can use.
     default: "8Gi"
 
+  - variable: dataPipeline.incrementalRepoWorker.requeueAOD
+    type: boolean
+    required: true
+    group: "Data Pipeline / Incremental Repo Workers"
+    label: Requeue AOD
+    description: Whether or not incremental workers should requeue AOD
+    default: true
+
   # AOD Worker Settings
   - variable: dataPipeline.aodWorker.replicaCount
     type: string
@@ -260,6 +275,14 @@ questions:
     label: AOD Worker Memory Limit
     description: The maximum amount of memory an AOD worker can use.
     default: "8Gi"
+
+  - variable: dataPipeline.aodWorker.requeueAOD
+    type: boolean
+    required: true
+    group: "Data Pipeline / AOD Workers"
+    label: Requeue AOD
+    description: Whether or not incremental workers should requeue AOD messages.
+    default: false
 
 ####
 #### Eventually we'll want to put the GitPrime Main application settings here

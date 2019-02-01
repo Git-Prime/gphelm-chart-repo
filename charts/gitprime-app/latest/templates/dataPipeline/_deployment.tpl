@@ -51,6 +51,10 @@ spec:
             - name: GP_MAX_CONCURRENT_JOBS
               value: {{ quote .templateData.maxConcurrentJobs }}
           {{- end }}
+          {{- if ne (len (trim (toString .templateData.requeueAOD) ) ) 0 }}
+            - name: GP_REQUEUE_AOD
+              value: {{ .templateData.requeueAOD }}
+          {{- end }}
           {{- if .templateData.processorThreadCount }}
             - name: GP_COMMIT_PROCESSOR_THREADS
               value: {{ quote .templateData.processorThreadCount }}
@@ -84,6 +88,11 @@ spec:
             {{- end }}
           {{- end }}
           {{- end }}
+          {{- if .Values.dataPipeline.volumes.enableLocalMount }}
+          volumeMounts:
+            - mountPath: {{ quote .Values.dataPipeline.volumes.podMountDirectory }}
+              name: repository-storage-volume
+          {{- end }}
           terminationMessagePath: /dev/termination-log
           terminationMessagePolicy: File
       dnsPolicy: ClusterFirst
@@ -91,4 +100,11 @@ spec:
       schedulerName: default-scheduler
       securityContext: {}
       terminationGracePeriodSeconds: 30
+      {{- if .Values.dataPipeline.volumes.enableLocalMount }}
+      volumes:
+      - hostPath:
+          path: {{ quote .Values.dataPipeline.volumes.nodeMountDirectory }}
+          type: DirectoryOrCreate
+        name: repository-storage-volume
+      {{- end }}
 {{- end }}

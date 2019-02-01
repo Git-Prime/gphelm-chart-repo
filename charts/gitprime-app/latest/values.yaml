@@ -10,8 +10,6 @@ dataPipeline:
   environment:
     - name: GP_AOD_QUEUE_NAME
       value: "java-aod-repo-process-request"
-    - name: GP_REQUEUE_AOD
-      value: true
 
   volumes:
     enableLocalMount: false
@@ -23,6 +21,7 @@ dataPipeline:
     javaOptions: "-d64 -Xms2g -Xmx4g"
     maxConcurrentJobs: 1
     processorThreadCount: 2
+    requeueAOD: true
     environment:
       - name: GP_REPO_PROCESSING_QUEUE_NAME
         value: "java-new-repo-process-request"
@@ -41,6 +40,7 @@ dataPipeline:
     javaOptions: "-d64 -Xms2g -Xmx4g"
     maxConcurrentJobs: 1
     processorThreadCount: 2
+    requeueAOD: true
     environment:
       - name: GP_REPO_PROCESSING_QUEUE_NAME
         value: "java-incremental-repo-process-request"
@@ -59,6 +59,7 @@ dataPipeline:
     javaOptions: "-d64 -Xms2g -Xmx4g"
     maxConcurrentJobs: 1
     processorThreadCount: 2
+    requeueAOD: false
     environment:
       - name: GP_REPO_PROCESSING_QUEUE_NAME
         value: "java-aod-repo-process-request"
