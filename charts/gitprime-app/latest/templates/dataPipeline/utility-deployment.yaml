@@ -1,4 +1,5 @@
 {{- $templateData := dict "operationMode" "utility" "replicaCount" 1 }}
 {{- $templateData := dict "Values" .Values "templateData" $templateData }}
+{{- $_ := set $templateData "requeueAOD" false}}
 {{- include "dataPipeline.deploymentTemplate" $templateData }}
 
