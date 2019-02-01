@@ -76,6 +76,22 @@ questions:
     description: The number of concurrent jobs for the new repository workers.
     default: 1
 
+  - variable: dataPipeline.newRepoWorker.limits.cpu
+    type: string
+    required: true
+    group: "Data Pipeline / New Repo Workers"
+    label: New Repo Worker CPU Limit
+    description: The maximum number of CPUs the new repository workers can use.
+    default: "4"
+
+  - variable: dataPipeline.newRepoWorker.limits.memory
+    type: string
+    required: true
+    group: "Data Pipeline / New Repo Workers"
+    label: New Repo Worker Memory Limit
+    description: The maximum amount of memory a new repository worker can use.
+    default: "8Gi"
+
   # Incremental Repo Worker Settings
   - variable: dataPipeline.incrementalRepoWorker.replicaCount
     type: string
@@ -109,6 +125,22 @@ questions:
     description: The number of concurrent jobs for the incremental repository workers.
     default: 1
 
+  - variable: dataPipeline.incrementalRepoWorker.limits.cpu
+    type: string
+    required: true
+    group: "Data Pipeline / Incremental Repo Workers"
+    label: Incremental Repo Worker CPU Limit
+    description: The maximum number of CPUs the incremental repository workers can use.
+    default: "4"
+
+  - variable: dataPipeline.incrementalRepoWorker.limits.memory
+    type: string
+    required: true
+    group: "Data Pipeline / Incremental Repo Workers"
+    label: Incremental Repo Worker Memory Limit
+    description: The maximum amount of memory an incremental repository worker can use.
+    default: "8Gi"
+
   # AOD Worker Settings
   - variable: dataPipeline.aodWorker.replicaCount
     type: string
@@ -141,6 +173,22 @@ questions:
     label: AOD Worker Concurrent Jobs
     description: The number of concurrent jobs for the AOD workers.
     default: 1
+
+  - variable: dataPipeline.aodWorker.limits.cpu
+    type: string
+    required: true
+    group: "Data Pipeline / AOD Workers"
+    label: AOD CPU Limit
+    description: The maximum number of CPUs the AOD workers can use.
+    default: "4"
+
+  - variable: dataPipeline.aodWorker.limits.memory
+    type: string
+    required: true
+    group: "Data Pipeline / AOD Workers"
+    label: AOD Worker Memory Limit
+    description: The maximum amount of memory an AOD worker can use.
+    default: "8Gi"
 
 ####
 #### Eventually we'll want to put the GitPrime Main application settings here

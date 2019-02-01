@@ -77,6 +77,15 @@ spec:
             requests:
               cpu: "1"
               memory: 5632Mi
+          {{- if or (.templateData.cpuLimits) (.templateData.memoryLimits) }}
+            limits:
+            {{- if .templateData.cpuLimits }}
+              cpu: {{ quote .templateData.cpuLimits }}
+            {{- end }}
+            {{- if .templateData.memoryLimits }}
+              memory: {{ .templateData.memoryLimits }}
+            {{- end }}
+          {{- end }}
           terminationMessagePath: /dev/termination-log
           terminationMessagePolicy: File
       dnsPolicy: ClusterFirst
