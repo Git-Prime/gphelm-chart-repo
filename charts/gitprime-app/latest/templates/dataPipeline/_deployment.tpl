@@ -102,6 +102,6 @@ spec:
       - hostPath:
           path: {{ quote .Values.dataPipeline.volumes.nodeMountDirectory }}
           type: DirectoryOrCreate
-        name: vol2
+        name: repository-storage-volume
       {{- end }}
 {{- end }}
