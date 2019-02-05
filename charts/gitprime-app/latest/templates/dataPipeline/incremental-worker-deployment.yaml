@@ -4,7 +4,7 @@
 {{- $_ := set $templateData "javaOptions" .Values.dataPipeline.incrementalRepoWorker.javaOptions }}
 {{- $_ := set $templateData "processorThreadCount" .Values.dataPipeline.incrementalRepoWorker.processorThreadCount }}
 {{- $_ := set $templateData "maxConcurrentJobs" .Values.dataPipeline.incrementalRepoWorker.maxConcurrentJobs }}
-{{- $_ := set $templateData "maxCommitCount" .Values.dataPipeline.aodWorker.maxCommitCount }}
+{{- $_ := set $templateData "maxCommitCount" .Values.dataPipeline.incrementalRepoWorker.maxCommitCount }}
 {{- $_ := set $templateData "resources" .Values.dataPipeline.incrementalRepoWorker.resources }}
 {{- $_ := set $templateData "requeueAOD" .Values.dataPipeline.incrementalRepoWorker.requeueAOD }}
 {{- $templateData := dict "Values" .Values "templateData" $templateData }}
