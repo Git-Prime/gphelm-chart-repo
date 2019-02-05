@@ -53,6 +53,10 @@ spec:
             - name: GP_MAX_CONCURRENT_JOBS
               value: {{ quote .templateData.maxConcurrentJobs }}
           {{- end }}
+          {{- if .templateData.maxCommitCount }}
+            - name: GP_MAX_COMMIT_COUNT
+              value: {{ quote .templateData.maxCommitCount }}
+          {{- end }}
           {{- if .templateData.processorThreadCount }}
             - name: GP_COMMIT_PROCESSOR_THREADS
               value: {{ quote .templateData.processorThreadCount }}

@@ -98,6 +98,14 @@ questions:
     description: The number of concurrent jobs for the new repository workers.
     default: 1
 
+  - variable: dataPipeline.newRepoWorker.maxCommitCount
+    type: string
+    required: true
+    group: "Data Pipeline / New Repo Workers"
+    label: New Repo Maximum Commit Count
+    description: The maximum number of commits each worker will handle before resting.
+    default: 1
+
   - variable: dataPipeline.newRepoWorker.resources.requests.cpu
     type: string
     required: true
@@ -171,6 +179,14 @@ questions:
     description: The number of concurrent jobs for the incremental repository workers.
     default: 1
 
+  - variable: dataPipeline.incrementalRepoWorker.maxCommitCount
+    type: string
+    required: true
+    group: "Data Pipeline / Incremental Repo Workers"
+    label: Incremental Repo Maximum Commit Count
+    description: The maximum number of commits each worker will handle before resting.
+    default: 1
+
   - variable: dataPipeline.incrementalRepoWorker.resources.requests.cpu
     type: string
     required: true
@@ -242,6 +258,14 @@ questions:
     group: "Data Pipeline / AOD Workers"
     label: AOD Worker Concurrent Jobs
     description: The number of concurrent jobs for the AOD workers.
+    default: 1
+
+  - variable: dataPipeline.aodWorker.maxCommitCount
+    type: string
+    required: true
+    group: "Data Pipeline / AOD Workers"
+    label: AOD Maximum Commit Count
+    description: The maximum number of commits each worker will handle before resting.
     default: 1
 
   - variable: dataPipeline.aodWorker.resources.requests.cpu

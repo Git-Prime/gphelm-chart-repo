@@ -20,6 +20,7 @@ dataPipeline:
     replicaCount: 1
     javaOptions: "-d64 -Xms2g -Xmx4g"
     maxConcurrentJobs: 1
+    maxCommitCount: 600
     processorThreadCount: 2
     requeueAOD: true
     environment:
@@ -39,6 +40,7 @@ dataPipeline:
     replicaCount: 1
     javaOptions: "-d64 -Xms2g -Xmx4g"
     maxConcurrentJobs: 1
+    maxCommitCount: 600
     processorThreadCount: 2
     requeueAOD: true
     environment:
@@ -58,6 +60,7 @@ dataPipeline:
     replicaCount: 1
     javaOptions: "-d64 -Xms2g -Xmx4g"
     maxConcurrentJobs: 1
+    maxCommitCount: 600
     processorThreadCount: 2
     requeueAOD: false
     environment:
