@@ -104,7 +104,7 @@ questions:
     group: "Data Pipeline / New Repo Workers"
     label: New Repo Maximum Commit Count
     description: The maximum number of commits each worker will handle before resting.
-    default: 1
+    default: 600
 
   - variable: dataPipeline.newRepoWorker.resources.requests.cpu
     type: string
@@ -185,7 +185,7 @@ questions:
     group: "Data Pipeline / Incremental Repo Workers"
     label: Incremental Repo Maximum Commit Count
     description: The maximum number of commits each worker will handle before resting.
-    default: 1
+    default: 600
 
   - variable: dataPipeline.incrementalRepoWorker.resources.requests.cpu
     type: string
@@ -266,7 +266,7 @@ questions:
     group: "Data Pipeline / AOD Workers"
     label: AOD Maximum Commit Count
     description: The maximum number of commits each worker will handle before resting.
-    default: 1
+    default: 600
 
   - variable: dataPipeline.aodWorker.resources.requests.cpu
     type: string
