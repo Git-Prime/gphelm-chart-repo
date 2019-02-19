@@ -45,6 +45,8 @@ spec:
               value: {{ include "helpers.configServerURL" . }}
             - name: GP_REQUEUE_AOD
               value: {{ quote .templateData.requeueAOD | default true }}
+            - name: GP_LOG_LEVEL
+              value: {{ quote .templateData.logLevel | default "INFO" }}
           {{- if .templateData.javaOptions }}
             - name: JAVA_OPTS
               value: {{ quote .templateData.javaOptions }}

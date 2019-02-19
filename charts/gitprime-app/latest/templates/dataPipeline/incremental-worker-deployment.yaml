@@ -7,5 +7,6 @@
 {{- $_ := set $templateData "maxCommitCount" .Values.dataPipeline.incrementalRepoWorker.maxCommitCount }}
 {{- $_ := set $templateData "resources" .Values.dataPipeline.incrementalRepoWorker.resources }}
 {{- $_ := set $templateData "requeueAOD" .Values.dataPipeline.incrementalRepoWorker.requeueAOD }}
+{{- $_ := set $templateData "logLevel" .Values.dataPipeline.incrementalRepoWorker.logLevel }}
 {{- $templateData := dict "Values" .Values "templateData" $templateData }}
 {{- include "dataPipeline.deploymentTemplate" $templateData }}

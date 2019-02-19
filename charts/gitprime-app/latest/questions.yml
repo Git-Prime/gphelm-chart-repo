@@ -146,6 +146,20 @@ questions:
     description: Whether or not new repo workers should requeue AOD
     default: true
 
+  - variable: dataPipeline.newRepoWorker.logLevel
+    type: enum
+    required: true
+    group: "Data Pipeline / New Repo Workers"
+    label: Log Level
+    description: The level of logging for this deployment.
+    options:
+      - TRACE
+      - DEBUG
+      - INFO
+      - WARN
+      - ERROR
+    default: "INFO"
+
   # Incremental Repo Worker Settings
   - variable: dataPipeline.incrementalRepoWorker.replicaCount
     type: string
@@ -227,6 +241,20 @@ questions:
     description: Whether or not incremental workers should requeue AOD
     default: true
 
+  - variable: dataPipeline.incrementalRepoWorker.logLevel
+    type: enum
+    required: true
+    group: "Data Pipeline / Incremental Repo Workers"
+    label: Log Level
+    description: The level of logging for this deployment.
+    options:
+      - TRACE
+      - DEBUG
+      - INFO
+      - WARN
+      - ERROR
+    default: "INFO"
+
   # AOD Worker Settings
   - variable: dataPipeline.aodWorker.replicaCount
     type: string
@@ -307,6 +335,20 @@ questions:
     label: Requeue AOD
     description: Whether or not incremental workers should requeue AOD messages.
     default: false
+
+  - variable: dataPipeline.aodWorker.logLevel
+    type: enum
+    required: true
+    group: "Data Pipeline / AOD Workers"
+    label: Log Level
+    description: The level of logging for this deployment.
+    options:
+      - TRACE
+      - DEBUG
+      - INFO
+      - WARN
+      - ERROR
+    default: "INFO"
 
 ####
 #### Eventually we'll want to put the GitPrime Main application settings here

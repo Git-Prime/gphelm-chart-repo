@@ -23,6 +23,7 @@ dataPipeline:
     maxCommitCount: 600
     processorThreadCount: 2
     requeueAOD: true
+    logLevel: INFO
     environment:
       - name: GP_REPO_PROCESSING_QUEUE_NAME
         value: "java-new-repo-process-request"
@@ -43,6 +44,7 @@ dataPipeline:
     maxCommitCount: 600
     processorThreadCount: 2
     requeueAOD: true
+    logLevel: INFO
     environment:
       - name: GP_REPO_PROCESSING_QUEUE_NAME
         value: "java-incremental-repo-process-request"
@@ -63,6 +65,7 @@ dataPipeline:
     maxCommitCount: 600
     processorThreadCount: 2
     requeueAOD: false
+    logLevel: INFO
     environment:
       - name: GP_REPO_PROCESSING_QUEUE_NAME
         value: "java-aod-repo-process-request"

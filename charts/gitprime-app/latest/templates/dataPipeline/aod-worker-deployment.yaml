@@ -7,5 +7,6 @@
 {{- $_ := set $templateData "maxCommitCount" .Values.dataPipeline.aodWorker.maxCommitCount }}
 {{- $_ := set $templateData "resources" .Values.dataPipeline.aodWorker.resources }}
 {{- $_ := set $templateData "requeueAOD" .Values.dataPipeline.aodWorker.requeueAOD }}
+{{- $_ := set $templateData "logLevel" .Values.dataPipeline.aodWorker.logLevel }}
 {{- $templateData := dict "Values" .Values "templateData" $templateData }}
 {{- include "dataPipeline.deploymentTemplate" $templateData }}
