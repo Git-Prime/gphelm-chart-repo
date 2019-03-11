@@ -78,3 +78,24 @@ dataPipeline:
       requests:
         cpu: "2"
         memory: 4Gi
+
+  ticketWorker:
+    replicaCount: 1
+    javaOptions: "-d64 -Xms2g -Xmx4g"
+    maxConcurrentJobs: 1
+    maxCommitCount: 600
+    processorThreadCount: 2
+    requeueAOD: false
+    logLevel: INFO
+    environment:
+      - name: GP_REPO_PROCESSING_QUEUE_NAME
+        value: "java-ticket-process-request"
+      - name: GP_MAX_REPO_PROCESSING_SECONDS
+        value: 2700
+    resources:
+      limits:
+        cpu: "4"
+        memory: 8Gi
+      requests:
+        cpu: "2"
+        memory: 4Gi

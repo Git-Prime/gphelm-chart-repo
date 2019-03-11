@@ -1,0 +1,12 @@
+{{- $templateData := dict "operationMode" "ticket-worker" }}
+{{- $_ := set $templateData "replicaCount" .Values.dataPipeline.ticketWorker.replicaCount }}
+{{- $_ := set $templateData "environment" .Values.dataPipeline.ticketWorker.environment }}
+{{- $_ := set $templateData "javaOptions" .Values.dataPipeline.ticketWorker.javaOptions }}
+{{- $_ := set $templateData "processorThreadCount" .Values.dataPipeline.ticketWorker.processorThreadCount }}
+{{- $_ := set $templateData "maxConcurrentJobs" .Values.dataPipeline.ticketWorker.maxConcurrentJobs }}
+{{- $_ := set $templateData "maxCommitCount" .Values.dataPipeline.ticketWorker.maxCommitCount }}
+{{- $_ := set $templateData "resources" .Values.dataPipeline.ticketWorker.resources }}
+{{- $_ := set $templateData "requeueAOD" .Values.dataPipeline.ticketWorker.requeueAOD }}
+{{- $_ := set $templateData "logLevel" .Values.dataPipeline.ticketWorker.logLevel }}
+{{- $templateData := dict "Values" .Values "templateData" $templateData }}
+{{- include "dataPipeline.deploymentTemplate" $templateData }}
