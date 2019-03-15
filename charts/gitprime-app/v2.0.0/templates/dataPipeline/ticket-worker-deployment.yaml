@@ -6,7 +6,6 @@
 {{- $_ := set $templateData "maxConcurrentJobs" .Values.dataPipeline.ticketWorker.maxConcurrentJobs }}
 {{- $_ := set $templateData "maxCommitCount" .Values.dataPipeline.ticketWorker.maxCommitCount }}
 {{- $_ := set $templateData "resources" .Values.dataPipeline.ticketWorker.resources }}
-{{- $_ := set $templateData "requeueAOD" .Values.dataPipeline.ticketWorker.requeueAOD }}
 {{- $_ := set $templateData "logLevel" .Values.dataPipeline.ticketWorker.logLevel }}
 {{- $templateData := dict "Values" .Values "templateData" $templateData }}
 {{- include "dataPipeline.deploymentTemplate" $templateData }}

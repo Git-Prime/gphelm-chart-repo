@@ -138,14 +138,6 @@ questions:
     description: The maximum amount of memory a new repository worker can use.
     default: "8Gi"
 
-  - variable: dataPipeline.newRepoWorker.requeueAOD
-    type: boolean
-    required: true
-    group: "Data Pipeline / New Repo Workers"
-    label: Requeue AOD
-    description: Whether or not new repo workers should requeue AOD
-    default: true
-
   - variable: dataPipeline.newRepoWorker.logLevel
     type: enum
     required: true
@@ -233,13 +225,6 @@ questions:
     description: The maximum amount of memory an incremental repository worker can use.
     default: "8Gi"
 
-  - variable: dataPipeline.incrementalRepoWorker.requeueAOD
-    type: boolean
-    required: true
-    group: "Data Pipeline / Incremental Repo Workers"
-    label: Requeue AOD
-    description: Whether or not incremental workers should requeue AOD
-    default: true
 
   - variable: dataPipeline.incrementalRepoWorker.logLevel
     type: enum
@@ -328,14 +313,6 @@ questions:
     description: The maximum amount of memory an AOD worker can use.
     default: "8Gi"
 
-  - variable: dataPipeline.aodWorker.requeueAOD
-    type: boolean
-    required: true
-    group: "Data Pipeline / AOD Workers"
-    label: Requeue AOD
-    description: Whether or not incremental workers should requeue AOD messages.
-    default: false
-
   - variable: dataPipeline.aodWorker.logLevel
     type: enum
     required: true
@@ -422,14 +399,6 @@ questions:
     label: Ticket Worker Memory Limit
     description: The maximum amount of memory an Ticket worker can use.
     default: "8Gi"
-
-  - variable: dataPipeline.ticketWorker.requeueAOD
-    type: boolean
-    required: true
-    group: "Data Pipeline / Ticket Workers"
-    label: Requeue AOD
-    description: Whether or not incremental workers should requeue AOD messages.
-    default: false
 
   - variable: dataPipeline.aodWorker.logLevel
     type: enum

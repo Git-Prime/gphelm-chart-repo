@@ -22,7 +22,6 @@ dataPipeline:
     maxConcurrentJobs: 1
     maxCommitCount: 600
     processorThreadCount: 2
-    requeueAOD: true
     logLevel: INFO
     environment:
       - name: GP_AOD_LISTENERS
@@ -51,7 +50,6 @@ dataPipeline:
     maxConcurrentJobs: 1
     maxCommitCount: 600
     processorThreadCount: 2
-    requeueAOD: true
     logLevel: INFO
     environment:
       - name: GP_AOD_LISTENERS
@@ -80,7 +78,6 @@ dataPipeline:
     maxConcurrentJobs: 1
     maxCommitCount: 600
     processorThreadCount: 2
-    requeueAOD: false
     logLevel: INFO
     environment:
       - name: GP_AOD_LISTENERS
@@ -109,7 +106,6 @@ dataPipeline:
     maxConcurrentJobs: 1
     maxCommitCount: 600
     processorThreadCount: 2
-    requeueAOD: false
     logLevel: INFO
     environment:
       - name: GP_AOD_LISTENERS
