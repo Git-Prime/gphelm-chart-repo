@@ -25,8 +25,16 @@ dataPipeline:
     requeueAOD: true
     logLevel: INFO
     environment:
-      - name: GP_REPO_PROCESSING_QUEUE_NAME
-        value: "java-new-repo-process-request"
+      - name: GP_AOD_LISTENERS
+        value: 0
+      - name: GP_NEW_LISTENERS
+        value: 1
+      - name: GP_INCREMENTAL_LISTENERS
+        value: 0
+      - name: GP_TICKET_LISTENERS
+        value: 0
+      - name: GP_PR_LISTENERS
+        value: 0
       - name: GP_MAX_REPO_PROCESSING_SECONDS
         value: 2700
     resources:
@@ -46,8 +54,16 @@ dataPipeline:
     requeueAOD: true
     logLevel: INFO
     environment:
-      - name: GP_REPO_PROCESSING_QUEUE_NAME
-        value: "java-incremental-repo-process-request"
+      - name: GP_AOD_LISTENERS
+        value: 0
+      - name: GP_NEW_LISTENERS
+        value: 0
+      - name: GP_INCREMENTAL_LISTENERS
+        value: 1
+      - name: GP_TICKET_LISTENERS
+        value: 0
+      - name: GP_PR_LISTENERS
+        value: 0
       - name: GP_MAX_REPO_PROCESSING_SECONDS
         value: 2700
     resources:
@@ -67,8 +83,16 @@ dataPipeline:
     requeueAOD: false
     logLevel: INFO
     environment:
-      - name: GP_REPO_PROCESSING_QUEUE_NAME
-        value: "java-aod-repo-process-request"
+      - name: GP_AOD_LISTENERS
+        value: 1
+      - name: GP_NEW_LISTENERS
+        value: 0
+      - name: GP_INCREMENTAL_LISTENERS
+        value: 0
+      - name: GP_TICKET_LISTENERS
+        value: 0
+      - name: GP_PR_LISTENERS
+        value: 0
       - name: GP_MAX_REPO_PROCESSING_SECONDS
         value: 2700
     resources:
@@ -88,8 +112,16 @@ dataPipeline:
     requeueAOD: false
     logLevel: INFO
     environment:
-      - name: GP_REPO_PROCESSING_QUEUE_NAME
-        value: "java-ticket-process-request"
+      - name: GP_AOD_LISTENERS
+        value: 0
+      - name: GP_NEW_LISTENERS
+        value: 0
+      - name: GP_INCREMENTAL_LISTENERS
+        value: 0
+      - name: GP_TICKET_LISTENERS
+        value: 1
+      - name: GP_PR_LISTENERS
+        value: 0
       - name: GP_MAX_REPO_PROCESSING_SECONDS
         value: 2700
     resources:
