@@ -7,8 +7,8 @@
 {{- $_ := set $templateData "maxCommitCount" .Values.dataPipeline.incrementalRepoWorker.maxCommitCount }}
 {{- $_ := set $templateData "resources" .Values.dataPipeline.incrementalRepoWorker.resources }}
 {{- $_ := set $templateData "logLevel" .Values.dataPipeline.incrementalRepoWorker.logLevel }}
-{{- $_ := set $templateData "incrListeners" .Values.dataPipeline.incrRepoWorker.incrListeners }}
-{{- $_ := set $templateData "incrThreadsPerListener" .Values.dataPipeline.incrRepoWorker.incrThreadsPerListener }}
-{{- $_ := set $templateData "incrMaxCommitCount" .Values.dataPipeline.incrRepoWorker.incrMaxCommitCount }}
+{{- $_ := set $templateData "incrListeners" .Values.dataPipeline.incrementalRepoWorker.incrListeners }}
+{{- $_ := set $templateData "incrThreadsPerListener" .Values.dataPipeline.incrementalRepoWorker.incrThreadsPerListener }}
+{{- $_ := set $templateData "incrMaxCommitCount" .Values.dataPipeline.incrementalRepoWorker.incrMaxCommitCount }}
 {{- $templateData := dict "Values" .Values "templateData" $templateData }}
 {{- include "dataPipeline.deploymentTemplate" $templateData }}
