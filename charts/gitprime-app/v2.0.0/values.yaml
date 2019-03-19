@@ -37,6 +37,8 @@ dataPipeline:
         value: 0
       - name: GP_MAX_REPO_PROCESSING_SECONDS
         value: 2700
+      - name: GP_SCHEDULED_TASK_SET
+        value: local_tasks
     resources:
       limits:
         cpu: "4"
@@ -65,6 +67,8 @@ dataPipeline:
         value: 0
       - name: GP_MAX_REPO_PROCESSING_SECONDS
         value: 2700
+      - name: GP_SCHEDULED_TASK_SET
+        value: local_tasks
     resources:
       limits:
         cpu: "4"
@@ -93,6 +97,8 @@ dataPipeline:
         value: 0
       - name: GP_MAX_REPO_PROCESSING_SECONDS
         value: 2700
+      - name: GP_SCHEDULED_TASK_SET
+        value: local_tasks
     resources:
       limits:
         cpu: "4"
@@ -121,6 +127,38 @@ dataPipeline:
         value: 0
       - name: GP_MAX_REPO_PROCESSING_SECONDS
         value: 2700
+      - name: GP_SCHEDULED_TASK_SET
+        value: local_tasks
+    resources:
+      limits:
+        cpu: "4"
+        memory: 8Gi
+      requests:
+        cpu: "2"
+        memory: 4Gi
+
+  scheduleWorker:
+    replicaCount: 1
+    javaOptions: "-d64 -Xms2g -Xmx4g"
+    maxConcurrentJobs: 1
+    maxCommitCount: 600
+    processorThreadCount: 2
+    logLevel: INFO
+    environment:
+      - name: GP_AOD_LISTENERS
+        value: 0
+      - name: GP_NEW_LISTENERS
+        value: 0
+      - name: GP_INCREMENTAL_LISTENERS
+        value: 0
+      - name: GP_TICKET_LISTENERS
+        value: 0
+      - name: GP_PR_LISTENERS
+        value: 0
+      - name: GP_MAX_REPO_PROCESSING_SECONDS
+        value: 2700
+      - name: GP_SCHEDULED_TASK_SET
+        value: cluster_tasks
     resources:
       limits:
         cpu: "4"
