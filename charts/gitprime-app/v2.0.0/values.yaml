@@ -22,7 +22,6 @@ dataPipeline:
     newThreadsPerListener: 1
     newMaxCommitCount: 600
     newListeners: 2
-    processorThreadCount: 1
     logLevel: INFO
     environment:
       - name: GP_AOD_LISTENERS
@@ -50,9 +49,9 @@ dataPipeline:
   incrementalRepoWorker:
     replicaCount: 1
     javaOptions: "-d64 -Xms2g -Xmx4g"
-    maxConcurrentJobs: 1
-    maxCommitCount: 600
-    processorThreadCount: 2
+    incrThreadsPerListener: 1
+    incrMaxCommitCount: 600
+    incrListeners: 2
     logLevel: INFO
     environment:
       - name: GP_AOD_LISTENERS
@@ -80,9 +79,9 @@ dataPipeline:
   aodWorker:
     replicaCount: 1
     javaOptions: "-d64 -Xms2g -Xmx4g"
-    maxConcurrentJobs: 1
-    maxCommitCount: 600
-    processorThreadCount: 2
+    aodThreadsPerListener: 1
+    aodMaxCommitCount: 600
+    aodListeners: 2
     logLevel: INFO
     environment:
       - name: GP_AOD_LISTENERS
@@ -110,9 +109,8 @@ dataPipeline:
   ticketWorker:
     replicaCount: 1
     javaOptions: "-d64 -Xms2g -Xmx4g"
-    maxConcurrentJobs: 1
-    maxCommitCount: 600
-    processorThreadCount: 2
+    ticketThreadsPerListener: 1
+    ticketListeners: 1
     logLevel: INFO
     environment:
       - name: GP_AOD_LISTENERS

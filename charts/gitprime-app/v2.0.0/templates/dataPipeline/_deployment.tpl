@@ -49,30 +49,50 @@ spec:
             - name: JAVA_OPTS
               value: {{ quote .templateData.javaOptions }}
           {{- end }}
-          {{- if .templateData.maxConcurrentJobs }}
-            - name: GP_MAX_CONCURRENT_JOBS
-              value: {{ quote .templateData.maxConcurrentJobs }}
-          {{- end }}
-          {{- if .templateData.maxCommitCount }}
-            - name: GP_MAX_COMMIT_COUNT
-              value: {{ quote .templateData.maxCommitCount }}
-          {{- end }}
           {{- if .templateData.newListeners }}
             - name: GP_NEW_LISTENERS
               value: {{ quote .templateData.newListeners }}
           {{- end}}
           {{- if .templateData.newThreadsPerListener }}
-            - name: GP_NEW_WORKERS_PER_LISTENETER
+            - name: GP_NEW_WORKERS_PER_LISTENER
               value: {{ quote .templateData.newThreadsPerListener }}
           {{- end}}
           {{- if .templateData.newMaxCommitCount }}
             - name: GP_NEW_MAX_COMMIT_COUNT
               value: {{ quote .templateData.newMaxCommitCount }}
           {{- end}}
-          {{- if .templateData.processorThreadCount }}
-            - name: GP_COMMIT_PROCESSOR_THREADS
-              value: {{ quote .templateData.processorThreadCount }}
-          {{- end }}
+          {{- if .templateData.incrListeners }}
+            - name: GP_INCREMENTAL_LISTENERS
+              value: {{ quote .templateData.incrListeners }}
+          {{- end}}
+          {{- if .templateData.incrThreadsPerListener }}
+            - name: GP_INCREMENTAL_WORKERS_PER_LISTENER
+              value: {{ quote .templateData.incrThreadsPerListener }}
+          {{- end}}
+          {{- if .templateData.incrMaxCommitCount }}
+            - name: GP_INCREMENTAL_COMMIT_COUNT
+              value: {{ quote .templateData.incrMaxCommitCount }}
+          {{- end}}
+          {{- if .templateData.aodListeners }}
+            - name: GP_AOD_LISTENERS
+              value: {{ quote .templateData.aodListeners }}
+          {{- end}}
+          {{- if .templateData.incrThreadsPerListener }}
+            - name: GP_AOD_WORKERS_PER_LISTENER
+              value: {{ quote .templateData.incrThreadsPerListener }}
+          {{- end}}
+          {{- if .templateData.ticketListeners }}
+            - name: GP_TICKET_LISTENERS
+              value: {{ quote .templateData.ticketListeners }}
+          {{- end}}
+          {{- if .templateData.ticketThreadsPerListener }}
+            - name: GP_TICKET_WORKERS_PER_LISTENERS
+              value: {{ quote .templateData.ticketThreadsPerListener }}
+          {{- end}}
+          {{- if .templateData.incrMaxCommitCount }}
+            - name: GP_INCREMENTAL_COMMIT_COUNT
+              value: {{ quote .templateData.incrMaxCommitCount }}
+          {{- end}}
           {{- range $globalEnvironment }}
             - name: {{ .name }}
               value: {{ .value | quote }}
