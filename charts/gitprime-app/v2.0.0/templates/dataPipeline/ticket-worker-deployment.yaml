@@ -9,6 +9,5 @@
 {{- $_ := set $templateData "logLevel" .Values.dataPipeline.ticketWorker.logLevel }}
 {{- $_ := set $templateData "ticketListeners" .Values.dataPipeline.ticketRepoWorker.ticketListeners }}
 {{- $_ := set $templateData "ticketThreadsPerListener" .Values.dataPipeline.ticketRepoWorker.ticketThreadsPerListener }}
-{{- $_ := set $templateData "ticketMaxCommitCount" .Values.dataPipeline.ticketRepoWorker.ticketMaxCommitCount }}
 {{- $templateData := dict "Values" .Values "templateData" $templateData }}
 {{- include "dataPipeline.deploymentTemplate" $templateData }}
