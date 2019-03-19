@@ -59,7 +59,7 @@ spec:
           {{- end }}
           {{- if .templateData.newListeners }}
             - name: GP_NEW_LISTENERS
-            - value: {{ quote .templateData.newListeners }}
+              value: {{ quote .templateData.newListeners }}
           {{- end}}
           {{- if .templateData.processorThreadCount }}
             - name: GP_COMMIT_PROCESSOR_THREADS
