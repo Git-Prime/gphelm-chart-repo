@@ -169,14 +169,6 @@ questions:
     description: The Java options for the incremental repository workers.
     default: "-d64 -Xms2g -Xmx4g"
 
-  - variable: dataPipeline.incrementalRepoWorker.incrThreadsPerListener
-    type: string
-    required: true
-    group: "Data Pipeline / Incremental Repo Workers"
-    label: Incremental Repo Worker Threads Per Job
-    description: The number of threads per job to use for the incremental repository workers.
-    default: 2
-
   - variable: dataPipeline.incrementalRepoWorker.incrListeners
     type: string
     required: true
@@ -184,6 +176,14 @@ questions:
     label: Incremental Repo Worker Concurrent Jobs Per Pod
     description: The number of concurrent jobs for the incremental repository workers.
     default: 1
+
+  - variable: dataPipeline.incrementalRepoWorker.incrThreadsPerListener
+    type: string
+    required: true
+    group: "Data Pipeline / Incremental Repo Workers"
+    label: Incremental Repo Worker Threads Per Job
+    description: The number of threads per job to use for the incremental repository workers.
+    default: 2
 
   - variable: dataPipeline.incrementalRepoWorker.incrMaxCommitCount
     type: string
@@ -257,14 +257,6 @@ questions:
     description: The Java options for the AOD workers.
     default: "-d64 -Xms2g -Xmx4g"
 
-  - variable: dataPipeline.aodWorker.aodThreadsPerListener
-    type: string
-    required: true
-    group: "Data Pipeline / AOD Workers"
-    label: AOD Worker Thread Count
-    description: The number of threads to use for the AOD workers.
-    default: 2
-
   - variable: dataPipeline.aodWorker.aodListeners
     type: string
     required: true
@@ -272,6 +264,14 @@ questions:
     label: AOD Worker Concurrent Jobs
     description: The number of concurrent jobs for the AOD workers.
     default: 1
+
+  - variable: dataPipeline.aodWorker.aodThreadsPerListener
+    type: string
+    required: true
+    group: "Data Pipeline / AOD Workers"
+    label: AOD Worker Thread Count
+    description: The number of threads per job to use for the AOD workers.
+    default: 2
 
   - variable: dataPipeline.aodWorker.resources.requests.cpu
     type: string
@@ -336,28 +336,28 @@ questions:
     description: The Java options for the Ticket workers.
     default: "-d64 -Xms2g -Xmx4g"
 
-  - variable: dataPipeline.ticketWorker.ticketThreadsPerListener
-    type: string
-    required: true
-    group: "Data Pipeline / Ticket Workers"
-    label: Ticket Worker Thread Count
-    description: The number of threads to use for the Ticket workers.
-    default: 2
-
   - variable: dataPipeline.ticketWorker.ticketListeners
     type: string
     required: true
     group: "Data Pipeline / Ticket Workers"
     label: Ticket Worker Concurrent Jobs
-    description: The number of concurrent jobs for the Ticket workers.
+    description: The number of concurrent jobs for the ticket workers.
     default: 1
+
+  - variable: dataPipeline.ticketWorker.ticketThreadsPerListener
+    type: string
+    required: true
+    group: "Data Pipeline / Ticket Workers"
+    label: Ticket Worker Thread Count
+    description: The number of threads per job to use for the ticket workers.
+    default: 2
 
   - variable: dataPipeline.ticketWorker.resources.requests.cpu
     type: string
     required: true
     group: "Data Pipeline / Ticket Workers"
     label: Ticket Worker Requested CPU
-    description: The number of CPUs the Ticket workers will request.
+    description: The number of CPUs the ticket workers will request.
     default: "2"
 
   - variable: dataPipeline.ticketWorker.resources.requests.memory
@@ -365,7 +365,7 @@ questions:
     required: true
     group: "Data Pipeline / Ticket Workers"
     label: Ticket Worker Requested Memory
-    description: The maximum amount of memory an Ticket worker will request.
+    description: The maximum amount of memory an ticket worker will request.
     default: "4Gi"
 
   - variable: dataPipeline.ticketWorker.resources.limits.cpu
@@ -373,7 +373,7 @@ questions:
     required: true
     group: "Data Pipeline / Ticket Workers"
     label: Ticket CPU Limit
-    description: The maximum number of CPUs the Ticket workers can use.
+    description: The maximum number of CPUs the ticket workers can use.
     default: "4"
 
   - variable: dataPipeline.ticketWorker.resources.limits.memory
@@ -381,7 +381,7 @@ questions:
     required: true
     group: "Data Pipeline / Ticket Workers"
     label: Ticket Worker Memory Limit
-    description: The maximum amount of memory an Ticket worker can use.
+    description: The maximum amount of memory an ticket worker can use.
     default: "8Gi"
 
   - variable: dataPipeline.aodWorker.logLevel
