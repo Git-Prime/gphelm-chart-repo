@@ -87,18 +87,18 @@ questions:
     required: true
     group: "Data Pipeline / New Repo Workers"
     label: New Repo Worker Concurrent Jobs Per Pod
-    description: The number of threads to use for the new repository workers.
+    description: The number of concurrent jobs for the new repository workers.
     default: 2
 
-  - variable: dataPipeline.newRepoWorker.maxConcurrentJobs
+  - variable: dataPipeline.newRepoWorker.newThreadsPerListener
     type: string
     required: true
     group: "Data Pipeline / New Repo Workers"
-    label: New Repo Worker Concurrent Jobs
-    description: The number of concurrent jobs for the new repository workers.
+    label: New Repo Worker Threads Per Job
+    description: The number of threads per job to use for the new repository workers.
     default: 1
 
-  - variable: dataPipeline.newRepoWorker.maxCommitCount
+  - variable: dataPipeline.newRepoWorker.newMaxCommitCount
     type: string
     required: true
     group: "Data Pipeline / New Repo Workers"

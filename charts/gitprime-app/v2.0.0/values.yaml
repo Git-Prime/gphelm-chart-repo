@@ -19,8 +19,8 @@ dataPipeline:
   newRepoWorker:
     replicaCount: 1
     javaOptions: "-d64 -Xms2g -Xmx4g"
-    maxConcurrentJobs: 1
-    maxCommitCount: 600
+    newThreadsPerListener: 1
+    newMaxCommitCount: 600
     newListeners: 2
     processorThreadCount: 1
     logLevel: INFO

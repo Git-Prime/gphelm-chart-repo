@@ -61,6 +61,14 @@ spec:
             - name: GP_NEW_LISTENERS
               value: {{ quote .templateData.newListeners }}
           {{- end}}
+          {{- if .templateData.newThreadsPerListener }}
+            - name: GP_NEW_WORKERS_PER_LISTENETER
+              value: {{ quote .templateData.newThreadsPerListener }}
+          {{- end}}
+          {{- if .templateData.newMaxCommitCount }}
+            - name: GP_NEW_MAX_COMMIT_COUNT
+              value: {{ quote .templateData.newMaxCommitCount }}
+          {{- end}}
           {{- if .templateData.processorThreadCount }}
             - name: GP_COMMIT_PROCESSOR_THREADS
               value: {{ quote .templateData.processorThreadCount }}
