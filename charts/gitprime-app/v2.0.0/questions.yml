@@ -82,11 +82,11 @@ questions:
     description: The Java options for the new repository workers.
     default: "-d64 -Xms2g -Xmx4g"
 
-  - variable: dataPipeline.newRepoWorker.processorThreadCount
+  - variable: dataPipeline.newRepoWorker.newListeners
     type: string
     required: true
     group: "Data Pipeline / New Repo Workers"
-    label: New Repo Worker Thread Count
+    label: New Repo Worker Concurrent Jobs Per Pod
     description: The number of threads to use for the new repository workers.
     default: 2
 

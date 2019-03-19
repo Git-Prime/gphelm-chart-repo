@@ -57,6 +57,10 @@ spec:
             - name: GP_MAX_COMMIT_COUNT
               value: {{ quote .templateData.maxCommitCount }}
           {{- end }}
+          {{- if .templateData.newListeners }}
+            - name: GP_NEW_LISTENERS
+            - value: {{ quote .templateData.newListeners }}
+          {{- end}}
           {{- if .templateData.processorThreadCount }}
             - name: GP_COMMIT_PROCESSOR_THREADS
               value: {{ quote .templateData.processorThreadCount }}

@@ -21,7 +21,7 @@ dataPipeline:
     javaOptions: "-d64 -Xms2g -Xmx4g"
     maxConcurrentJobs: 1
     maxCommitCount: 600
-    processorThreadCount: 2
+    newListeners: 2
     logLevel: INFO
     environment:
       - name: GP_AOD_LISTENERS
