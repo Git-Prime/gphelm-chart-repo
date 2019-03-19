@@ -1,0 +1,11 @@
+{{- $templateData := dict "operationMode" "aod-worker" }}
+{{- $_ := set $templateData "replicaCount" .Values.dataPipeline.aodWorker.replicaCount }}
+{{- $_ := set $templateData "environment" .Values.dataPipeline.aodWorker.environment }}
+{{- $_ := set $templateData "javaOptions" .Values.dataPipeline.aodWorker.javaOptions }}
+{{- $_ := set $templateData "processorThreadCount" .Values.dataPipeline.aodWorker.processorThreadCount }}
+{{- $_ := set $templateData "maxConcurrentJobs" .Values.dataPipeline.aodWorker.maxConcurrentJobs }}
+{{- $_ := set $templateData "maxCommitCount" .Values.dataPipeline.aodWorker.maxCommitCount }}
+{{- $_ := set $templateData "resources" .Values.dataPipeline.aodWorker.resources }}
+{{- $_ := set $templateData "logLevel" .Values.dataPipeline.aodWorker.logLevel }}
+{{- $templateData := dict "Values" .Values "templateData" $templateData }}
+{{- include "dataPipeline.deploymentTemplate" $templateData }}
