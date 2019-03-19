@@ -22,6 +22,7 @@ dataPipeline:
     maxConcurrentJobs: 1
     maxCommitCount: 600
     newListeners: 2
+    processorThreadCount: 0
     logLevel: INFO
     environment:
       - name: GP_AOD_LISTENERS

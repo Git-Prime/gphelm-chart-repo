@@ -3,6 +3,7 @@
 {{- $_ := set $templateData "environment" .Values.dataPipeline.newRepoWorker.environment }}
 {{- $_ := set $templateData "javaOptions" .Values.dataPipeline.newRepoWorker.javaOptions }}
 {{- $_ := set $templateData "newListeners" .Values.dataPipeline.newRepoWorker.newListeners }}
+{{- $_ := set $templateData "processorThreadCount" .Values.dataPipeline.newRepoWorker.processorThreadCount }}
 {{- $_ := set $templateData "maxConcurrentJobs" .Values.dataPipeline.newRepoWorker.maxConcurrentJobs }}
 {{- $_ := set $templateData "maxCommitCount" .Values.dataPipeline.newRepoWorker.maxCommitCount }}
 {{- $_ := set $templateData "resources" .Values.dataPipeline.newRepoWorker.resources }}
