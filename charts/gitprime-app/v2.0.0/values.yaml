@@ -32,6 +32,8 @@ dataPipeline:
         value: 0
       - name: GP_TICKET_LISTENERS
         value: 0
+      - name: GP_TICKET_WEBHOOK_LISTENERS
+        value: 0
       - name: GP_PR_LISTENERS
         value: 0
       - name: GP_MAX_REPO_PROCESSING_SECONDS
@@ -61,6 +63,8 @@ dataPipeline:
       - name: GP_INCREMENTAL_LISTENERS
         value: 1
       - name: GP_TICKET_LISTENERS
+        value: 0
+      - name: GP_TICKET_WEBHOOK_LISTENERS
         value: 0
       - name: GP_PR_LISTENERS
         value: 0
@@ -92,6 +96,8 @@ dataPipeline:
         value: 0
       - name: GP_TICKET_LISTENERS
         value: 0
+      - name: GP_TICKET_WEBHOOK_LISTENERS
+        value: 0
       - name: GP_PR_LISTENERS
         value: 0
       - name: GP_MAX_REPO_PROCESSING_SECONDS
@@ -121,6 +127,8 @@ dataPipeline:
         value: 0
       - name: GP_TICKET_LISTENERS
         value: 1
+      - name: GP_TICKET_WEBHOOK_LISTENERS
+        value: 0
       - name: GP_PR_LISTENERS
         value: 0
       - name: GP_MAX_REPO_PROCESSING_SECONDS
@@ -150,6 +158,8 @@ dataPipeline:
       - name: GP_INCREMENTAL_LISTENERS
         value: 0
       - name: GP_TICKET_LISTENERS
+        value: 0
+      - name: GP_TICKET_WEBHOOK_LISTENERS
         value: 0
       - name: GP_PR_LISTENERS
         value: 0
