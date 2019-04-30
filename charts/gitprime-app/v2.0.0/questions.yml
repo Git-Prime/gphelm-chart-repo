@@ -384,7 +384,7 @@ questions:
     description: The maximum amount of memory an ticket worker can use.
     default: "8Gi"
 
-  - variable: dataPipeline.aodWorker.logLevel
+  - variable: dataPipeline.ticketWorker.logLevel
     type: enum
     required: true
     group: "Data Pipeline / Ticket Workers"
