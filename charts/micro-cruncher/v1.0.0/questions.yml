@@ -1,0 +1,116 @@
+questions:
+  # General environment settings
+  - variable: environment.parentName
+    type: enum
+    required: true
+    group: "Environment"
+    label: Environment Parent
+    description: The name of the parent environment we will deploy into and funcation as.
+    options:
+      - sandbox
+      - canary
+      - production
+    default: sandbox
+
+  - variable: environment.modifierValue
+    type: enum
+    required: false
+    group: "Environment"
+    label: Environment Modifier
+    description: The modifier name for the environment we will deploy into and funcation as.
+    options:
+      - prime
+      - qa
+      - 01
+      - 02
+      - 03
+      - 04
+      - 05
+      - 06
+      - 07
+      - 08
+      - 09
+      - 10
+    default: ""
+
+####
+#### Micro-Cruncher Settings
+####
+  - variable: microCruncher.build.commitSHA
+    type: string
+    required: true
+    group: "Micro Cruncher"
+    label: Micro Cruncer Build SHA
+    description: The commit SHA of the Micro-Cruncher build you want to deploy.
+
+  # New Repo Worker Settings
+  - variable: microCruncher.replicaCount
+    type: string
+    required: true
+    group: "Micro Cruncher"
+    label: Number of Pods for Micro-Cruncher
+    description: The number of pods to deploy for the micro-cruncher.
+    default: 1
+
+  - variable: microCruncher.javaOptions
+    type: string
+    required: true
+    group: "Micro Cruncher"
+    label: Micro Cruncher Java Options
+    description: The Java options for the micro-cruncher.
+    default: "-d64 -Xms2g -Xmx4g"
+
+  - variable: microCruncher.processorThreads
+    type: string
+    required: true
+    group: "Micro Cruncher"
+    label: Micro Cruncher Threads for commit processing
+    description: The number of threads to use for processing commits in the background.
+    default: 1
+
+  - variable: microCruncher.resources.requests.cpu
+    type: string
+    required: true
+    group: "Micro Cruncher"
+    label: Micro Cruncher Requested CPU
+    description: The number of CPUs the micro cruncher will request.
+    default: "2"
+
+  - variable: microCruncher.resources.requests.memory
+    type: string
+    required: true
+    group: "Micro Cruncher"
+    label: Micro Cruncher Requested Memory
+    description: The maximum amount of memory a micro cruncher will request.
+    default: "4Gi"
+
+  - variable: microCruncher.resources.limits.cpu
+    type: string
+    required: true
+    group: "Micro Cruncher"
+    label: Micro Cruncher CPU Limit
+    description: The maximum number of CPUs the micro cruncher can use.
+    default: "4"
+
+  - variable: microCruncher.resources.limits.memory
+    type: string
+    required: true
+    group: "Micro Cruncher"
+    label: Micro Cruncher Memory Limit
+    description: The maximum amount of memory a micro cruncher worker can use.
+    default: "8Gi"
+
+  - variable: microCruncher.logLevel
+    type: enum
+    required: true
+    group: "Micro Cruncher"
+    label: Log Level
+    description: The level of logging for this deployment.
+    options:
+      - TRACE
+      - DEBUG
+      - INFO
+      - WARN
+      - ERROR
+    default: "INFO"
+

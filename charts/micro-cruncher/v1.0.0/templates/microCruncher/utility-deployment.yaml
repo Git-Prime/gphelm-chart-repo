@@ -1,0 +1,7 @@
+{{- $templateData := dict "operationMode" "utility" }}
+{{- $_ := set $templateData "operationMode" "utility" }}
+{{- $_ := set $templateData "replicaCount" 1 }}
+{{- $_ := set $templateData "logLevel" "DEBUG" }}
+{{- $templateData := dict "Values" .Values "templateData" $templateData }}
+{{- include "microCruncher.deploymentTemplate" $templateData }}
+
