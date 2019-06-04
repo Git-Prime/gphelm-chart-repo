@@ -1,0 +1,9 @@
+{{- $templateData := dict "operationMode" "worker" }}
+{{- $_ := set $templateData "replicaCount" .Values.microCruncher.replicaCount }}
+{{- $_ := set $templateData "environment" .Values.microCruncher.environment }}
+{{- $_ := set $templateData "javaOptions" .Values.microCruncher.javaOptions }}
+{{- $_ := set $templateData "processorThreads" .Values.microCruncher.processorThreads }}
+{{- $_ := set $templateData "resources" .Values.microCruncher.resources }}
+{{- $_ := set $templateData "logLevel" .Values.microCruncher.logLevel }}
+{{- $templateData := dict "Values" .Values "templateData" $templateData }}
+{{- include "microCruncher.deploymentTemplate" $templateData }}

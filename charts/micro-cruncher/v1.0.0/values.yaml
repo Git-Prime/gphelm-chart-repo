@@ -1,0 +1,21 @@
+# We'll start with values for the environment we'll be living in
+environment:
+  parentName: sandbox
+  modifierValue: ""
+
+microCruncher:
+  build:
+    commitSHA: ""
+
+  replicaCount: 1
+  javaOptions: "-d64 -Xms2g -Xmx4g"
+  processorThreads: 1
+  logLevel: INFO
+  resources:
+    limits:
+      cpu: "4"
+      memory: 8Gi
+    requests:
+      cpu: "2"
+      memory: 4Gi
+
