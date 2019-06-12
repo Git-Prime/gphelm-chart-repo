@@ -21,6 +21,7 @@ questions:
     options:
       - prime
       - qa
+      - testing
       - 01
       - 02
       - 03
