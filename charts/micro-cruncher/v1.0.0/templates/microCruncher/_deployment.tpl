@@ -28,6 +28,23 @@ spec:
         - name: gitprime-mc-{{- template "helpers.environment.fullName" .}}-{{ .templateData.operationMode }}
           image: gp-docker.gitprime-ops.com/integrations/gitprime-micro-cruncher:{{ .Values.microCruncher.build.commitSHA }}
           imagePullPolicy: IfNotPresent
+        {{- if .templateData.httpHost }}
+          ports:
+          - name: http
+            containerPort: 8080
+          livenessProbe:
+            httpGet:
+              path: /healthcheck
+              port: http
+            initialDelaySeconds: 120
+            timeoutSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /healthcheck
+              port: http
+            initialDelaySeconds: 30
+            timeoutSeconds: 1
+        {{- end }}
           env:
             - name: SYSTEM_ENV_PARENT
               value: {{ quote .Values.environment.parentName }}
