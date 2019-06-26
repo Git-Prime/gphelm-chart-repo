@@ -35,6 +35,8 @@ spec:
               value: {{ quote .Values.environment.modifierValue }}
             - name: SYSTEM_ENV
               value: {{ include "helpers.environment.fullName" . | quote }}
+            - name: DATADOG_ENABLED
+              value: {{ quote .Values.dataPipeline.datadog.enabled }}
             - name: SYSTEM_POD_NAME
               valueFrom:
                 fieldRef:

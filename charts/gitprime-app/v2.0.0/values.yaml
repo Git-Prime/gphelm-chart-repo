@@ -11,6 +11,9 @@ dataPipeline:
     - name: GP_AOD_QUEUE_NAME
       value: "java-aod-repo-process-request"
 
+  datadog:
+    enabled: false
+
   volumes:
     enableLocalMount: false
     nodeMountDirectory: /mnt/repo-storage

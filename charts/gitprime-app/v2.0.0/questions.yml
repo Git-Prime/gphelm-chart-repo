@@ -65,6 +65,13 @@ questions:
         description: "The directory inside the pod to mount the volume."
         required: true
         default: "/var/repos"
+    
+  - variable: dataPipeline.datadog.enabled
+    type: boolean
+    required: true
+    group: "Data Pipeline"
+    label: "Enable DataDog"
+    description: "Turn DataDog APM on for the pipeline"
 
   # New Repo Worker Settings
   - variable: dataPipeline.newRepoWorker.replicaCount
