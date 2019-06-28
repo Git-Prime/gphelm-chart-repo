@@ -47,6 +47,10 @@ spec:
               value: {{ include "helpers.configServerURL" . }}
             - name: GP_LOG_LEVEL
               value: {{ quote .templateData.logLevel | default "INFO" | lower }}
+            - name: DD_AGENT_HOST
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
           {{- if .templateData.javaOptions }}
             - name: JAVA_OPTS
               value: {{ quote .templateData.javaOptions }}
