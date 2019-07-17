@@ -26,7 +26,7 @@ spec:
     spec:
       containers:
         - name: gitprime-dp-{{- template "helpers.environment.fullName" .}}-{{ .templateData.operationMode }}
-          image: gp-docker.gitprime-ops.com/integrations/gitprime-data-pipeline:{{ .Values.dataPipeline.build.commitSHA }}
+          image: gp-docker.gitprime-ops.com/cloud/gitprime-data-pipeline-app:{{ .Values.dataPipeline.build.commitSHA }}
           imagePullPolicy: IfNotPresent
           env:
             - name: SYSTEM_ENV_PARENT
