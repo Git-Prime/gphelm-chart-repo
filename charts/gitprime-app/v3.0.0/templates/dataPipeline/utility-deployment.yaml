@@ -1,5 +1,4 @@
-{{- $templateData := dict "operationMode" "aod-worker" }}
-{{- $_ := set $templateData "operationMode" "utility" }}
+{{- $templateData := dict "operationMode" "utility" }}
 {{- $_ := set $templateData "replicaCount" 1 }}
 {{- $_ := set $templateData "logLevel" "DEBUG" }}
 {{- $_ := set $templateData "aodListeners" 0 }}
@@ -16,4 +15,3 @@
 {{- $_ := set $templateData "ticketWebhookThreadsPerListener" 0 }}
 {{- $templateData := dict "Values" .Values "templateData" $templateData }}
 {{- include "dataPipeline.deploymentTemplate" $templateData }}
-
