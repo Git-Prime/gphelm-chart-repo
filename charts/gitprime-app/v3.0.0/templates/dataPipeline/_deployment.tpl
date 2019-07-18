@@ -83,9 +83,9 @@ spec:
             - name: GP_AOD_LISTENERS
               value: {{ quote .templateData.aodListeners }}
           {{- end}}
-          {{- if .templateData.incrThreadsPerListener }}
+          {{- if .templateData.aodThreadsPerListener }}
             - name: GP_AOD_WORKERS_PER_LISTENER
-              value: {{ quote .templateData.incrThreadsPerListener }}
+              value: {{ quote .templateData.aodThreadsPerListener }}
           {{- end}}
           {{- if .templateData.ticketListeners }}
             - name: GP_TICKET_LISTENERS
@@ -94,6 +94,22 @@ spec:
           {{- if .templateData.ticketThreadsPerListener }}
             - name: GP_TICKET_WORKERS_PER_LISTENERS
               value: {{ quote .templateData.ticketThreadsPerListener }}
+          {{- end}}
+          {{- if .templateData.prListeners }}
+            - name: GP_PR_LISTENERS
+              value: {{ quote .templateData.prListeners }}
+          {{- end}}
+          {{- if .templateData.prThreadsPerListener }}
+            - name: GP_PR_WORKERS_PER_LISTENER
+              value: {{ quote .templateData.prThreadsPerListener }}
+          {{- end}}
+          {{- if .templateData.ticketWebhookListeners }}
+            - name: GP_TICKET_WEBHOOK_LISTENERS
+              value: {{ quote .templateData.ticketWebhookListeners }}
+          {{- end}}
+          {{- if .templateData.ticketWebhookThreadsPerListener }}
+            - name: GP_TICKET_WEBHOOK_WORKERS_PER_LISTENER
+              value: {{ quote .templateData.ticketWebhookThreadsPerListener }}
           {{- end}}
           {{- if .templateData.incrMaxCommitCount }}
             - name: GP_INCREMENTAL_COMMIT_COUNT
