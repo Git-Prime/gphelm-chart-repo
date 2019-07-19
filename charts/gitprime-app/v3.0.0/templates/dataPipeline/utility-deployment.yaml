@@ -1,17 +1,8 @@
 {{- $templateData := dict "operationMode" "utility" }}
-{{- $_ := set $templateData "replicaCount" 1 }}
-{{- $_ := set $templateData "logLevel" "DEBUG" }}
-{{- $_ := set $templateData "aodListeners" 0 }}
-{{- $_ := set $templateData "aodThreadsPerListener" 0 }}
-{{- $_ := set $templateData "incrListeners" 0 }}
-{{- $_ := set $templateData "incrThreadsPerListener" 0 }}
-{{- $_ := set $templateData "newListeners" 0 }}
-{{- $_ := set $templateData "newThreadsPerListener" 0 }}
-{{- $_ := set $templateData "prListeners" 0 }}
-{{- $_ := set $templateData "prThreadsPerListener" 0 }}
-{{- $_ := set $templateData "ticketListeners" 0 }}
-{{- $_ := set $templateData "ticketThreadsPerListener" 0 }}
-{{- $_ := set $templateData "ticketWebhookListeners" 0 }}
-{{- $_ := set $templateData "ticketWebhookThreadsPerListener" 0 }}
+{- $_ := set $templateData "replicaCount" .Values.dataPipeline.utility.replicaCount }}
+{{- $_ := set $templateData "environment" .Values.dataPipeline.utility.environment }}
+{{- $_ := set $templateData "javaOptions" .Values.dataPipeline.utility.javaOptions }}
+{{- $_ := set $templateData "logLevel" .Values.dataPipeline.utility.logLevel }}
+{{- $_ := set $templateData "resources" .Values.dataPipeline.utility.resources }}
 {{- $templateData := dict "Values" .Values "templateData" $templateData }}
 {{- include "dataPipeline.deploymentTemplate" $templateData }}
