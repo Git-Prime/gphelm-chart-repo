@@ -1,5 +1,5 @@
 {{- $templateData := dict "operationMode" "utility" }}
-{- $_ := set $templateData "replicaCount" .Values.dataPipeline.utility.replicaCount }}
+{{- $_ := set $templateData "replicaCount" .Values.dataPipeline.utility.replicaCount }}
 {{- $_ := set $templateData "environment" .Values.dataPipeline.utility.environment }}
 {{- $_ := set $templateData "javaOptions" .Values.dataPipeline.utility.javaOptions }}
 {{- $_ := set $templateData "logLevel" .Values.dataPipeline.utility.logLevel }}
