@@ -131,7 +131,9 @@ dataPipeline:
       - name: GP_TICKET_LISTENERS
         value: 1
       - name: GP_TICKET_WEBHOOK_LISTENERS
-        value: 0
+        value: 1
+      - name: GP_TICKET_WEBHOOK_WORKERS_PER_LISTENER
+        value: 1
       - name: GP_PR_LISTENERS
         value: 0
       - name: GP_MAX_REPO_PROCESSING_SECONDS
