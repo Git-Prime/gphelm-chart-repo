@@ -92,7 +92,7 @@ spec:
               value: {{ quote .templateData.ticketListeners }}
           {{- end}}
           {{- if .templateData.ticketThreadsPerListener }}
-            - name: GP_TICKET_WORKERS_PER_LISTENERS
+            - name: GP_TICKET_WORKERS_PER_LISTENER
               value: {{ quote .templateData.ticketThreadsPerListener }}
           {{- end}}
           {{- if .templateData.prListeners }}
