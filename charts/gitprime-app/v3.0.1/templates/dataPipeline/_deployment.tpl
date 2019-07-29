@@ -37,6 +37,8 @@ spec:
               value: {{ include "helpers.environment.fullName" . | quote }}
             - name: DATADOG_ENABLED
               value: {{ quote .Values.dataPipeline.datadog.enabled }}
+            - name: DNS_CONFIG_NDOTS
+              value: {{ quote .Values.dataPipeline.dns.ndots }}
             - name: SYSTEM_POD_NAME
               valueFrom:
                 fieldRef:
