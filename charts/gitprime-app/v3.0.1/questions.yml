@@ -73,6 +73,13 @@ questions:
     label: "Enable DataDog"
     description: "Turn DataDog APM on for the pipeline"
 
+  - variable: dataPipeline.dns.ndots
+    type: string
+    required: false
+    group: "Data Pipeline"
+    label: "Number of ndots for DNS configuration"
+    description: "Modifies the number of ndots in /etc/resolv.conf"
+
   # New Repo Worker Settings
   - variable: dataPipeline.newRepoWorker.replicaCount
     type: string
