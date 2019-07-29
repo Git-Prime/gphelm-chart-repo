@@ -15,7 +15,7 @@ dataPipeline:
     enabled: false
 
   dns:
-    ndots: 5
+    ndots: 2
 
   volumes:
     enableLocalMount: false
