@@ -113,6 +113,14 @@ spec:
             - name: GP_TICKET_WEBHOOK_WORKERS_PER_LISTENER
               value: {{ quote .templateData.ticketWebhookThreadsPerListener }}
           {{- end}}
+          {{- if .templateData.repoDeleteListeners }}
+            - name: GP_REPO_DELETE_LISTENERS
+          value: {{ quote .templateData.repoDeleteListeners }}
+          {{- end}}
+          {{- if .templateData.repoDeleteThreadsPerListener }}
+            - name: GP_REPO_DELETE_PER_LISTENER
+          value: {{ quote .templateData.repoDeleteThreadsPerListener }}
+          {{- end}}
           {{- if .templateData.incrMaxCommitCount }}
             - name: GP_INCREMENTAL_MAX_COMMIT_COUNT
               value: {{ quote .templateData.incrMaxCommitCount }}
