@@ -105,6 +105,14 @@ spec:
             - name: GP_PR_WORKERS_PER_LISTENER
               value: {{ quote .templateData.prThreadsPerListener }}
           {{- end}}
+          {{- if .templateData.prWebhookListeners }}
+            - name: GP_PR_WEBHOOK_LISTENERS
+              value: {{ quote .templateData.prWebhookListeners }}
+          {{- end}}
+          {{- if .templateData.prWebhookThreadsPerListener }}
+            - name: GP_PR_WEBHOOK_WORKERS_PER_LISTENER
+              value: {{ quote .templateData.prWebhookThreadsPerListener }}
+          {{- end}}
           {{- if .templateData.ticketWebhookListeners }}
             - name: GP_TICKET_WEBHOOK_LISTENERS
               value: {{ quote .templateData.ticketWebhookListeners }}

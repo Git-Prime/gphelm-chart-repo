@@ -414,6 +414,86 @@ questions:
     default: "INFO"
 
 
+  # PR Worker Settings
+  - variable: dataPipeline.prWorker.replicaCount
+    type: string
+    required: true
+    group: "Data Pipeline / PR Workers"
+    label: Number of Pods for PR Workers
+    description: The number of pods to deploy for the workers that handle PR processing.
+    default: 1
+
+  - variable: dataPipeline.prWorker.javaOptions
+    type: string
+    required: true
+    group: "Data Pipeline / PR Workers"
+    label: PR Worker Java Options
+    description: The Java options for the PR workers.
+    default: "-d64 -Xms2g -Xmx4g"
+
+  - variable: dataPipeline.prWorker.prListeners
+    type: string
+    required: true
+    group: "Data Pipeline / PR Workers"
+    label: PR Worker Concurrent Jobs
+    description: The number of concurrent jobs for the PR workers.
+    default: 1
+
+  - variable: dataPipeline.prWorker.prThreadsPerListener
+    type: string
+    required: true
+    group: "Data Pipeline / PR Workers"
+    label: PR Worker Thread Count
+    description: The number of threads per job to use for the PR workers.
+    default: 2
+
+  - variable: dataPipeline.prWorker.resources.requests.cpu
+    type: string
+    required: true
+    group: "Data Pipeline / PR Workers"
+    label: PR Worker Requested CPU
+    description: The number of CPUs the PR workers will request.
+    default: "2"
+
+  - variable: dataPipeline.prWorker.resources.requests.memory
+    type: string
+    required: true
+    group: "Data Pipeline / PR Workers"
+    label: PR Worker Requested Memory
+    description: The maximum amount of memory a PR worker will request.
+    default: "4Gi"
+
+  - variable: dataPipeline.prWorker.resources.limits.cpu
+    type: string
+    required: true
+    group: "Data Pipeline / PR Workers"
+    label: PR CPU Limit
+    description: The maximum number of CPUs the PR workers can use.
+    default: "4"
+
+  - variable: dataPipeline.prWorker.resources.limits.memory
+    type: string
+    required: true
+    group: "Data Pipeline / PR Workers"
+    label: PR Worker Memory Limit
+    description: The maximum amount of memory a PR worker can use.
+    default: "8Gi"
+
+  - variable: dataPipeline.prWorker.logLevel
+    type: enum
+    required: true
+    group: "Data Pipeline / PR Workers"
+    label: Log Level
+    description: The level of logging for this deployment.
+    options:
+      - TRACE
+      - DEBUG
+      - INFO
+      - WARN
+      - ERROR
+    default: "INFO"
+
+
 ####
 #### Eventually we'll want to put the GitPrime Main application settings here
 ####

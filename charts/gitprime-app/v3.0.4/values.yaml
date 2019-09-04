@@ -44,6 +44,8 @@ dataPipeline:
         value: 0
       - name: GP_PR_LISTENERS
         value: 0
+      - name: GP_PR_WEBHOOK_WORKERS_PER_LISTENER
+        value: 0
       - name: GP_MAX_REPO_PROCESSING_SECONDS
         value: 2700
       - name: GP_SCHEDULED_TASK_SET
@@ -78,6 +80,8 @@ dataPipeline:
         value: 0
       - name: GP_PR_LISTENERS
         value: 0
+      - name: GP_PR_WEBHOOK_WORKERS_PER_LISTENER
+        value: 0
       - name: GP_MAX_REPO_PROCESSING_SECONDS
         value: 2700
       - name: GP_SCHEDULED_TASK_SET
@@ -111,6 +115,8 @@ dataPipeline:
       - name: GP_TICKET_WEBHOOK_LISTENERS
         value: 0
       - name: GP_PR_LISTENERS
+        value: 0
+      - name: GP_PR_WEBHOOK_WORKERS_PER_LISTENER
         value: 0
       - name: GP_MAX_REPO_PROCESSING_SECONDS
         value: 2700
@@ -147,6 +153,45 @@ dataPipeline:
         value: 1
       - name: GP_PR_LISTENERS
         value: 0
+      - name: GP_PR_WEBHOOK_WORKERS_PER_LISTENER
+        value: 0
+      - name: GP_MAX_REPO_PROCESSING_SECONDS
+        value: 2700
+      - name: GP_SCHEDULED_TASK_SET
+        value: local_tasks
+    resources:
+      limits:
+        cpu: "4"
+        memory: 8Gi
+      requests:
+        cpu: "2"
+        memory: 4Gi
+
+  prWorker:
+    replicaCount: 1
+    javaOptions: "-d64 -Xms2g -Xmx4g"
+    prThreadsPerListener: 1
+    prListeners: 1
+    logLevel: INFO
+    environment:
+      - name: GP_REPO_DELETE_LISTENERS
+        value: 0
+      - name: GP_AOD_LISTENERS
+        value: 0
+      - name: GP_NEW_LISTENERS
+        value: 0
+      - name: GP_INCREMENTAL_LISTENERS
+        value: 0
+      - name: GP_TICKET_LISTENERS
+        value: 1
+      - name: GP_TICKET_WEBHOOK_LISTENERS
+        value: 0
+      - name: GP_TICKET_WEBHOOK_WORKERS_PER_LISTENER
+        value: 0
+      - name: GP_PR_LISTENERS
+        value: 1
+      - name: GP_PR_WEBHOOK_WORKERS_PER_LISTENER
+        value: 1
       - name: GP_MAX_REPO_PROCESSING_SECONDS
         value: 2700
       - name: GP_SCHEDULED_TASK_SET
@@ -180,6 +225,8 @@ dataPipeline:
       - name: GP_TICKET_WEBHOOK_LISTENERS
         value: 0
       - name: GP_PR_LISTENERS
+        value: 0
+      - name: GP_PR_WEBHOOK_WORKERS_PER_LISTENER
         value: 0
       - name: GP_MAX_REPO_PROCESSING_SECONDS
         value: 2700
@@ -223,6 +270,8 @@ dataPipeline:
       - name: GP_PR_LISTENERS
         value: 0
       - name: GP_PR_WORKERS_PER_LISTENER
+        value: 0
+      - name: GP_PR_WEBHOOK_WORKERS_PER_LISTENER
         value: 0
       - name: GP_MAX_REPO_PROCESSING_SECONDS
         value: 2700
