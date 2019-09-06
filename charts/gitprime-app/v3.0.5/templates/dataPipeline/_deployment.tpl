@@ -129,10 +129,6 @@ spec:
             - name: GP_REPO_DELETE_PER_LISTENER
               value: {{ quote .templateData.repoDeleteThreadsPerListener }}
           {{- end}}
-          {{- if .templateData.incrMaxCommitCount }}
-            - name: GP_INCREMENTAL_MAX_COMMIT_COUNT
-              value: {{ quote .templateData.incrMaxCommitCount }}
-          {{- end}}
           {{- range $globalEnvironment }}
             - name: {{ .name }}
               value: {{ .value | quote }}
