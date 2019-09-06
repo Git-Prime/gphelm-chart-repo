@@ -1,0 +1,14 @@
+{{- $templateData := dict "operationMode" "incr-repo-worker" }}
+{{- $_ := set $templateData "replicaCount" .Values.dataPipeline.incrementalRepoWorker.replicaCount }}
+{{- $_ := set $templateData "environment" .Values.dataPipeline.incrementalRepoWorker.environment }}
+{{- $_ := set $templateData "javaOptions" .Values.dataPipeline.incrementalRepoWorker.javaOptions }}
+{{- $_ := set $templateData "processorThreadCount" .Values.dataPipeline.incrementalRepoWorker.processorThreadCount }}
+{{- $_ := set $templateData "maxConcurrentJobs" .Values.dataPipeline.incrementalRepoWorker.maxConcurrentJobs }}
+{{- $_ := set $templateData "maxCommitCount" .Values.dataPipeline.incrementalRepoWorker.maxCommitCount }}
+{{- $_ := set $templateData "resources" .Values.dataPipeline.incrementalRepoWorker.resources }}
+{{- $_ := set $templateData "logLevel" .Values.dataPipeline.incrementalRepoWorker.logLevel }}
+{{- $_ := set $templateData "incrListeners" .Values.dataPipeline.incrementalRepoWorker.incrListeners }}
+{{- $_ := set $templateData "incrThreadsPerListener" .Values.dataPipeline.incrementalRepoWorker.incrThreadsPerListener }}
+{{- $_ := set $templateData "incrMaxCommitCount" .Values.dataPipeline.incrementalRepoWorker.incrMaxCommitCount }}
+{{- $templateData := dict "Values" .Values "templateData" $templateData }}
+{{- include "dataPipeline.deploymentTemplate" $templateData }}
