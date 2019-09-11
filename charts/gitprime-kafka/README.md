@@ -1,4 +1,12 @@
-# Apache Kafka Helm Chart
+# GitPrime Kafka Helm Chart Derived from Apache Kafka Helm Chart
+
+This was adapted from the Apache Helm Chart incubator found here: 
+
+ * https://github.com/helm/charts/tree/master/incubator/kafka
+
+The original README follows:
+
+----------------------------------------------------------------
 
 This is an implementation of Kafka StatefulSet found here:
 
