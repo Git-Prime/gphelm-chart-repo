@@ -1,0 +1,116 @@
+questions:
+
+  ####
+  #### General environment settings
+  ####
+  - variable: environment.parentName
+    type: enum
+    required: true
+    group: "Environment"
+    label: Environment Parent
+    description: The name of the parent environment we will deploy into and funcation as.
+    options:
+      - sandbox
+      - canary
+      - production
+    default: sandbox
+
+  - variable: environment.modifierValue
+    type: enum
+    required: false
+    group: "Environment"
+    label: Environment Modifier
+    description: The modifier name for the environment we will deploy into and funcation as.
+    options:
+      - prime
+      - qa
+      - 01
+      - 02
+      - 03
+      - 04
+      - 05
+      - 06
+      - 07
+      - 08
+      - 09
+      - 10
+    default: ""
+
+####
+#### cp-helm-charts settings
+####
+  - variable: cp-helm-charts.cp-kafka.brokers
+    type: string
+    required: true
+    group: "cp-helm-charts/cp-kafka"
+    label: Number of Kafka brokers
+    default: 1
+  - variable: cp-helm-charts.cp-kafka.configurationOverrides.offsets.topic.replication.factor
+    type: string
+    required: true
+    group: "cp-helm-charts/cp-kafka"
+    label: Replication factor for topics
+    default: 1
+  - variable: cp-helm-charts.cp-kafka.persistence.size
+    type: string
+    required: true
+    group: "cp-helm-charts/cp-kafka"
+    label: Persistence size
+    default: "1Gi"
+
+  - variable: cp-helm-charts.cp-kafka.cp-zookeeper.servers
+    type: string
+    required: true
+    group: "cp-helm-charts/cp-kafka/cp-zookeeper"
+    label: Number of Zookeeper servers
+    default: 1
+  - variable: cp-helm-charts.cp-kafka.cp-zookeeper.servers.persistence.dataDirSize
+    type: string
+    required: true
+    group: "cp-helm-charts/cp-kafka/cp-zookeeper"
+    label: Data dir size
+    default: "1Gi"
+  - variable: cp-helm-charts.cp-kafka.cp-zookeeper.servers.persistence.dataLogDirSize
+    type: string
+    required: true
+    group: "cp-helm-charts/cp-kafka/cp-zookeeper"
+    label: Data logdir size
+    default: "2Gi"
+
+  - variable: cp-helm-charts.cp-kafka-connect.configurationOverrides.config.storage.replication.factor
+    type: string
+    required: true
+    group: "cp-helm-charts/cp-kafka-connect"
+    label: Config storage replication factor
+    default: "1"
+  - variable: cp-helm-charts.cp-kafka-connect.configurationOverrides.offset.storage.replication.factor
+    type: string
+    required: true
+    group: "cp-helm-charts/cp-kafka-connect"
+    label: Offset storage replication factor
+    default: "1"
+  - variable: cp-helm-charts.cp-kafka-connect.configurationOverrides.status.storage.replication.factor
+    type: string
+    required: true
+    group: "cp-helm-charts/cp-kafka-connect"
+    label: Status storage replication factor
+    default: "1"
+  - variable: cp-helm-charts.cp-kafka-connect.configurationOverrides.key.converter
+    type: enum
+    required: true
+    group: "cp-helm-charts/cp-kafka-connect"
+    label: Value converter class
+    options:
+      - org.apache.kafka.connect.json.JsonConverter
+      - io.confluent.connect.avro.AvroConverter
+    default: "org.apache.kafka.connect.json.JsonConverter"
+  - variable: cp-helm-charts.cp-kafka-connect.configurationOverrides.value.converter
+    type: enum
+    required: true
+    group: "cp-helm-charts/cp-kafka-connect"
+    label: Value converter class
+    options:
+      - org.apache.kafka.connect.json.JsonConverter
+      - io.confluent.connect.avro.AvroConverter
+    default: "org.apache.kafka.connect.json.JsonConverter"
+
