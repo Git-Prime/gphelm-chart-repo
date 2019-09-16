@@ -12,6 +12,7 @@ cp-helm-charts:
       "advertised.listeners": |-
         EXTERNAL://${HOST_IP}:$((31090 + ${KAFKA_BROKER_ID}))
     persistence:
+      enabled: true
       size: 1Gi
     nodeport:
       enabled: true
@@ -21,6 +22,7 @@ cp-helm-charts:
     cp-zookeeper:
       servers: 1
       persistence:
+        enabled: true
         dataDirSize: 1Gi
         dataLogDirSize: 2Gi
       prometheus:
