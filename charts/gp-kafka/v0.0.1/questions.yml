@@ -40,6 +40,7 @@ questions:
     #### cp-helm-charts settings
     ####
 
+
   - variable: cp-helm-charts.cp-kafka-connect.configurationOverrides.config.storage.replication.factor
     type: string
     required: true
