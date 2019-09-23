@@ -77,7 +77,7 @@ questions:
     required: true
     group: "cp-helm-charts/cp-kafka/cp-zookeeper"
     label: Whether to enable Zookeeper persistence
-    default: true
+    default: false
   - variable: cp-helm-charts.cp-kafka.cp-zookeeper.servers.persistence.dataDirSize
     type: string
     required: true
