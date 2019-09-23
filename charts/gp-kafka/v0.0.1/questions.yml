@@ -36,3 +36,56 @@ questions:
       - 10
     default: ""
 
+    ####
+    #### cp-helm-charts settings
+    ####
+  - variable: cp-helm-charts.cp-kafka.brokers
+    type: string
+    required: true
+    group: "cp-helm-charts/cp-kafka"
+    label: Number of Kafka brokers
+    default: 1
+  - variable: cp-helm-charts.cp-kafka.configurationOverrides.offsets.topic.replication.factor
+    type: string
+    required: true
+    group: "cp-helm-charts/cp-kafka"
+    label: Replication factor for topics
+    default: 1
+  - variable: cp-helm-charts.cp-kafka.persistence.enabled
+    type: boolean
+    required: true
+    group: "cp-helm-charts/cp-kafka"
+    label: Whether to enable Kafka persistence
+    default: "true"
+  - variable: cp-helm-charts.cp-kafka.persistence.size
+    type: string
+    required: true
+    group: "cp-helm-charts/cp-kafka"
+    label: Persistence size
+    default: "1Gi"
+
+  - variable: cp-helm-charts.cp-kafka.cp-zookeeper.servers
+    type: string
+    required: true
+    group: "cp-helm-charts/cp-kafka/cp-zookeeper"
+    label: Number of Zookeeper servers
+    default: 1
+  - variable: cp-helm-charts.cp-kafka.cp-zookeeper.servers.persistence.enabled
+    type: boolean
+    required: true
+    group: "cp-helm-charts/cp-kafka/cp-zookeeper"
+    label: Whether to enable Zookeeer persistence
+    default: "true"
+  - variable: cp-helm-charts.cp-kafka.cp-zookeeper.servers.persistence.dataDirSize
+    type: string
+    required: true
+    group: "cp-helm-charts/cp-kafka/cp-zookeeper"
+    label: Data dir size
+    default: "1Gi"
+  - variable: cp-helm-charts.cp-kafka.cp-zookeeper.servers.persistence.dataLogDirSize
+    type: string
+    required: true
+    group: "cp-helm-charts/cp-kafka/cp-zookeeper"
+    label: Data logdir size
+    default: "2Gi"
+
