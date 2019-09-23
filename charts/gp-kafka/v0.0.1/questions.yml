@@ -51,6 +51,14 @@ questions:
     group: "cp-helm-charts/cp-kafka"
     label: Replication factor for topics
     default: 1
+  ##  Removed due to Rancher parse error with this
+  ## "interface conversion: interface {} is int64, not map[string]interface {} ...":
+  # - variable: cp-helm-charts.cp-kafka.persistence.enabled
+  #   type: boolean
+  #   required: true
+  #   group: "cp-helm-charts/cp-kafka"
+  #   label: Whether to enable Kafka persistence
+  #   default: true
   - variable: cp-helm-charts.cp-kafka.persistence.size
     type: string
     required: true
@@ -68,7 +76,7 @@ questions:
     type: boolean
     required: true
     group: "cp-helm-charts/cp-kafka/cp-zookeeper"
-    label: Whether to enable Zookeeer persistence
+    label: Whether to enable Zookeeper persistence
     default: true
   - variable: cp-helm-charts.cp-kafka.cp-zookeeper.servers.persistence.dataDirSize
     type: string
