@@ -72,19 +72,19 @@ questions:
     group: "cp-helm-charts/cp-kafka/cp-zookeeper"
     label: Number of Zookeeper servers
     default: 1
-  - variable: cp-helm-charts.cp-kafka.cp-zookeeper.servers.persistence.enabled
+  - variable: cp-helm-charts.cp-kafka.cp-zookeeper.persistence.enabled
     type: boolean
     required: true
     group: "cp-helm-charts/cp-kafka/cp-zookeeper"
     label: Whether to enable Zookeeper persistence
     default: false
-  - variable: cp-helm-charts.cp-kafka.cp-zookeeper.servers.persistence.dataDirSize
+  - variable: cp-helm-charts.cp-kafka.cp-zookeeper.persistence.dataDirSize
     type: string
     required: true
     group: "cp-helm-charts/cp-kafka/cp-zookeeper"
     label: Data dir size
     default: "1Gi"
-  - variable: cp-helm-charts.cp-kafka.cp-zookeeper.servers.persistence.dataLogDirSize
+  - variable: cp-helm-charts.cp-kafka.cp-zookeeper.persistence.dataLogDirSize
     type: string
     required: true
     group: "cp-helm-charts/cp-kafka/cp-zookeeper"
