@@ -36,9 +36,9 @@ questions:
       - 10
     default: ""
 
-####
-#### cp-helm-charts settings
-####
+    ####
+    #### cp-helm-charts settings
+    ####
   - variable: cp-helm-charts.cp-kafka.brokers
     type: string
     required: true
@@ -70,7 +70,7 @@ questions:
     group: "cp-helm-charts/cp-kafka/cp-zookeeper"
     label: Number of Zookeeper servers
     default: 1
-   -variable: cp-helm-charts.cp-kafka.cp-zookeeper.servers.persistence.enabled
+  - variable: cp-helm-charts.cp-kafka.cp-zookeeper.servers.persistence.enabled
     type: boolean
     required: true
     group: "cp-helm-charts/cp-kafka/cp-zookeeper"
@@ -125,4 +125,3 @@ questions:
       - org.apache.kafka.connect.json.JsonConverter
       - io.confluent.connect.avro.AvroConverter
     default: "org.apache.kafka.connect.json.JsonConverter"
-
