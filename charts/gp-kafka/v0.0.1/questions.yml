@@ -51,12 +51,6 @@ questions:
     group: "cp-helm-charts/cp-kafka"
     label: Replication factor for topics
     default: 1
-  - variable: cp-helm-charts.cp-kafka.persistence.enabled
-    type: boolean
-    required: true
-    group: "cp-helm-charts/cp-kafka"
-    label: Whether to enable Kafka persistence
-    default: true
   - variable: cp-helm-charts.cp-kafka.persistence.size
     type: string
     required: true
