@@ -14,29 +14,26 @@ cp-helm-charts:
     persistence:
       enabled: false
       size: 1Gi
+      storageClass: "-"
     nodeport:
       enabled: true
-    prometheus:
-      jmx:
-        enabled: false
+    prometheus.jmx.enabled: false
     cp-zookeeper:
       servers: 1
       persistence:
         enabled: false
         dataDirSize: 1Gi
         dataLogDirSize: 2Gi
-      prometheus:
-        jmx:
-          enabled: false
+        dataDirStorageClass: "-"
+        dataLogDirStorageClass: "-"
+      prometheus.jmx.enabled: false
   cp-kafka-connect:
     configurationOverrides:
       config.storage.replication.factor: "1"
       offset.storage.replication.factor: "1"
       status.storage.replication.factor: "1"
       value.converter: org.apache.kafka.connect.json.JsonConverter
-    prometheus:
-      jmx:
-        enabled: false
+    prometheus.jmx.enabled: false
 
 # Suppress sub-charts of cp-helm-charts that we don't want.
 # See https://github.com/confluentinc/cp-helm-charts/issues/224 for discussion about why

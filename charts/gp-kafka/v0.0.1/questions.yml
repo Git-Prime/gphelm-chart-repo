@@ -59,6 +59,12 @@ questions:
   #   group: "cp-helm-charts/cp-kafka"
   #   label: Whether to enable Kafka persistence
   #   default: true
+  - variable: cp-helm-charts.cp-kafka.persistence.storageClass
+    type: string
+    required: true
+    group: "cp-helm-charts/cp-kafka"
+    label: Persistence storage class. Valid options are nil, "-", or storage class name.
+    default: "-"
   - variable: cp-helm-charts.cp-kafka.persistence.size
     type: string
     required: true
@@ -90,6 +96,18 @@ questions:
     group: "cp-helm-charts/cp-kafka/cp-zookeeper"
     label: Data logdir size
     default: "2Gi"
+  - variable: cp-helm-charts.cp-kafka.cp-zookeeper.persistence.dataDirStorageClass
+    type: string
+    required: true
+    group: "cp-helm-charts/cp-kafka/cp-zookeeper"
+    label: Persistence storage class for data dir. Valid options are nil, "-", or storage class name.
+    default: "-"
+  - variable: cp-helm-charts.cp-kafka.cp-zookeeper.persistence.dataLogDirStorageClass
+    type: string
+    required: true
+    group: "cp-helm-charts/cp-kafka/cp-zookeeper"
+    label: Persistence storage class for data log dir. Valid options are nil, "-", or storage class name.
+    default: "-"
 
   - variable: cp-helm-charts.cp-kafka-connect.configurationOverrides.config.storage.replication.factor
     type: string
