@@ -14,7 +14,7 @@ cp-helm-charts:
     persistence:
       enabled: false
       size: 1Gi
-      storageClass: "-"
+      storageClass: "nfs-client"
     nodeport:
       enabled: true
     prometheus.jmx.enabled: false
@@ -24,8 +24,8 @@ cp-helm-charts:
         enabled: false
         dataDirSize: 1Gi
         dataLogDirSize: 2Gi
-        dataDirStorageClass: "-"
-        dataLogDirStorageClass: "-"
+        dataDirStorageClass: "nfs-client"
+        dataLogDirStorageClass: "nfs-client"
       prometheus.jmx.enabled: false
   cp-kafka-connect:
     configurationOverrides:

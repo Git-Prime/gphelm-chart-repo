@@ -64,7 +64,7 @@ questions:
     required: true
     group: "cp-helm-charts/cp-kafka"
     label: Persistence storage class. Valid options are nil, "-", or storage class name.
-    default: "-"
+    default: "nfs-client"
   - variable: cp-helm-charts.cp-kafka.persistence.size
     type: string
     required: true
@@ -101,13 +101,13 @@ questions:
     required: true
     group: "cp-helm-charts/cp-kafka/cp-zookeeper"
     label: Persistence storage class for data dir. Valid options are nil, "-", or storage class name.
-    default: "-"
+    default: "nfs-client"
   - variable: cp-helm-charts.cp-kafka.cp-zookeeper.persistence.dataLogDirStorageClass
     type: string
     required: true
     group: "cp-helm-charts/cp-kafka/cp-zookeeper"
     label: Persistence storage class for data log dir. Valid options are nil, "-", or storage class name.
-    default: "-"
+    default: "nfs-client"
 
   - variable: cp-helm-charts.cp-kafka-connect.configurationOverrides.config.storage.replication.factor
     type: string
