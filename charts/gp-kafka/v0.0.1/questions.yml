@@ -51,14 +51,6 @@ questions:
     group: "cp-helm-charts/cp-kafka"
     label: Replication factor for topics
     default: 1
-  ##  Removed due to Rancher parse error with this
-  ## "interface conversion: interface {} is int64, not map[string]interface {} ...":
-  # - variable: cp-helm-charts.cp-kafka.persistence.enabled
-  #   type: boolean
-  #   required: true
-  #   group: "cp-helm-charts/cp-kafka"
-  #   label: Whether to enable Kafka persistence
-  #   default: true
   - variable: cp-helm-charts.cp-kafka.persistence.storageClass
     type: string
     required: true
@@ -70,39 +62,33 @@ questions:
     required: true
     group: "cp-helm-charts/cp-kafka"
     label: Persistence size
-    default: "1Gi"
+    default: "5Gi"
 
-  - variable: cp-helm-charts.cp-kafka.cp-zookeeper.servers
+  - variable: cp-helm-charts.cp-zookeeper.servers
     type: string
     required: true
     group: "cp-helm-charts/cp-kafka/cp-zookeeper"
     label: Number of Zookeeper servers
-    default: 1
-  - variable: cp-helm-charts.cp-kafka.cp-zookeeper.persistence.enabled
-    type: boolean
-    required: true
-    group: "cp-helm-charts/cp-kafka/cp-zookeeper"
-    label: Whether to enable Zookeeper persistence
-    default: false
-  - variable: cp-helm-charts.cp-kafka.cp-zookeeper.persistence.dataDirSize
+    default: 3
+  - variable: cp-helm-charts.cp-zookeeper.persistence.dataDirSize
     type: string
     required: true
     group: "cp-helm-charts/cp-kafka/cp-zookeeper"
     label: Data dir size
-    default: "1Gi"
-  - variable: cp-helm-charts.cp-kafka.cp-zookeeper.persistence.dataLogDirSize
+    default: "5Gi"
+  - variable: cp-helm-charts.cp-zookeeper.persistence.dataLogDirSize
     type: string
     required: true
     group: "cp-helm-charts/cp-kafka/cp-zookeeper"
     label: Data logdir size
-    default: "2Gi"
-  - variable: cp-helm-charts.cp-kafka.cp-zookeeper.persistence.dataDirStorageClass
+    default: "5Gi"
+  - variable: cp-helm-charts.cp-zookeeper.persistence.dataDirStorageClass
     type: string
     required: true
     group: "cp-helm-charts/cp-kafka/cp-zookeeper"
     label: Persistence storage class for data dir. Valid options are nil, "-", or storage class name.
     default: "nfs-client"
-  - variable: cp-helm-charts.cp-kafka.cp-zookeeper.persistence.dataLogDirStorageClass
+  - variable: cp-helm-charts.cp-zookeeper.persistence.dataLogDirStorageClass
     type: string
     required: true
     group: "cp-helm-charts/cp-kafka/cp-zookeeper"
