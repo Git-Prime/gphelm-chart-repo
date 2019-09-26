@@ -100,19 +100,19 @@ questions:
     required: true
     group: "cp-helm-charts/cp-kafka-connect"
     label: Config storage replication factor
-    default: "1"
+    default: "2"
   - variable: cp-helm-charts.cp-kafka-connect.configurationOverrides.offset.storage.replication.factor
     type: string
     required: true
     group: "cp-helm-charts/cp-kafka-connect"
     label: Offset storage replication factor
-    default: "1"
+    default: "2"
   - variable: cp-helm-charts.cp-kafka-connect.configurationOverrides.status.storage.replication.factor
     type: string
     required: true
     group: "cp-helm-charts/cp-kafka-connect"
     label: Status storage replication factor
-    default: "1"
+    default: "2"
   - variable: cp-helm-charts.cp-kafka-connect.configurationOverrides.key.converter
     type: enum
     required: true

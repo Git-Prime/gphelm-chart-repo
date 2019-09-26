@@ -13,6 +13,13 @@ cp-helm-charts:
         EXTERNAL://${HOST_IP}:$((31090 + ${KAFKA_BROKER_ID}))
     nodeport:
       enabled: true
+  cp-kafka-connect:
+    configurationOverrides:
+      "key.converter": "org.apache.kafka.connect.json.JsonConverter"
+      "value.converter": "org.apache.kafka.connect.json.JsonConverter"
+      "config.storage.replication.factor": "2"
+      "offset.storage.replication.factor": "2"
+      "status.storage.replication.factor": "2"
 
 # Control whether other cp-helm-charts are part of this deployment.
 # See https://github.com/confluentinc/cp-helm-charts/issues/224 for discussion about why
