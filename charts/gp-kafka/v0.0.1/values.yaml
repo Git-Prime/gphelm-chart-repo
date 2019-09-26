@@ -14,13 +14,13 @@ cp-helm-charts:
     nodeport:
       enabled: true
 
-# Suppress sub-charts of cp-helm-charts that we don't want.
+# Control whether other cp-helm-charts are part of this deployment.
 # See https://github.com/confluentinc/cp-helm-charts/issues/224 for discussion about why
 # these are at the root level and not parented by cp-helm-charts
 cp-schema-registry:
-  enabled: false
+  enabled: true
 cp-kafka-rest:
-  enabled: false
+  enabled: true
 cp-ksql-server:
   enabled: false
 cp-control-center:

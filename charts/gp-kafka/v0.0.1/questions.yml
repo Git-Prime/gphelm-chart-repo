@@ -44,7 +44,7 @@ questions:
     required: true
     group: "cp-helm-charts/cp-kafka"
     label: Number of Kafka brokers
-    default: 1
+    default: 3
   - variable: cp-helm-charts.cp-kafka.configurationOverrides.offsets.topic.replication.factor
     type: string
     required: true
