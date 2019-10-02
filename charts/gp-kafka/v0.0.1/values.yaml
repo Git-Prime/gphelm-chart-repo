@@ -3,8 +3,8 @@ environment:
   parentName: sandbox
   modifierValue: ""
 
-kafkaConnectPort: 3183
-kafkaConnectNodePort: 3183
+kafkaConnectPort: 30183
+kafkaConnectNodePort: 30183
 kafkaConnectTargetPort: 8083
 
 # Values for cp-helm-charts to deploy Kafka and kafka-connect
