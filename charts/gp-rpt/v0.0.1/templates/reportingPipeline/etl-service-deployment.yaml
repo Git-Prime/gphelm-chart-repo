@@ -1,4 +1,4 @@
-{{- $templateData := dict "operationMode" "aod-worker" }}
+{{- $templateData := dict "operationMode" "etl" }}
 {{- $_ := set $templateData "replicaCount" .Values.reportingPipeline.etlService.replicaCount }}
 {{- $_ := set $templateData "environment" .Values.reportingPipeline.etlService.environment }}
 {{- $_ := set $templateData "javaOptions" .Values.reportingPipeline.etlService.javaOptions }}
@@ -7,7 +7,8 @@
 {{- $_ := set $templateData "maxCommitCount" .Values.reportingPipeline.etlService.maxCommitCount }}
 {{- $_ := set $templateData "resources" .Values.reportingPipeline.etlService.resources }}
 {{- $_ := set $templateData "logLevel" .Values.reportingPipeline.etlService.logLevel }}
-{{- $_ := set $templateData "aodListeners" .Values.reportingPipeline.etlService.aodListeners }}
-{{- $_ := set $templateData "aodThreadsPerListener" .Values.reportingPipeline.etlService.aodThreadsPerListener }}
+{{- $_ := set $templateData "httpHost" "True" }}
 {{- $templateData := dict "Values" .Values "templateData" $templateData }}
 {{- include "reportingPipeline.deploymentTemplate" $templateData }}
+
+
