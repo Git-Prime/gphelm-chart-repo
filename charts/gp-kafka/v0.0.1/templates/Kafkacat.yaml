@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gp-kafkacat
+  labels:
+    app: gp-kafka
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gp-kafka
+  template:
+    metadata:
+      labels:
+        app: gp-kafka
+    spec:
+      containers:
+        - name: cp-kafkacat
+          image: confluentinc/cp-kafkacat:latest

@@ -3,6 +3,10 @@ environment:
   parentName: sandbox
   modifierValue: ""
 
+kafkaConnectPort: 3183
+kafkaConnectNodePort: 3183
+kafkaConnectTargetPort: 8083
+
 # Values for cp-helm-charts to deploy Kafka and kafka-connect
 cp-helm-charts:
   cp-kafka:
@@ -13,6 +17,8 @@ cp-helm-charts:
         EXTERNAL://${HOST_IP}:$((31090 + ${KAFKA_BROKER_ID}))
     nodeport:
       enabled: true
+  cp-kafka-rest:
+    external.enabled: true
   cp-kafka-connect:
     configurationOverrides:
       "key.converter": "org.apache.kafka.connect.json.JsonConverter"
