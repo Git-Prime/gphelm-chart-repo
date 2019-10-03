@@ -4,6 +4,7 @@ metadata:
   name: gp-kafkacat
   labels:
     app: gp-kafka
+    role: utility
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 spec:
