@@ -11,9 +11,9 @@ spec:
   type: NodePort
   ports:
     - name: kafka-connect-nodeport
-      port: {{ .Values.kafkaConnectPort }}
-      nodePort: {{ .Values.kafkaConnectNodePort }}
-      targetPort: {{ .Values.kafkaConnectTargetPort }}
+      port: {{ .Values.kafkaConnect.port }}
+      nodePort: {{ .Values.kafkaConnect.nodePort }}
+      targetPort: {{ .Values.kafkaConnect.targetPort }}
   selector:
     app: {{ template "cp-kafka-connect.name" . }}
     release: {{ .Release.Name }}

@@ -1,0 +1,61 @@
+---
+kind: ConfigMap
+metadata:
+  name: gp-kafka-utility-configmap
+  namespace: kafka
+apiVersion: v1
+data:
+
+  init.sh: |-
+    #!/bin/sh
+
+    echo "**** Installing prerequisites ****"
+    apt update; apt d install kafkacat curl
+
+    echo "**** Registering kafka connectors ***"
+    curl -X PUT {{ .Values.kafkaConnect.host }}:{{ .Values.kafkaConnect.port }}/connectors/jdbc_source_postgres_org_bulk/config -H "Content-Type: application/json" -d '{
+      "connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
+      "connection.url": "jdbc:postgresql://{{ .Values.etlSourceDatabase.host }}:{{ .Values.etlSourceDatabase.port }}/{{ .Values.etlSourceDatabase.name }}",
+      "connection.user": "{{ .Values.etlSourceDatabase.user }}",
+      "connection.password": "{{ .Values.etlSourceDatabase.pw }}",
+      "topic.prefix": "source_data_organization",
+      "numeric.mapping": "best_fit",
+      "query":"select id, name slug, state, trial_expires_at, is_paid, stripe_customer_id, team_size, advanced_scope_depth, fork_improvements_enabled from core_organization",
+      "mode":"incrementing", "incrementing.column.name": "id",
+      "validate.non.null": false,
+      "poll.interval.ms" : {{ .Values.etlSourceDatabase.incrementingPollIntervalMS }}
+    }'
+
+    exit 0
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gp-kafka-utility-deployment
+  labels:
+    app: gp-kafka
+    role: utility
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gp-kafka
+  template:
+    metadata:
+      labels:
+        app: gp-kafka
+    spec:
+      containers:
+        - name: gp-kafka-util
+          image: busybox
+          command: ["/util/init.sh"]
+          volumeMounts:
+            - name: config
+              mountPath: /util
+      volumes:
+        - name: config
+          configMap:
+            name: gp-kafka-utility-configmap

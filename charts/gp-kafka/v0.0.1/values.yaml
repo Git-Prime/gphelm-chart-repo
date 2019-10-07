@@ -3,9 +3,18 @@ environment:
   parentName: sandbox
   modifierValue: ""
 
-kafkaConnectPort: 30183
-kafkaConnectNodePort: 8083
-kafkaConnectTargetPort: 8083
+kafkaConnect:
+  port: 8083
+  nodePort: 31083
+  targetPort: 8083
+
+etlSourceDatabase:
+  host: host.docker.internal
+  port: 5432
+  name: gitprime
+  user: gitprime_app_user
+  pw: ""
+  incrementingPollIntervalMS: 10000
 
 # Values for cp-helm-charts to deploy Kafka and kafka-connect
 cp-helm-charts:
