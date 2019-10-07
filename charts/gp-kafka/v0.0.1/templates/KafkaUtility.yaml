@@ -1,7 +1,7 @@
 ---
 kind: ConfigMap
 metadata:
-  name: gp-kafka-utility-configmap
+  name: gp-kafka-util-configmap
   namespace: kafka
 apiVersion: v1
 data:
@@ -10,7 +10,7 @@ data:
     #!/bin/sh
 
     echo "**** Installing prerequisites ****"
-    apt update; apt d install kafkacat curl
+    apt update; apt -y install kafkacat curl
 
     echo "**** Registering kafka connectors ***"
     curl -X PUT {{ .Values.kafkaConnect.host }}:{{ .Values.kafkaConnect.port }}/connectors/jdbc_source_postgres_org_bulk/config -H "Content-Type: application/json" -d '{
@@ -50,7 +50,7 @@ spec:
     spec:
       containers:
         - name: gp-kafka-util
-          image: busybox
+          image: confluentinc/cp-kafkacat
           command: ["/util/init.sh"]
           volumeMounts:
             - name: config
@@ -58,5 +58,5 @@ spec:
       volumes:
         - name: config
           configMap:
-            name: gp-kafka-utility-configmap
+            name: gp-kafka-util-configmap
             defaultMode: 0744
