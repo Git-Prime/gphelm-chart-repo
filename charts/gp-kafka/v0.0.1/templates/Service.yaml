@@ -15,7 +15,7 @@ spec:
       nodePort: {{ .Values.kafkaConnect.nodePort }}
       targetPort: {{ .Values.kafkaConnect.targetPort }}
   selector:
-    app: {{ template "cp-kafka-connect.name" . }}
+    app: cp-kafka-connect
     release: {{ .Release.Name }}
 ---
 apiVersion: v1
