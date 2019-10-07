@@ -143,37 +143,37 @@ questions:
   - variable: etlSourceDatabase.host
     type: string
     required: true
-    group: "utility"
+    group: "sourceDatabase"
     label: ETL source database (main gitprime app) host name
     default: "sandbox-db-01.gitprime-ops.com"
   - variable: etlSourceDatabase.port
     type: string
     required: true
-    group: "utility"
+    group: "sourceDatabase"
     label: ETL source database (main gitprime app) port
     default: "5432"
   - variable: etlSourceDatabase.name
     type: string
     required: true
-    group: "utility"
+    group: "sourceDatabase"
     label: ETL source database (main gitprime app) name
     default: "gitprime"
   - variable: etlSourceDatabase.user
     type: string
     required: true
-    group: "utility"
+    group: "sourceDatabase"
     label: ETL source database (main gitprime app) user
     default: "gitprime_app_user"
-  - variable: etlSourceDatabase.user
+  - variable: etlSourceDatabase.pw
     type: string
     required: true
-    group: "utility"
-    label: ETL source database pw (temporary - to be removed shortly)
+    group: "sourceDatabase"
+    label: ETL source database pw (temporary - to be removed shortly after hookup to Vault)
     default: ""
   - variable: etlSourceDatabase.incrementingPollIntervalMS
     type: string
     required: true
-    group: "utility"
+    group: "sourceDatabase"
     label: Interval with which to wait betgween polling for new incremental data from the main gitprime source database
     default: "10000"
 
