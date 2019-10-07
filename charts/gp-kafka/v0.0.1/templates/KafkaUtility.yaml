@@ -59,3 +59,4 @@ spec:
         - name: config
           configMap:
             name: gp-kafka-utility-configmap
+            defaultMode: 0744
