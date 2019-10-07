@@ -13,7 +13,7 @@ data:
     apt update; apt -y install kafkacat curl
 
     echo "**** Registering kafka connectors ***"
-    curl -X PUT {{ .Values.kafkaConnect.host }}:{{ .Values.kafkaConnect.port }}/connectors/jdbc_source_postgres_org_bulk/config -H "Content-Type: application/json" -d '{
+    curl -X PUT {{ .Values.kafkaConnect.host }}:{{ .Values.kafkaConnect.nodePort }}/connectors/jdbc_source_postgres_org_bulk/config -H "Content-Type: application/json" -d '{
       "connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
       "connection.url": "jdbc:postgresql://{{ .Values.etlSourceDatabase.host }}:{{ .Values.etlSourceDatabase.port }}/{{ .Values.etlSourceDatabase.name }}",
       "connection.user": "{{ .Values.etlSourceDatabase.user }}",

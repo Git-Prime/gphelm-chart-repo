@@ -4,6 +4,7 @@ environment:
   modifierValue: ""
 
 kafkaConnect:
+  host: localhost
   port: 8083
   nodePort: 31083
   targetPort: 8083
