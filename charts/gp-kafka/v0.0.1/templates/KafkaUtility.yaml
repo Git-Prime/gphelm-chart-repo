@@ -27,6 +27,7 @@ data:
     }'
 
 
+    echo "**** Entering wait loop to keep container alive... ****"
     while :
     do
         echo "Press [CTRL+C] to stop.."
