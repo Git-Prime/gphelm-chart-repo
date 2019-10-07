@@ -157,7 +157,7 @@ questions:
     required: true
     group: "sourceDatabase"
     label: ETL source database (main gitprime app) name
-    default: "gitprime"
+    default: "gitprime_sandbox_09"
   - variable: etlSourceDatabase.user
     type: string
     required: true
