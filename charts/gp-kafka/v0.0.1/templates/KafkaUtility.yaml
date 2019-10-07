@@ -26,6 +26,13 @@ data:
       "poll.interval.ms" : {{ .Values.etlSourceDatabase.incrementingPollIntervalMS }}
     }'
 
+
+    while :
+    do
+        echo "Press [CTRL+C] to stop.."
+        sleep 1m
+     done
+
     exit 0
 
 ---
