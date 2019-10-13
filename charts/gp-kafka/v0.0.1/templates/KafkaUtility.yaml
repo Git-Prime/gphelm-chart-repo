@@ -16,19 +16,6 @@ data:
     echo "**** Registering kafka connectors ****"
     echo "**** **************************** ****"
 
-    curl -X PUT {{ .Values.kafkaConnect.host }}:{{ .Values.kafkaConnect.nodePort }}/connectors/jdbc_source_postgres_org_bulk/config -H "Content-Type: application/json" -d '{
-      "connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
-      "connection.url": "jdbc:postgresql://{{ .Values.etlSourceDatabase.host }}:{{ .Values.etlSourceDatabase.port }}/{{ .Values.etlSourceDatabase.name }}",
-      "connection.user": "{{ .Values.etlSourceDatabase.user }}",
-      "connection.password": "{{ .Values.etlSourceDatabase.pw }}",
-      "topic.prefix": "source_data_organization",
-      "numeric.mapping": "best_fit",
-      "query":"select id, name slug, state, trial_expires_at, is_paid, stripe_customer_id, team_size, advanced_scope_depth, fork_improvements_enabled from core_organization",
-      "mode":"incrementing", "incrementing.column.name": "id",
-      "validate.non.null": false,
-      "poll.interval.ms" : {{ .Values.etlSourceDatabase.incrementingPollIntervalMS }}
-    }'
-
     curl -X POST {{ .Values.kafkaConnect.host }}:{{ .Values.kafkaConnect.nodePort }}/connectors -H "Content-Type: application/json" -d '{
       "name": "work-event-init",
       "config": {
@@ -361,7 +348,7 @@ data:
       "poll.interval.ms":120000}
     }'
 
-  echo "**** Entering wait loop to keep container alive... ****"
+    echo "**** Entering wait loop to keep container alive... ****"
     while :
     do
         echo "Press [CTRL+C] to stop.."
