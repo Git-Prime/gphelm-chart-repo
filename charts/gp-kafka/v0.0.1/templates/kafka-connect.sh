@@ -1,13 +1,4 @@
----
-kind: ConfigMap
-metadata:
-  name: gp-kafka-util-configmap
-  namespace: kafka
-apiVersion: v1
-data:
-
-  init.sh: |-
-    #!/bin/sh
+#!/bin/sh
 
     echo "**** Installing prerequisites ****"
     apt update; apt -y install kafkacat curl
@@ -360,45 +351,3 @@ data:
       "validate.non.null": false,
       "poll.interval.ms":120000}
     }'
-
-  echo "**** Entering wait loop to keep container alive... ****"
-    while :
-    do
-        echo "Press [CTRL+C] to stop.."
-        sleep 1m
-     done
-
-    exit 0
-
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: gp-kafka-utility-deployment
-  labels:
-    app: gp-kafka
-    role: utility
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: gp-kafka
-  template:
-    metadata:
-      labels:
-        app: gp-kafka
-    spec:
-      containers:
-        - name: gp-kafka-util
-          image: confluentinc/cp-kafkacat
-          command: ["/util/init.sh"]
-          volumeMounts:
-            - name: config
-              mountPath: /util
-      volumes:
-        - name: config
-          configMap:
-            name: gp-kafka-util-configmap
-            defaultMode: 0744
