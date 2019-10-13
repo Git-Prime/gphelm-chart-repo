@@ -31,6 +31,11 @@ data:
       "auto.create":false,
       "auto.evolve":false}
     }'
+    exit_status = $?
+    if [ $exit_status != 0 ]
+      then
+        exit $exit_status
+    fi
 
     curl -X POST {{ .Values.kafkaConnect.host }}:{{ .Values.kafkaConnect.nodePort }}/connectors -H "Content-Type: application/json" -d '{
       "name": "work-event-search-init",
@@ -50,6 +55,11 @@ data:
       "auto.create":false,
       "auto.evolve":false}
     }'
+    exit_status = $?
+    if [ $exit_status != 0 ]
+      then
+        exit $exit_status
+    fi
 
     curl -X POST {{ .Values.kafkaConnect.host }}:{{ .Values.kafkaConnect.nodePort }}/connectors -H "Content-Type: application/json" -d '{
       "name": "scm-commits",
@@ -72,6 +82,11 @@ data:
       "validate.non.null": false,
       "poll.interval.ms":120000}
     }'
+    exit_status = $?
+    if [ $exit_status != 0 ]
+      then
+        exit $exit_status
+    fi
 
     curl -X POST {{ .Values.kafkaConnect.host }}:{{ .Values.kafkaConnect.nodePort }}/connectors -H "Content-Type: application/json" -d '{
       "name": "scm-ticketComments",
@@ -94,6 +109,11 @@ data:
       "validate.non.null": false,
       "poll.interval.ms":120000}
     }'
+    exit_status = $?
+    if [ $exit_status != 0 ]
+      then
+        exit $exit_status
+    fi
 
     curl -X POST {{ .Values.kafkaConnect.host }}:{{ .Values.kafkaConnect.nodePort }}/connectors -H "Content-Type: application/json" -d '{
       "name": "scm-tickets",
@@ -116,6 +136,11 @@ data:
       "validate.non.null": false,
       "poll.interval.ms":120000}
     }'
+    exit_status = $?
+    if [ $exit_status != 0 ]
+      then
+        exit $exit_status
+    fi
 
     curl -X POST {{ .Values.kafkaConnect.host }}:{{ .Values.kafkaConnect.nodePort }}/connectors -H "Content-Type: application/json" -d '{
       "name": "scm-ticketEvents",
@@ -138,6 +163,11 @@ data:
       "validate.non.null": false,
       "poll.interval.ms":120000}
     }'
+    exit_status = $?
+    if [ $exit_status != 0 ]
+      then
+        exit $exit_status
+    fi
 
     curl -X POST {{ .Values.kafkaConnect.host }}:{{ .Values.kafkaConnect.nodePort }}/connectors -H "Content-Type: application/json" -d '{
       "name": "workevent-project_type",
@@ -158,6 +188,11 @@ data:
       "validate.non.null": false,
       "poll.interval.ms":86400000}
     }'
+    exit_status = $?
+    if [ $exit_status != 0 ]
+      then
+        exit $exit_status
+    fi
 
     curl -X POST {{ .Values.kafkaConnect.host }}:{{ .Values.kafkaConnect.nodePort }}/connectors -H "Content-Type: application/json" -d '{
       "name": "workevent-work_event_search",
@@ -178,6 +213,11 @@ data:
       "validate.non.null": false,
       "poll.interval.ms":86400000}
     }'
+    exit_status = $?
+    if [ $exit_status != 0 ]
+      then
+        exit $exit_status
+    fi
 
     curl -X POST {{ .Values.kafkaConnect.host }}:{{ .Values.kafkaConnect.nodePort }}/connectors -H "Content-Type: application/json" -d '{
       "name": "workevent-work_event_primary_occurrence",
@@ -199,6 +239,11 @@ data:
       "validate.non.null": false,
       "poll.interval.ms":60000}
     }'
+    exit_status = $?
+    if [ $exit_status != 0 ]
+      then
+        exit $exit_status
+    fi
 
     curl -X POST {{ .Values.kafkaConnect.host }}:{{ .Values.kafkaConnect.nodePort }}/connectors -H "Content-Type: application/json" -d '{
       "name": "workevent-work_event_type",
@@ -219,6 +264,11 @@ data:
       "validate.non.null": false,
       "poll.interval.ms":86400000}
     }'
+    exit_status = $?
+    if [ $exit_status != 0 ]
+      then
+        exit $exit_status
+    fi
 
     curl -X POST {{ .Values.kafkaConnect.host }}:{{ .Values.kafkaConnect.nodePort }}/connectors -H "Content-Type: application/json" -d '{
       "name": "workeventExtended",
@@ -240,6 +290,11 @@ data:
       "validate.non.null": false,
       "poll.interval.ms":120000}
     }'
+    exit_status = $?
+    if [ $exit_status != 0 ]
+      then
+        exit $exit_status
+    fi
 
     curl -X POST {{ .Values.kafkaConnect.host }}:{{ .Values.kafkaConnect.nodePort }}/connectors -H "Content-Type: application/json" -d '{
       "name": "workeventExtended",
@@ -261,6 +316,11 @@ data:
       "validate.non.null": false,
       "poll.interval.ms":120000}
     }'
+    exit_status = $?
+    if [ $exit_status != 0 ]
+      then
+        exit $exit_status
+    fi
 
     curl -X POST {{ .Values.kafkaConnect.host }}:{{ .Values.kafkaConnect.nodePort }}/connectors -H "Content-Type: application/json" -d '{
       "name": "workevent-orphan_state",
@@ -281,8 +341,13 @@ data:
       "validate.non.null": false,
       "poll.interval.ms":86400000}
     }'
+    exit_status = $?
+    if [ $exit_status != 0 ]
+      then
+        exit $exit_status
+    fi
 
-    curl -X POST h{{ .Values.kafkaConnect.host }}:{{ .Values.kafkaConnect.nodePort }}/connectors -H "Content-Type: application/json" -d '{
+    curl -X POST {{ .Values.kafkaConnect.host }}:{{ .Values.kafkaConnect.nodePort }}/connectors -H "Content-Type: application/json" -d '{
       "name": "scm-pullRequests",
       "config": {
       "connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
@@ -303,8 +368,13 @@ data:
       "validate.non.null": false,
       "poll.interval.ms":120000}
     }'
+    exit_status = $?
+    if [ $exit_status != 0 ]
+      then
+        exit $exit_status
+    fi
 
-    curl -X POST h{{ .Values.kafkaConnect.host }}:{{ .Values.kafkaConnect.nodePort }}/connectors -H "Content-Type: application/json" -d '{
+    curl -X POST {{ .Values.kafkaConnect.host }}:{{ .Values.kafkaConnect.nodePort }}/connectors -H "Content-Type: application/json" -d '{
       "name": "scm-prEvents",
       "config": {
       "connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
@@ -325,8 +395,13 @@ data:
       "validate.non.null": false,
       "poll.interval.ms":120000}
     }'
+    exit_status = $?
+    if [ $exit_status != 0 ]
+      then
+        exit $exit_status
+    fi
 
-    curl -X POST h{{ .Values.kafkaConnect.host }}:{{ .Values.kafkaConnect.nodePort }}/connectors -H "Content-Type: application/json" -d '{
+    curl -X POST {{ .Values.kafkaConnect.host }}:{{ .Values.kafkaConnect.nodePort }}/connectors -H "Content-Type: application/json" -d '{
       "name": "scm-prComments",
       "config": {
       "connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
@@ -347,6 +422,11 @@ data:
       "validate.non.null": false,
       "poll.interval.ms":120000}
     }'
+    exit_status = $?
+    if [ $exit_status != 0 ]
+      then
+        exit $exit_status
+    fi
 
     echo "**** Entering wait loop to keep container alive... ****"
     while :
