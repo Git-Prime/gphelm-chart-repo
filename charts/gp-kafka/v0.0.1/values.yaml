@@ -17,6 +17,14 @@ etlSourceDatabase:
   pw: ""
   incrementingPollIntervalMS: 10000
 
+etlDestinationDatabase:
+  host: host.docker.internal
+  port: 5432
+  name: octocat
+  user: gitprime_app_user
+  pw: ""
+  incrementingPollIntervalMS: 10000
+
 # Values for cp-helm-charts to deploy Kafka and kafka-connect
 cp-helm-charts:
   cp-kafka:
