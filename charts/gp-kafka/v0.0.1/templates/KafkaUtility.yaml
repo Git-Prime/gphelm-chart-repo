@@ -19,48 +19,13 @@ data:
     echo "**** **************************** ****"
 
     curl -X POST {{ .Values.kafkaConnect.host }}:{{ .Values.kafkaConnect.nodePort }}/connectors -H "Content-Type: application/json" -d '{
-      "name": "work-event-init",
-      "config": {
-      "connector.class": "io.confluent.connect.jdbc.JdbcSinkConnector",
-      "connection.url": "jdbc:postgresql://{{ .Values.etlSourceDatabase.host }}:{{ .Values.etlSourceDatabase.port }}/{{ .Values.etlSourceDatabase.name }}",
-      "connection.user": "{{ .Values.etlSourceDatabase.user }}",
-      "connection.password": "{{ .Values.etlSourceDatabase.pw }}",
-      "table.name.format": "work_event_tmp",
-      "insert.mode":"insert",
-      "pk.mode":"none",
-      "fields.whitelist":"org_id,apex_user_id,repo_id,xsize,message",
-      "topics": "source_data_commits_",
-      "auto.create":false,
-      "auto.evolve":false}
-    }'
-
-    curl -X POST {{ .Values.kafkaConnect.host }}:{{ .Values.kafkaConnect.nodePort }}/connectors -H "Content-Type: application/json" -d '{
-      "name": "work-event-search-init",
-      "config": {
-      "connector.class": "io.confluent.connect.jdbc.JdbcSinkConnector",
-      "connection.url": "jdbc:postgresql://{{ .Values.etlSourceDatabase.host }}:{{ .Values.etlSourceDatabase.port }}/{{ .Values.etlSourceDatabase.name }}",
-      "connection.user": "{{ .Values.etlSourceDatabase.user }}",
-      "connection.password": "{{ .Values.etlSourceDatabase.pw }}",
-      "table.name.format": "work_event_search_tmp",
-      "insert.mode":"insert",
-      "pk.mode":"none",
-      "transforms":"RenameField",
-      "transforms.RenameField.type":"org.apache.kafka.connect.transforms.ReplaceField$Value",
-      "transforms.RenameField.renames":"orgId:org_id,searchLookupSha:search_lookup_sha,searchTsvector:search_tsvector",
-      "fields.whitelist":"org_id,search_lookup_sha,search_tsvector",
-      "topics": "work_event_search_init",
-      "auto.create":false,
-      "auto.evolve":false}
-    }'
-
-    curl -X POST {{ .Values.kafkaConnect.host }}:{{ .Values.kafkaConnect.nodePort }}/connectors -H "Content-Type: application/json" -d '{
-      "name": "scm-commits",
+      "name": "raw_commit",
       "config": {
       "connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
       "connection.url": "jdbc:postgresql://{{ .Values.etlSourceDatabase.host }}:{{ .Values.etlSourceDatabase.port }}/{{ .Values.etlSourceDatabase.name }}",
       "connection.user": "{{ .Values.etlSourceDatabase.user }}",
       "connection.password": "{{ .Values.etlSourceDatabase.pw }}",
-      "topic.prefix": "source_data_commits_",
+      "topic.prefix": "raw_commit",
       "mode":"timestamp",
       "timestamp.column.name":"audit_created_at",
       "query":"select a.id, a.audit_created_at, a.hexsha, a.author_date, a.author_local_date, a.is_merge, a.haloc, a.new_work, a.legacy_refactor, a.help_others, a.churn, a.files, a.hunks, a.insertions, a.deletions, a.ins_del_ratio, a.levenshtein, a.risk, a.impact, a.is_trivial, a.committer_date, a.is_pr_orphan, a.is_outlier, a.multi_line_comments, a.single_line_comments, a.logical_code, a.whitespace_and_punctuation, a.author_tzoffset, a.committer_tzoffset, a.ignore_hash, a.user_alias_id, a.org_id, a.outlier_reason_id, a.repo_id, a.message_id, b.message from scm_commit a inner join scm_commit_message b on a.message_id = b.id and a.org_id = b.org_id",
@@ -73,247 +38,126 @@ data:
       "errors.tolerance":"all",
       "validate.non.null": false,
       "poll.interval.ms":120000}
-    }'
+      }'
 
     curl -X POST {{ .Values.kafkaConnect.host }}:{{ .Values.kafkaConnect.nodePort }}/connectors -H "Content-Type: application/json" -d '{
-      "name": "scm-ticketComments",
+      "name": "raw_organization",
       "config": {
       "connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
       "connection.url": "jdbc:postgresql://{{ .Values.etlSourceDatabase.host }}:{{ .Values.etlSourceDatabase.port }}/{{ .Values.etlSourceDatabase.name }}",
       "connection.user": "{{ .Values.etlSourceDatabase.user }}",
       "connection.password": "{{ .Values.etlSourceDatabase.pw }}",
-      "topic.prefix": "ticketComments",
+      "topic.prefix": "raw_organization",
+      "mode":"incrementing",
+      "incrementing.column.name":"id",
+      "query":"select a.id, a.name, a.slug, a.state, a.trial_expires_at, a.is_paid, a.stripe_customer_id, a.team_size, a.sent_repos_ready_email_at, a.created_at, a.allowed_reports, a.has_installed_webhooks, a.plan_id, a.chargebee_customer_id, a.chargebee_subscription_id, a.sent_trial_expiry_warning_at, a.depth, a.scope, a.advanced_scope_depth, a.sf_account_id, a.sf_opportunity_id, a.fork_improvements_enabled from core_organization a ",
+      "numeric.mapping":"best_fit",
+      "quote.sql.identifiers":"never",
+      "table.types":"TABLE",
+      "transforms":"RenameField",
+      "transforms.RenameField.type":"org.apache.kafka.connect.transforms.ReplaceField$Value",
+      "transforms.RenameField.renames":"trial_expires_at:trialExpiresAt,is_paid:isPaid,stripe_customer_id:stripeCustomerId,team_size:teamSize,sent_repos_ready_email_at:sentReposReadyEmail,created_at:createdAt,allowed_reports:allowedReports,has_installed_webhooks:hasInstalledWebhooks,plan_id:planId,chargebee_customer_id:chargebeeCustomerId,chargebee_subscription_id:chargebeeSubscriptionId,sent_trial_expiry_warning_at:sentTrialExpiryWarning,advanced_scope_depth:advancedScopeDepth,sf_account_id:sfAccountId,sf_opportunity_id:sfOpportunityId,fork_improvements_enabled:forkImprovementsEnabled",
+      "errors.tolerance":"all",
+      "validate.non.null": false,
+      "poll.interval.ms":120000}
+    }'
+
+    curl -X POST {{ .Values.kafkaConnect.host }}:{{ .Values.kafkaConnect.nodePort }}/connectors -H "Content-Type: application/json" -d '{
+      "name": "raw_organizationinvitation",
+      "config": {
+      "connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
+      "connection.url": "jdbc:postgresql://{{ .Values.etlSourceDatabase.host }}:{{ .Values.etlSourceDatabase.port }}/{{ .Values.etlSourceDatabase.name }}",
+      "connection.user": "{{ .Values.etlSourceDatabase.user }}",
+      "connection.password": "{{ .Values.etlSourceDatabase.pw }}",
+      "topic.prefix": "raw_organizationinvitation",
+      "mode":"incrementing",
+      "incrementing.column.name":"id",
+      "query":"select id, email, created_at, invited_by_id, org_id, intended_grants, intended_roles, intended_depth, intended_scope, last_sent_at, reminder_sent_at, existing_user_id from core_organizationinvitation ",
+      "numeric.mapping":"best_fit",
+      "quote.sql.identifiers":"never",
+      "table.types":"TABLE",
+      "transforms":"RenameField",
+      "transforms.RenameField.type":"org.apache.kafka.connect.transforms.ReplaceField$Value",
+      "transforms.RenameField.renames":"created_at:createdAt,invited_by_id:invitedById,org_id:orgId,intended_grants:intendedGrants,intended_roles:intendedRoles,intended_depth:intendedDepth,intended_scope:intendedScope,last_sent_at:lastSentAt,reminder_sent_at:reminderSentAt,existing_user_id:existingUserId",
+      "errors.tolerance":"all",
+      "validate.non.null": false,
+      "poll.interval.ms":120000}
+    }'
+
+    curl -X POST {{ .Values.kafkaConnect.host }}:{{ .Values.kafkaConnect.nodePort }}/connectors -H "Content-Type: application/json" -d '{
+      "name": "raw_pr_commentwithbody",
+      "config": {
+      "connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
+      "connection.url": "jdbc:postgresql://{{ .Values.etlSourceDatabase.host }}:{{ .Values.etlSourceDatabase.port }}/{{ .Values.etlSourceDatabase.name }}",
+      "connection.user": "{{ .Values.etlSourceDatabase.user }}",
+      "connection.password": "{{ .Values.etlSourceDatabase.pw }}",
+      "topic.prefix": "raw_pr_commentwithbody",
       "mode":"timestamp",
       "timestamp.column.name":"audit_created_at",
-      "query":"select a.id, a.ticket_comment_external_ident, a.created_at, a.updated_at, a.audit_created_at, a.user_alias_id, a.ticket_id, a.word_count, a.body_id, b.ticket_comment_body from event_ticket_comment a left join event_ticket_comment_body b on a.body_id = b.id ",
+      "query":"select a.id, pr_id, a.parent_id, a.user_alias_id, a.reaction_time, a.word_count, a.commit_reaction_by_id, a.commit_reaction_time, a.comment_type_id, a.in_reply_to_id, a.url, a.pr_comment_external_ident, a.created_at, a.audit_created_at, a.is_extension_comment, a.body_id, b.pr_comment_body from scm_pr_comment a left join scm_pr_comment_body b on a.body_id = b.id ",
       "numeric.mapping":"best_fit",
       "quote.sql.identifiers":"never",
       "table.types":"VIEW",
       "transforms":"RenameField",
       "transforms.RenameField.type":"org.apache.kafka.connect.transforms.ReplaceField$Value",
-      "transforms.RenameField.renames":"ticket_comment_external_ident:ticketCommentExternalIdent, created_at:createdAt, updated_at:updatedAt, audit_created_at:auditCreatedAt, user_alias_id:userAliasId, ticket_id:ticketId, word_count:wordCount, body_id:bodyId, ticket_comment_body:ticketCommentBody",
+      "transforms.RenameField.renames":"pr_id:prId, a.parent_id:parentId, a.user_alias_id:userAliasId, a.reaction_time:reactionTime, a.word_count:wordCount, a.commit_reaction_by_id:commitReactionById, a.commit_reaction_time:commitReactionTime, a.comment_type_id:commentTypeId, a.in_reply_to_id:inReplyToId, a.pr_comment_external_ident:prCommentExternalIdent, a.created_at:createdAt, a.audit_created_at:auditCreatedAt, a.is_extension_comment:isExtensionComment, a.body_id:bodyId, b.pr_comment_body:prCommentBody",
       "errors.tolerance":"all",
       "validate.non.null": false,
       "poll.interval.ms":120000}
     }'
 
     curl -X POST {{ .Values.kafkaConnect.host }}:{{ .Values.kafkaConnect.nodePort }}/connectors -H "Content-Type: application/json" -d '{
-      "name": "scm-tickets",
+      "name": "raw_pr_comment",
       "config": {
       "connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
       "connection.url": "jdbc:postgresql://{{ .Values.etlSourceDatabase.host }}:{{ .Values.etlSourceDatabase.port }}/{{ .Values.etlSourceDatabase.name }}",
       "connection.user": "{{ .Values.etlSourceDatabase.user }}",
       "connection.password": "{{ .Values.etlSourceDatabase.pw }}",
-      "topic.prefix": "tickets",
+      "topic.prefix": "raw_pr_comment",
       "mode":"timestamp",
       "timestamp.column.name":"audit_created_at",
-      "query":"select a.id, a.title_id, a.body_id, a.org_id, a.vendor_id, a.state_id, a.project_id, a.created_by_id, a.closed_by_id, a.comment_count, a.created_at, a.updated_at, a.closed_at, a.audit_created_at, a.ticket_ident, a.ticket_external_ident, a.url, a.type, a.parent_ticket_ident, b.ticket_body from event_ticket a left join event_ticket_body b on a.body_id = b.id ",
+      "query":"select a.id, pr_id, a.parent_id, a.user_alias_id, a.reaction_time, a.word_count, a.commit_reaction_by_id, a.commit_reaction_time, a.comment_type_id, a.in_reply_to_id, a.url, a.pr_comment_external_ident, a.created_at, a.audit_created_at, a.is_extension_comment, a.body_id from scm_pr_comment a ",
       "numeric.mapping":"best_fit",
       "quote.sql.identifiers":"never",
-      "table.types":"TABLE",
+      "table.types":"VIEW",
       "transforms":"RenameField",
       "transforms.RenameField.type":"org.apache.kafka.connect.transforms.ReplaceField$Value",
-      "transforms.RenameField.renames":"title_id:titleId, body_id:bodyId, org_id:orgId, vendor_id:vendorId, state_id:stateId, project_id:projectId, created_by_id:createdById, closed_by_id:closedById, comment_count:commentCount, created_at:createdAt, updated_at:updatedAt, closed_at:closedAt, audit_created_at:auditCreatedAt, ticket_ident:ticketIdent, ticket_external_ident:ticketExternalIdent, parent_ticket_ident:parentTicketIdent, b.ticket_body:ticketBody",
+      "transforms.RenameField.renames":"a.pr_id:prId, a.parent_id:parentId, a.user_alias_id:userAliasId, a.reaction_time:reactionTime, a.word_count:wordCount, a.commit_reaction_by_id:commitReactionById, a.commit_reaction_time:commitReactionTime, a.comment_type_id:commentTypeId, a.in_reply_to_id:inReplyToId, a.pr_comment_external_ident:prCommentExternalIdent, a.created_at:createdAt, a.audit_created_at:auditCreatedAt, a.is_extension_comment:isExtensionComment, a.body_id:bodyId",
       "errors.tolerance":"all",
       "validate.non.null": false,
       "poll.interval.ms":120000}
     }'
 
     curl -X POST {{ .Values.kafkaConnect.host }}:{{ .Values.kafkaConnect.nodePort }}/connectors -H "Content-Type: application/json" -d '{
-      "name": "scm-ticketEvents",
+      "name": "raw_pr_commentbody",
       "config": {
       "connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
       "connection.url": "jdbc:postgresql://{{ .Values.etlSourceDatabase.host }}:{{ .Values.etlSourceDatabase.port }}/{{ .Values.etlSourceDatabase.name }}",
       "connection.user": "{{ .Values.etlSourceDatabase.user }}",
       "connection.password": "{{ .Values.etlSourceDatabase.pw }}",
-      "topic.prefix": "ticketEvents",
-      "mode":"timestamp",
-      "timestamp.column.name":"audit_created_at",
-      "query":"select a.id, a.ticket_id, a.user_alias_id, a.user_alias2_id, a.ticket_event_type_id, a.created_at, a.audit_created_at, a.params, a.ticket_event_external_ident, b.ticket_event_type from event_ticket_event a left join event_ticket_event_type b on a.ticket_event_type_id = b.id ",
+      "topic.prefix": "raw_pr_commentbody",
+      "mode":"incrementing",
+      "incrementing.column.name":"id",
+      "query":"select id, pr_comment_body from scm_pr_comment_body ",
       "numeric.mapping":"best_fit",
       "quote.sql.identifiers":"never",
-      "table.types":"TABLE",
+      "table.types":"VIEW",
       "transforms":"RenameField",
       "transforms.RenameField.type":"org.apache.kafka.connect.transforms.ReplaceField$Value",
-      "transforms.RenameField.renames":"ticket_id:ticketId, user_alias_id:userAliasId, user_alias2_id:userAlias2Id, ticket_event_type_id:ticketEventTypeId, created_at:createdAt, audit_created_at:auditCreatedAt, ticket_event_external_ident:ticketEventExternalIdent, ticket_event_type:ticketEventType",
+      "transforms.RenameField.renames":"pr_comment_body:prCommentBody",
       "errors.tolerance":"all",
       "validate.non.null": false,
       "poll.interval.ms":120000}
     }'
 
     curl -X POST {{ .Values.kafkaConnect.host }}:{{ .Values.kafkaConnect.nodePort }}/connectors -H "Content-Type: application/json" -d '{
-      "name": "workevent-project_type",
+      "name": "raw_pr_event",
       "config": {
       "connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
       "connection.url": "jdbc:postgresql://{{ .Values.etlSourceDatabase.host }}:{{ .Values.etlSourceDatabase.port }}/{{ .Values.etlSourceDatabase.name }}",
       "connection.user": "{{ .Values.etlSourceDatabase.user }}",
       "connection.password": "{{ .Values.etlSourceDatabase.pw }}",
-      "topic.prefix": "source_data_project_type_",
-      "mode":"bulk",
-      "query":"select id, name, audit_created_at from project_type",
-      "quote.sql.identifiers":"never",
-      "table.types":"TABLE",
-      "transforms":"RenameField",
-      "transforms.RenameField.type":"org.apache.kafka.connect.transforms.ReplaceField$Value",
-      "transforms.RenameField.renames":"audit_created_at:auditCreatedAt",
-      "errors.tolerance":"all",
-      "validate.non.null": false,
-      "poll.interval.ms":86400000}
-    }'
-
-    curl -X POST {{ .Values.kafkaConnect.host }}:{{ .Values.kafkaConnect.nodePort }}/connectors -H "Content-Type: application/json" -d '{
-      "name": "workevent-work_event_search",
-      "config": {
-      "connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
-      "connection.url": "jdbc:postgresql://{{ .Values.etlSourceDatabase.host }}:{{ .Values.etlSourceDatabase.port }}/{{ .Values.etlSourceDatabase.name }}",
-      "connection.user": "{{ .Values.etlSourceDatabase.user }}",
-      "connection.password": "{{ .Values.etlSourceDatabase.pw }}",
-      "topic.prefix": "source_data_work_event_search_",
-      "mode":"bulk",
-      "query":"select id, org_id, search_lookup_sha, audit_created_at from work_event_search",
-      "quote.sql.identifiers":"never",
-      "table.types":"TABLE",
-      "transforms":"RenameField",
-      "transforms.RenameField.type":"org.apache.kafka.connect.transforms.ReplaceField$Value",
-      "transforms.RenameField.renames":"org_id:orgId, search_lookup_sha:searchLookupSha, audit_created_at:auditCreatedAt",
-      "errors.tolerance":"all",
-      "validate.non.null": false,
-      "poll.interval.ms":86400000}
-    }'
-
-    curl -X POST {{ .Values.kafkaConnect.host }}:{{ .Values.kafkaConnect.nodePort }}/connectors -H "Content-Type: application/json" -d '{
-      "name": "workevent-work_event_primary_occurrence",
-      "config": {
-      "connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
-      "connection.url": "jdbc:postgresql://{{ .Values.etlSourceDatabase.host }}:{{ .Values.etlSourceDatabase.port }}/{{ .Values.etlSourceDatabase.name }}",
-      "connection.user": "{{ .Values.etlSourceDatabase.user }}",
-      "connection.password": "{{ .Values.etlSourceDatabase.pw }}",
-      "topic.prefix": "workEventOccurrence",
-      "mode":"timestamp",
-      "timestamp.column.name":"audit_created_at",
-      "query":"select id, work_event_id, audit_created_at from work_event_occurrence",
-      "quote.sql.identifiers":"never",
-      "table.types":"TABLE",
-      "transforms":"RenameField",
-      "transforms.RenameField.type":"org.apache.kafka.connect.transforms.ReplaceField$Value",
-      "transforms.RenameField.renames":"work_event_id:workEventId, audit_created_at:auditCreatedAt",
-      "errors.tolerance":"all",
-      "validate.non.null": false,
-      "poll.interval.ms":60000}
-    }'
-
-    curl -X POST {{ .Values.kafkaConnect.host }}:{{ .Values.kafkaConnect.nodePort }}/connectors -H "Content-Type: application/json" -d '{
-      "name": "workevent-work_event_type",
-      "config": {
-      "connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
-      "connection.url": "jdbc:postgresql://{{ .Values.etlSourceDatabase.host }}:{{ .Values.etlSourceDatabase.port }}/{{ .Values.etlSourceDatabase.name }}",
-      "connection.user": "{{ .Values.etlSourceDatabase.user }}",
-      "connection.password": "{{ .Values.etlSourceDatabase.pw }}",
-      "topic.prefix": "source_data_work_event_type_",
-      "mode":"bulk",
-      "query":"select id, name, audit_created_at from work_event_type",
-      "quote.sql.identifiers":"never",
-      "table.types":"TABLE",
-      "transforms":"RenameField",
-      "transforms.RenameField.type":"org.apache.kafka.connect.transforms.ReplaceField$Value",
-      "transforms.RenameField.renames":"audit_created_at:auditCreatedAt",
-      "errors.tolerance":"all",
-      "validate.non.null": false,
-      "poll.interval.ms":86400000}
-    }'
-
-    curl -X POST {{ .Values.kafkaConnect.host }}:{{ .Values.kafkaConnect.nodePort }}/connectors -H "Content-Type: application/json" -d '{
-      "name": "workeventExtended",
-      "config": {
-      "connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
-      "connection.url": "jdbc:postgresql://{{ .Values.etlSourceDatabase.host }}:{{ .Values.etlSourceDatabase.port }}/{{ .Values.etlSourceDatabase.name }}",
-      "connection.user": "{{ .Values.etlSourceDatabase.user }}",
-      "connection.password": "{{ .Values.etlSourceDatabase.pw }}",
-      "topic.prefix": "workevent",
-      "mode":"timestamp",
-      "timestamp.column.name":"audit_created_at",
-      "query":"select id, org_id, apex_user_id, event_type_id, event_ts, audit_created_at, event_lookup_sha, work_event_search_id from work_event",
-      "quote.sql.identifiers":"never",
-      "table.types":"TABLE",
-      "transforms":"RenameField",
-      "transforms.RenameField.type":"org.apache.kafka.connect.transforms.ReplaceField$Value",
-      "transforms.RenameField.renames":"org_id:orgId, apex_user_id:apexUserId, event_type_id:eventTypeId, event_ts:eventTs, audit_created_at:auditCreatedAt, event_lookup_sha:eventLookupSha, work_event_search_id:workEventSearchId",
-      "errors.tolerance":"all",
-      "validate.non.null": false,
-      "poll.interval.ms":120000}
-    }'
-
-    curl -X POST {{ .Values.kafkaConnect.host }}:{{ .Values.kafkaConnect.nodePort }}/connectors -H "Content-Type: application/json" -d '{
-      "name": "workeventExtended",
-      "config": {
-      "connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
-      "connection.url": "jdbc:postgresql://{{ .Values.etlSourceDatabase.host }}:{{ .Values.etlSourceDatabase.port }}/{{ .Values.etlSourceDatabase.name }}",
-      "connection.user": "{{ .Values.etlSourceDatabase.user }}",
-      "connection.password": "{{ .Values.etlSourceDatabase.pw }}",
-      "topic.prefix": "workeventExtended",
-      "mode":"timestamp",
-      "timestamp.column.name":"a.audit_created_at",
-      "query":"select a.audit_created_at, a.id, a.org_id, a.apex_user_id, a.event_type_id, a.event_ts, a.event_lookup_sha, a.work_event_search_id, b.search_lookup_sha from work_event a left join work_event_search b on a.work_event_search_id = b.id",
-      "quote.sql.identifiers":"never",
-      "table.types":"TABLE",
-      "transforms":"RenameField",
-      "transforms.RenameField.type":"org.apache.kafka.connect.transforms.ReplaceField$Value",
-      "transforms.RenameField.renames":"org_id:orgId, apex_user_id:apexUserId, event_type_id:eventTypeId, event_ts:eventTs, audit_created_at:auditCreatedAt, event_lookup_sha:eventLookupSha, work_event_search_id:workEventSearchId, search_lookup_sha:searchLookupSha",
-      "errors.tolerance":"all",
-      "validate.non.null": false,
-      "poll.interval.ms":120000}
-    }'
-
-    curl -X POST {{ .Values.kafkaConnect.host }}:{{ .Values.kafkaConnect.nodePort }}/connectors -H "Content-Type: application/json" -d '{
-      "name": "workevent-orphan_state",
-      "config": {
-      "connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
-      "connection.url": "jdbc:postgresql://{{ .Values.etlSourceDatabase.host }}:{{ .Values.etlSourceDatabase.port }}/{{ .Values.etlSourceDatabase.name }}",
-      "connection.user": "{{ .Values.etlSourceDatabase.user }}",
-      "connection.password": "{{ .Values.etlSourceDatabase.pw }}",
-      "topic.prefix": "source_data_orphan_state_",
-      "mode":"bulk",
-      "query":"select id, name, audit_created_at from orphan_state",
-      "quote.sql.identifiers":"never",
-      "table.types":"TABLE",
-      "transforms":"RenameField",
-      "transforms.RenameField.type":"org.apache.kafka.connect.transforms.ReplaceField$Value",
-      "transforms.RenameField.renames":"audit_created_at:auditCreatedAt",
-      "errors.tolerance":"all",
-      "validate.non.null": false,
-      "poll.interval.ms":86400000}
-    }'
-
-    curl -X POST {{ .Values.kafkaConnect.host }}:{{ .Values.kafkaConnect.nodePort }}/connectors -H "Content-Type: application/json" -d '{
-      "name": "scm-pullRequests",
-      "config": {
-      "connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
-      "connection.url": "jdbc:postgresql://{{ .Values.etlSourceDatabase.host }}:{{ .Values.etlSourceDatabase.port }}/{{ .Values.etlSourceDatabase.name }}",
-      "connection.user": "{{ .Values.etlSourceDatabase.user }}",
-      "connection.password": "{{ .Values.etlSourceDatabase.pw }}",
-      "topic.prefix": "pullRequests",
-      "mode":"timestamp",
-      "timestamp.column.name":"audit_created_at",
-      "query":"select a.id, a.org_id, a.project_id, a.title_id, a.body_id, a.vendor_id, a.state_id, a.created_by_id, a.merged_by_id, a.closed_by_id, a.additions, a.deletions, a.enrich_tries, a.created_at, a.updated_at, a.closed_at, a.audit_created_at, a.enriched_at, a.metrics_complete, a.pr_ident, a.pr_external_ident, a.url, a.merge_hexsha_id, b.pr_body from scm_pr a left join scm_pr_body b on a.body_id = b.id ",
-      "numeric.mapping":"best_fit",
-      "quote.sql.identifiers":"never",
-      "table.types":"TABLE",
-      "transforms":"RenameField",
-      "transforms.RenameField.type":"org.apache.kafka.connect.transforms.ReplaceField$Value",
-      "transforms.RenameField.renames":"org_id:orgId, project_id:projectId, title_id:titleId, body_id:bodyId, vendor_id:vendorId, state_id:stateId, created_by_id:createdById, merged_by_id:mergedById, closed_by_id:closedById, enrich_tries:enrichTries, created_at:createdAt, updated_at:updatedAt, closed_at:closedAt, audit_created_at:auditCreatedAt, enriched_at:enrichedAt, metrics_complete:metricsComplete, pr_ident:prIdent, pr_external_ident:prExternalIdent, merge_hexsha_id:mergeHexshaId, pr_body:prBody",
-      "errors.tolerance":"all",
-      "validate.non.null": false,
-      "poll.interval.ms":120000}
-    }'
-
-    curl -X POST {{ .Values.kafkaConnect.host }}:{{ .Values.kafkaConnect.nodePort }}/connectors -H "Content-Type: application/json" -d '{
-      "name": "scm-prEvents",
-      "config": {
-      "connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
-      "connection.url": "jdbc:postgresql://{{ .Values.etlSourceDatabase.host }}:{{ .Values.etlSourceDatabase.port }}/{{ .Values.etlSourceDatabase.name }}",
-      "connection.user": "{{ .Values.etlSourceDatabase.user }}",
-      "connection.password": "{{ .Values.etlSourceDatabase.pw }}",
-      "topic.prefix": "prEvents",
+      "topic.prefix": "raw_pr_event",
       "mode":"timestamp",
       "timestamp.column.name":"audit_created_at",
       "query":"select a.id, a.user_alias_id, a.user_alias2_id, a.pr_id, a.created_at, a.audit_created_at, a.pr_event_type_id, a.pr_event_external_ident, a.params, b.pr_event_type from scm_pr_event a left join scm_pr_event_type b on a.pr_event_type_id = b.id ",
@@ -329,25 +173,478 @@ data:
     }'
 
     curl -X POST {{ .Values.kafkaConnect.host }}:{{ .Values.kafkaConnect.nodePort }}/connectors -H "Content-Type: application/json" -d '{
-      "name": "scm-prComments",
+       "name": "raw_pr",
+       "config": {
+       "connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
+       "connection.url": "jdbc:postgresql://{{ .Values.etlSourceDatabase.host }}:{{ .Values.etlSourceDatabase.port }}/{{ .Values.etlSourceDatabase.name }}",
+       "connection.user": "{{ .Values.etlSourceDatabase.user }}",
+       "connection.password": "{{ .Values.etlSourceDatabase.pw }}",
+       "topic.prefix": "raw_pr",
+       "mode":"timestamp",
+       "timestamp.column.name":"audit_created_at",
+       "query":"select a.id, a.org_id, a.project_id, a.title_id, a.body_id, a.vendor_id, a.state_id, a.created_by_id, a.merged_by_id, a.closed_by_id, a.additions, a.deletions, a.enrich_tries, a.created_at, a.updated_at, a.closed_at, a.audit_created_at, a.enriched_at, a.metrics_complete, a.pr_ident, a.pr_external_ident, a.url, a.merge_hexsha_id, b.pr_body from scm_pr a left join scm_pr_body b on a.body_id = b.id ",
+       "numeric.mapping":"best_fit",
+       "quote.sql.identifiers":"never",
+       "table.types":"TABLE",
+       "transforms":"RenameField",
+       "transforms.RenameField.type":"org.apache.kafka.connect.transforms.ReplaceField$Value",
+       "transforms.RenameField.renames":"org_id:orgId, project_id:projectId, title_id:titleId, body_id:bodyId, vendor_id:vendorId, state_id:stateId, created_by_id:createdById, merged_by_id:mergedById, closed_by_id:closedById, enrich_tries:enrichTries, created_at:createdAt, updated_at:updatedAt, closed_at:closedAt, audit_created_at:auditCreatedAt, enriched_at:enrichedAt, metrics_complete:metricsComplete, pr_ident:prIdent, pr_external_ident:prExternalIdent, merge_hexsha_id:mergeHexshaId, pr_body:prBody",
+       "errors.tolerance":"all",
+       "validate.non.null": false,
+       "poll.interval.ms":120000}
+    }'
+
+    curl -X POST {{ .Values.kafkaConnect.host }}:{{ .Values.kafkaConnect.nodePort }}/connectors -H "Content-Type: application/json" -d '{
+      "name": "raw_repo",
       "config": {
       "connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
       "connection.url": "jdbc:postgresql://{{ .Values.etlSourceDatabase.host }}:{{ .Values.etlSourceDatabase.port }}/{{ .Values.etlSourceDatabase.name }}",
       "connection.user": "{{ .Values.etlSourceDatabase.user }}",
       "connection.password": "{{ .Values.etlSourceDatabase.pw }}",
-      "topic.prefix": "prComments",
+      "topic.prefix": "raw_repo",
+      "mode":"incrementing",
+      "incrementing.column.name":"id",
+      "query":"select id, name, url, is_private, blocked, youngest_commit_date, oldest_commit_date, updated_at, last_fully_updated_at, public_key, private_key, vendor_type, ignore_list, audit_created_at, staff_access_expires_at, added_by_id, org_id, fetch_backoff_until, fetches_failing_since, last_fetch_failure_reason, num_fetch_failures, skip_hexshas, last_full_discovery, last_partial_discovery, vendor_id, source_project_type_id, failure_count, last_processing_failure_at, last_processing_message, last_processing_success_at, rate_limited_at, rate_limited_until, processing_status_id, back_off_until, description, integration_id, owner_name, owner_vendor_id, deleted, private_key_key_id from core_repo  ",
+      "numeric.mapping":"best_fit",
+      "quote.sql.identifiers":"never",
+      "table.types":"TABLE",
+      "transforms":"RenameField",
+      "transforms.RenameField.type":"org.apache.kafka.connect.transforms.ReplaceField$Value",
+      "transforms.RenameField.renames":"is_private:isPrivate,youngest_commit_date:youngestCommitDate,oldest_commit_date:oldestCommitDate,updated_at:updatedAt,last_fully_updated_at:lastFullyUpdatedAt,public_key:publicKey,private_key:privateKey,vendor_type:vendorType,ignore_list:ignoreList,audit_created_at:auditCreatedAt,staff_access_expires_at:staffAccessExpiresAy,added_by_id:addedById,org_id:orgId,fetch_backoff_until:fetchBackoffUntil,fetches_failing_since:fetchesFailingSince,last_fetch_failure_reason:lastFetchFailureReason,num_fetch_failures:numFetchFailures,skip_hexshas:skipHexshas,last_full_discovery:lastFullDIscvery,last_partial_discovery:lastPartialDiscovery,vendor_id:vendorId,source_project_type_id:sourceProjectTypeId,failure_count:failureCount,last_processing_failure_at:lastProcessingFailure,last_processing_message:lastProcessingMessage,last_processing_success_at:lastProcessingSuccessAt,rate_limited_at:rateLimitedAt,rate_limited_until:rateLimitedUntil,processing_status_id:processingStatus,back_off_until:backOffUntil,integration_id:integrationId,owner_name:ownerName,owner_vendor_id:ownerVendorId,private_key_key_id:privateKeyKeyId",
+      "errors.tolerance":"all",
+      "validate.non.null": false,
+      "poll.interval.ms":120000}
+    }'
+
+    curl -X POST {{ .Values.kafkaConnect.host }}:{{ .Values.kafkaConnect.nodePort }}/connectors -H "Content-Type: application/json" -d '{
+      "name": "raw_repometa",
+      "config": {
+      "connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
+      "connection.url": "jdbc:postgresql://{{ .Values.etlSourceDatabase.host }}:{{ .Values.etlSourceDatabase.port }}/{{ .Values.etlSourceDatabase.name }}",
+      "connection.user": "{{ .Values.etlSourceDatabase.user }}",
+      "connection.password": "{{ .Values.etlSourceDatabase.pw }}",
+      "topic.prefix": "raw_repometa",
+      "mode":"incrementing",
+      "incrementing.column.name":"id",
+      "query":"select id, language_composition, repo_id from core_repometa",
+      "numeric.mapping":"best_fit",
+      "quote.sql.identifiers":"never",
+      "table.types":"TABLE",
+      "transforms":"RenameField",
+      "transforms.RenameField.type":"org.apache.kafka.connect.transforms.ReplaceField$Value",
+      "transforms.RenameField.renames":"language_composition:languageComposition, repo_id:repoId",
+      "errors.tolerance":"all",
+      "validate.non.null": false,
+      "poll.interval.ms":120000}
+    }'
+
+    curl -X POST {{ .Values.kafkaConnect.host }}:{{ .Values.kafkaConnect.nodePort }}/connectors -H "Content-Type: application/json" -d '{
+      "name": "raw_repo_tag",
+      "config": {
+      "connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
+      "connection.url": "jdbc:postgresql://{{ .Values.etlSourceDatabase.host }}:{{ .Values.etlSourceDatabase.port }}/{{ .Values.etlSourceDatabase.name }}",
+      "connection.user": "{{ .Values.etlSourceDatabase.user }}",
+      "connection.password": "{{ .Values.etlSourceDatabase.pw }}",
+      "topic.prefix": "raw_repo_tag",
+      "mode":"incrementing",
+      "incrementing.column.name":"id",
+      "query":"select id, repo_id, tag_id from core_repo_tags",
+      "numeric.mapping":"best_fit",
+      "quote.sql.identifiers":"never",
+      "table.types":"TABLE",
+      "transforms":"RenameField",
+      "transforms.RenameField.type":"org.apache.kafka.connect.transforms.ReplaceField$Value",
+      "transforms.RenameField.renames":"repo_id:repoId, tag_id:tagId",
+      "errors.tolerance":"all",
+      "validate.non.null": false,
+      "poll.interval.ms":120000}
+    }'
+
+    curl -X POST {{ .Values.kafkaConnect.host }}:{{ .Values.kafkaConnect.nodePort }}/connectors -H "Content-Type: application/json" -d '{
+      "name": "raw_team",
+      "config": {
+      "connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
+      "connection.url": "jdbc:postgresql://{{ .Values.etlSourceDatabase.host }}:{{ .Values.etlSourceDatabase.port }}/{{ .Values.etlSourceDatabase.name }}",
+      "connection.user": "{{ .Values.etlSourceDatabase.user }}",
+      "connection.password": "{{ .Values.etlSourceDatabase.pw }}",
+      "topic.prefix": "raw_team",
+      "mode":"incrementing",
+      "incrementing.column.name":"id",
+      "query":"select id, name, created_at, org_id, updated_at, vendor, vendor_id, depth, parent_id, description, path, avatar_id, visibility_id from core_team ",
+      "numeric.mapping":"best_fit",
+      "quote.sql.identifiers":"never",
+      "table.types":"TABLE",
+      "transforms":"RenameField",
+      "transforms.RenameField.type":"org.apache.kafka.connect.transforms.ReplaceField$Value",
+      "transforms.RenameField.renames":"created_at:createdAt,org_id:orgId,updated_at:updatedAt,vendor_id:vendorId,parent_id:parentId,avatar_id:avatarId,visibility_id:visibilityId",
+      "errors.tolerance":"all",
+      "validate.non.null": false,
+      "poll.interval.ms":120000}
+    }'
+
+    curl -X POST {{ .Values.kafkaConnect.host }}:{{ .Values.kafkaConnect.nodePort }}/connectors -H "Content-Type: application/json" -d '{
+      "name": "raw_virtualteam",
+      "config": {
+      "connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
+      "connection.url": "jdbc:postgresql://{{ .Values.etlSourceDatabase.host }}:{{ .Values.etlSourceDatabase.port }}/{{ .Values.etlSourceDatabase.name }}",
+      "connection.user": "{{ .Values.etlSourceDatabase.user }}",
+      "connection.password": "{{ .Values.etlSourceDatabase.pw }}",
+      "topic.prefix": "raw_virtualteam",
+      "mode":"incrementing",
+      "incrementing.column.name":"id",
+      "query":"select id, name, category_id from core_virtualteam ",
+      "numeric.mapping":"best_fit",
+      "quote.sql.identifiers":"never",
+      "table.types":"TABLE",
+      "transforms":"RenameField",
+      "transforms.RenameField.type":"org.apache.kafka.connect.transforms.ReplaceField$Value",
+      "transforms.RenameField.renames":"category_id:categoryId",
+      "errors.tolerance":"all",
+      "validate.non.null": false,
+      "poll.interval.ms":120000}
+    }'
+
+    curl -X POST {{ .Values.kafkaConnect.host }}:{{ .Values.kafkaConnect.nodePort }}/connectors -H "Content-Type: application/json" -d '{
+      "name": "raw_virtualteamcategory",
+      "config": {
+      "connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
+      "connection.url": "jdbc:postgresql://{{ .Values.etlSourceDatabase.host }}:{{ .Values.etlSourceDatabase.port }}/{{ .Values.etlSourceDatabase.name }}",
+      "connection.user": "{{ .Values.etlSourceDatabase.user }}",
+      "connection.password": "{{ .Values.etlSourceDatabase.pw }}",
+      "topic.prefix": "raw_virtualteamcategory",
+      "mode":"incrementing",
+      "incrementing.column.name":"id",
+      "query":"select id, audit_created_at, audit_updated_at, name, audit_created_by_id, audit_updated_by_id from core_virtualteamcategory ",
+      "numeric.mapping":"best_fit",
+      "quote.sql.identifiers":"never",
+      "table.types":"TABLE",
+      "transforms":"RenameField",
+      "transforms.RenameField.type":"org.apache.kafka.connect.transforms.ReplaceField$Value",
+      "transforms.RenameField.renames":"audit_created_at:auditCreatedAt, audit_updated_at:auditUpdatedAt, audit_created_by_id:auditCreatedById, audit_updated_by_id:auditUpdatedById",
+      "errors.tolerance":"all",
+      "validate.non.null": false,
+      "poll.interval.ms":120000}
+    }'
+
+    curl -X POST {{ .Values.kafkaConnect.host }}:{{ .Values.kafkaConnect.nodePort }}/connectors -H "Content-Type: application/json" -d '{
+      "name": "raw_ticket",
+      "config": {
+      "connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
+      "connection.url": "jdbc:postgresql://{{ .Values.etlSourceDatabase.host }}:{{ .Values.etlSourceDatabase.port }}/{{ .Values.etlSourceDatabase.name }}",
+      "connection.user": "{{ .Values.etlSourceDatabase.user }}",
+      "connection.password": "{{ .Values.etlSourceDatabase.pw }}",
+      "topic.prefix": "raw_ticket",
       "mode":"timestamp",
       "timestamp.column.name":"audit_created_at",
-      "query":"select a.id, pr_id, a.parent_id, a.user_alias_id, a.reaction_time, a.word_count, a.commit_reaction_by_id, a.commit_reaction_time, a.comment_type_id, a.in_reply_to_id, a.url, a.pr_comment_external_ident, a.created_at, a.audit_created_at, a.is_extension_comment, a.body_id, b.pr_comment_body from scm_pr_comment a left join scm_pr_comment_body b on a.body_id = b.id ",
+      "query":"select a.id, a.title_id, a.body_id, a.org_id, a.vendor_id, a.state_id, a.project_id, a.created_by_id, a.closed_by_id, a.comment_count, a.created_at, a.updated_at, a.closed_at, a.audit_created_at, a.ticket_ident, a.ticket_external_ident, a.url, a.type, a.parent_ticket_ident, b.ticket_body from event_ticket a left join event_ticket_body b on a.body_id = b.id ",
+      "numeric.mapping":"best_fit",
+      "quote.sql.identifiers":"never",
+      "table.types":"TABLE",
+      "transforms":"RenameField",
+      "transforms.RenameField.type":"org.apache.kafka.connect.transforms.ReplaceField$Value",
+      "transforms.RenameField.renames":"title_id:titleId, body_id:bodyId, org_id:orgId, vendor_id:vendorId, state_id:stateId, project_id:projectId, created_by_id:createdById, closed_by_id:closedById, comment_count:commentCount, created_at:createdAt, updated_at:updatedAt, closed_at:closedAt, audit_created_at:auditCreatedAt, ticket_ident:ticketIdent, ticket_external_ident:ticketExternalIdent, parent_ticket_ident:parentTicketIdent, b.ticket_body:ticketBody",
+      "errors.tolerance":"all",
+      "validate.non.null": false,
+      "poll.interval.ms":120000}
+    }'
+
+    curl -X POST {{ .Values.kafkaConnect.host }}:{{ .Values.kafkaConnect.nodePort }}/connectors -H "Content-Type: application/json" -d '{
+      "name": "raw_ticket_comment",
+      "config": {
+      "connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
+      "connection.url": "jdbc:postgresql://{{ .Values.etlSourceDatabase.host }}:{{ .Values.etlSourceDatabase.port }}/{{ .Values.etlSourceDatabase.name }}",
+      "connection.user": "{{ .Values.etlSourceDatabase.user }}",
+      "connection.password": "{{ .Values.etlSourceDatabase.pw }}",
+      "topic.prefix": "raw_ticket_comment",
+      "mode":"timestamp",
+      "timestamp.column.name":"audit_created_at",
+      "query":"select a.id, a.ticket_comment_external_ident, a.created_at, a.updated_at, a.audit_created_at, a.user_alias_id, a.ticket_id, a.word_count, a.body_id, b.ticket_comment_body from event_ticket_comment a left join event_ticket_comment_body b on a.body_id = b.id ",
       "numeric.mapping":"best_fit",
       "quote.sql.identifiers":"never",
       "table.types":"VIEW",
       "transforms":"RenameField",
       "transforms.RenameField.type":"org.apache.kafka.connect.transforms.ReplaceField$Value",
-      "transforms.RenameField.renames":"pr_id:prId, a.parent_id:parentId, a.user_alias_id:userAliasId, a.reaction_time:reactionTime, a.word_count:wordCount, a.commit_reaction_by_id:commitReactionById, a.commit_reaction_time:commitReactionTime, a.comment_type_id:commentTypeId, a.in_reply_to_id:inReplyToId, a.pr_comment_external_ident:prCommentExternalIdent, a.created_at:createdAt, a.audit_created_at:auditCreatedAt, a.is_extension_comment:isExtensionComment, a.body_id:bodyId, b.pr_comment_body:prCommentBody",
+      "transforms.RenameField.renames":"ticket_comment_external_ident:ticketCommentExternalIdent, created_at:createdAt, updated_at:updatedAt, audit_created_at:auditCreatedAt, user_alias_id:userAliasId, ticket_id:ticketId, word_count:wordCount, body_id:bodyId, ticket_comment_body:ticketCommentBody",
       "errors.tolerance":"all",
       "validate.non.null": false,
       "poll.interval.ms":120000}
+    }'
+
+    curl -X POST {{ .Values.kafkaConnect.host }}:{{ .Values.kafkaConnect.nodePort }}/connectors -H "Content-Type: application/json" -d '{
+      "name": "raw_ticket_event",
+      "config": {
+      "connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
+      "connection.url": "jdbc:postgresql://{{ .Values.etlSourceDatabase.host }}:{{ .Values.etlSourceDatabase.port }}/{{ .Values.etlSourceDatabase.name }}",
+      "connection.user": "{{ .Values.etlSourceDatabase.user }}",
+      "connection.password": "{{ .Values.etlSourceDatabase.pw }}",
+      "topic.prefix": "raw_ticket_event",
+      "mode":"timestamp",
+      "timestamp.column.name":"audit_created_at",
+      "query":"select a.id, a.ticket_id, a.user_alias_id, a.user_alias2_id, a.ticket_event_type_id, a.created_at, a.audit_created_at, a.params, a.ticket_event_external_ident, b.ticket_event_type from event_ticket_event a left join event_ticket_event_type b on a.ticket_event_type_id = b.id ",
+      "numeric.mapping":"best_fit",
+      "quote.sql.identifiers":"never",
+      "table.types":"TABLE",
+      "transforms":"RenameField",
+      "transforms.RenameField.type":"org.apache.kafka.connect.transforms.ReplaceField$Value",
+      "transforms.RenameField.renames":"ticket_id:ticketId, user_alias_id:userAliasId, user_alias2_id:userAlias2Id, ticket_event_type_id:ticketEventTypeId, created_at:createdAt, audit_created_at:auditCreatedAt, ticket_event_external_ident:ticketEventExternalIdent, ticket_event_type:ticketEventType",
+      "errors.tolerance":"all",
+      "validate.non.null": false,
+      "poll.interval.ms":120000}
+    }'
+
+    curl -X POST {{ .Values.kafkaConnect.host }}:{{ .Values.kafkaConnect.nodePort }}/connectors -H "Content-Type: application/json" -d '{
+      "name": "raw_apex_user",
+      "config": {
+      "connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
+      "connection.url": "jdbc:postgresql://{{ .Values.etlSourceDatabase.host }}:{{ .Values.etlSourceDatabase.port }}/{{ .Values.etlSourceDatabase.name }}",
+      "connection.user": "{{ .Values.etlSourceDatabase.user }}",
+      "connection.password": "{{ .Values.etlSourceDatabase.pw }}",
+      "topic.prefix": "raw_apex_user",
+      "mode":"incrementing",
+      "incrementing.column.name":"id",
+      "query":"select id, audit_created_at, name, email, hidden_from_reports, created_at, org_id from apex_user ",
+      "numeric.mapping":"best_fit",
+      "quote.sql.identifiers":"never",
+      "table.types":"TABLE",
+      "transforms":"RenameField",
+      "transforms.RenameField.type":"org.apache.kafka.connect.transforms.ReplaceField$Value",
+      "transforms.RenameField.renames":"audit_created_at:auditCreatedAt,hidden_from_reports:hiddenFromReports,created_at:createdAt,org_id:orgId",
+      "errors.tolerance":"all",
+      "validate.non.null": false,
+      "poll.interval.ms":120000}
+    }'
+
+    curl -X POST {{ .Values.kafkaConnect.host }}:{{ .Values.kafkaConnect.nodePort }}/connectors -H "Content-Type: application/json" -d '{
+      "name": "raw_apex_user_alias",
+      "config": {
+      "connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
+      "connection.url": "jdbc:postgresql://{{ .Values.etlSourceDatabase.host }}:{{ .Values.etlSourceDatabase.port }}/{{ .Values.etlSourceDatabase.name }}",
+      "connection.user": "{{ .Values.etlSourceDatabase.user }}",
+      "connection.password": "{{ .Values.etlSourceDatabase.pw }}",
+      "topic.prefix": "raw_apex_user_alias",
+      "mode":"incrementing",
+      "incrementing.column.name":"id",
+      "query":"select id, external_id, username, name, email, created_at, integration_id, org_id, duplicate_external_id, apex_user_id from apex_user_alias ",
+      "numeric.mapping":"best_fit",
+      "quote.sql.identifiers":"never",
+      "table.types":"TABLE",
+      "transforms":"RenameField",
+      "transforms.RenameField.type":"org.apache.kafka.connect.transforms.ReplaceField$Value",
+      "transforms.RenameField.renames":"external_id:externalId,created_at:createdAt,integration_id:integrationId,org_id:orgId,duplicate_external_id:duplicateExternalId,apex_user_id:apexUserId",
+      "errors.tolerance":"all",
+      "validate.non.null": false,
+      "poll.interval.ms":120000}
+    }'
+
+    curl -X POST {{ .Values.kafkaConnect.host }}:{{ .Values.kafkaConnect.nodePort }}/connectors -H "Content-Type: application/json" -d '{
+      "name": "raw_apex_user_alias_migration_mappings",
+      "config": {
+      "connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
+      "connection.url": "jdbc:postgresql://{{ .Values.etlSourceDatabase.host }}:{{ .Values.etlSourceDatabase.port }}/{{ .Values.etlSourceDatabase.name }}",
+      "connection.user": "{{ .Values.etlSourceDatabase.user }}",
+      "connection.password": "{{ .Values.etlSourceDatabase.pw }}",
+      "topic.prefix": "raw_apex_user_alias_migration_mappings",
+      "mode":"incrementing",
+      "incrementing.column.name":"id",
+      "query":"select id, org_id, integration_id, author_id, author_name, author_email, author_external_id, duplicate_author_external_id, apex_user_id, apex_user_alias_id, commit_count, pr_created_by_count, pr_merged_by_count, pr_closed_by_count, pr_event1_count, pr_event2_count, pr_comment_count, pr_comment_reaction_by_count, pr_contributor_count, ticket_created_by_count, ticket_closed_by_count, ticket_event1_count, ticket_event2_count, ticket_comment_count, ticket_contributor_count from apex_user_alias_migration_mappings ",
+      "numeric.mapping":"best_fit",
+      "quote.sql.identifiers":"never",
+      "table.types":"TABLE",
+      "transforms":"RenameField",
+      "transforms.RenameField.type":"org.apache.kafka.connect.transforms.ReplaceField$Value",
+      "transforms.RenameField.renames":"org_id:orgId, integration_id:integrationId, author_id:authorId, author_name:authorName, author_email:authorEmail, author_external_id:authorExternalId, duplicate_author_external_id:duplicateAuthorExternalId, apex_user_id:apexUserId, apex_user_alias_id:apexUserAliasId, commit_count:commitCount, pr_created_by_count:prCreatedByCount, pr_merged_by_count:prMergedByCount, pr_closed_by_count:prClosedByCount, pr_event1_count:prEvent1Count, pr_event2_count:prEvent2Count, pr_comment_count:prCommentCount, pr_comment_reaction_by_count:prCommentReactionByCount, pr_contributor_count:prContributorCount, ticket_created_by_count:ticketCreatedByCount, ticket_closed_by_count:ticketClosedByCount, ticket_event1_count:ticketEvent1Count, ticket_event2_count:ticketEvent2Count, ticket_comment_count:ticketCommitCount, ticket_contributor_count:ticketContributorCount",
+      "errors.tolerance":"all",
+      "validate.non.null": false,
+      "poll.interval.ms":120000}
+    }'
+
+    curl -X POST {{ .Values.kafkaConnect.host }}:{{ .Values.kafkaConnect.nodePort }}/connectors -H "Content-Type: application/json" -d '{
+      "name": "raw_apex_user_merge_settings",
+      "config": {
+      "connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
+      "connection.url": "jdbc:postgresql://{{ .Values.etlSourceDatabase.host }}:{{ .Values.etlSourceDatabase.port }}/{{ .Values.etlSourceDatabase.name }}",
+      "connection.user": "{{ .Values.etlSourceDatabase.user }}",
+      "connection.password": "{{ .Values.etlSourceDatabase.pw }}",
+      "topic.prefix": "raw_apex_user_merge_settings",
+      "mode":"incrementing",
+      "incrementing.column.name":"id",
+      "query":"select id, audit_created_at, audit_updated_at, preferred_domain, audit_created_by_id, audit_updated_by_id, org_id, preferred_integration_id, exclude_first_name_only, exclude_stop_words, stop_words from apex_user_merge_settings ",
+      "numeric.mapping":"best_fit",
+      "quote.sql.identifiers":"never",
+      "table.types":"TABLE",
+      "transforms":"RenameField",
+      "transforms.RenameField.type":"org.apache.kafka.connect.transforms.ReplaceField$Value",
+      "transforms.RenameField.renames":"audit_created_at:auditCreatedAt, audit_updated_at:auditUpdatedAt, preferred_domain:preferredDomain, audit_created_by_id:auditCreatedById, audit_updated_by_id:auditUpdatedById, org_id:orgId, preferred_integration_id:preferredIntegrationId, exclude_first_name_only:excludeFirstNameOnly, exclude_stop_words:excludeStopWords, stop_words:stopWords ",
+      "errors.tolerance":"all",
+      "validate.non.null": false,
+      "poll.interval.ms":120000}
+    }'
+
+    curl -X POST {{ .Values.kafkaConnect.host }}:{{ .Values.kafkaConnect.nodePort }}/connectors -H "Content-Type: application/json" -d '{
+      "name": "raw_apex_user_merge_suggestion",
+      "config": {
+      "connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
+      "connection.url": "jdbc:postgresql://{{ .Values.etlSourceDatabase.host }}:{{ .Values.etlSourceDatabase.port }}/{{ .Values.etlSourceDatabase.name }}",
+      "connection.user": "{{ .Values.etlSourceDatabase.user }}",
+      "connection.password": "{{ .Values.etlSourceDatabase.pw }}",
+      "topic.prefix": "raw_apex_user_merge_suggestion",
+      "mode":"incrementing",
+      "incrementing.column.name":"id",
+      "query":"select id, from_user_id, org_id, status_id, to_user_id from apex_user_merge_suggestion ",
+      "numeric.mapping":"best_fit",
+      "quote.sql.identifiers":"never",
+      "table.types":"TABLE",
+      "transforms":"RenameField",
+      "transforms.RenameField.type":"org.apache.kafka.connect.transforms.ReplaceField$Value",
+      "transforms.RenameField.renames":"from_user_id:fromUserId, org_id:orgId, status_id:statusId, to_user_id:toUserId ",
+      "errors.tolerance":"all",
+      "validate.non.null": false,
+      "poll.interval.ms":120000}
+    }'
+
+    curl -X POST {{ .Values.kafkaConnect.host }}:{{ .Values.kafkaConnect.nodePort }}/connectors -H "Content-Type: application/json" -d '{
+      "name": "raw_apex_user_merge_suggestion_status",
+      "config": {
+      "connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
+      "connection.url": "jdbc:postgresql://{{ .Values.etlSourceDatabase.host }}:{{ .Values.etlSourceDatabase.port }}/{{ .Values.etlSourceDatabase.name }}",
+      "connection.user": "{{ .Values.etlSourceDatabase.user }}",
+      "connection.password": "{{ .Values.etlSourceDatabase.pw }}",
+      "topic.prefix": "raw_apex_user_merge_suggestion_status",
+      "mode":"incrementing",
+      "incrementing.column.name":"id",
+      "query":"select audit_created_at, audit_updated_at, id, name, display_name, audit_created_by_id, audit_updated_by_id from apex_user_merge_suggestion_status ",
+      "numeric.mapping":"best_fit",
+      "quote.sql.identifiers":"never",
+      "table.types":"TABLE",
+      "transforms":"RenameField",
+      "transforms.RenameField.type":"org.apache.kafka.connect.transforms.ReplaceField$Value",
+      "transforms.RenameField.renames":"audit_created_at:auditCreatedAt,audit_updated_at:auditUpdatedAt,display_name:displayName,audit_created_by_id:auditCreatedById,audit_updated_by_id:auditUpdatedById",
+      "errors.tolerance":"all",
+      "validate.non.null": false,
+      "poll.interval.ms":120000}
+    }'
+
+    curl -X POST {{ .Values.kafkaConnect.host }}:{{ .Values.kafkaConnect.nodePort }}/connectors -H "Content-Type: application/json" -d '{
+      "name": "raw_vendor",
+      "config": {
+      "connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
+      "connection.url": "jdbc:postgresql://{{ .Values.etlSourceDatabase.host }}:{{ .Values.etlSourceDatabase.port }}/{{ .Values.etlSourceDatabase.name }}",
+      "connection.user": "{{ .Values.etlSourceDatabase.user }}",
+      "connection.password": "{{ .Values.etlSourceDatabase.pw }}",
+      "topic.prefix": "raw_vendor",
+      "mode":"incrementing",
+      "incrementing.column.name":"id",
+      "query":"select id, vendor_name from core_vendor ",
+      "numeric.mapping":"best_fit",
+      "quote.sql.identifiers":"never",
+      "table.types":"TABLE",
+      "transforms":"RenameField",
+      "transforms.RenameField.type":"org.apache.kafka.connect.transforms.ReplaceField$Value",
+      "transforms.RenameField.renames":"vendor_name:vendorName",
+      "errors.tolerance":"all",
+      "validate.non.null": false,
+      "poll.interval.ms":120000}
+    }'
+
+    curl -X POST {{ .Values.kafkaConnect.host }}:{{ .Values.kafkaConnect.nodePort }}/connectors -H "Content-Type: application/json" -d '{
+      "name": "enum_orphan_state",
+      "config": {
+      "connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
+      "connection.url": "jdbc:postgresql://{{ .Values.etlSourceDatabase.host }}:{{ .Values.etlSourceDatabase.port }}/{{ .Values.etlSourceDatabase.name }}",
+      "connection.user": "{{ .Values.etlSourceDatabase.user }}",
+      "connection.password": "{{ .Values.etlSourceDatabase.pw }}",
+      "topic.prefix": "enum_orphan_state",
+      "mode":"bulk",
+      "query":"select id, name, audit_created_at from orphan_state",
+      "quote.sql.identifiers":"never",
+      "table.types":"TABLE",
+      "transforms":"RenameField",
+      "transforms.RenameField.type":"org.apache.kafka.connect.transforms.ReplaceField$Value",
+      "transforms.RenameField.renames":"audit_created_at:auditCreatedAt",
+      "errors.tolerance":"all",
+      "validate.non.null": false,
+      "poll.interval.ms":86400000}
+    }'
+
+    curl -X POST {{ .Values.kafkaConnect.host }}:{{ .Values.kafkaConnect.nodePort }}/connectors -H "Content-Type: application/json" -d '{
+      "name": "enum_project_type",
+      "config": {
+      "connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
+      "connection.url": "jdbc:postgresql://{{ .Values.etlSourceDatabase.host }}:{{ .Values.etlSourceDatabase.port }}/{{ .Values.etlSourceDatabase.name }}",
+      "connection.user": "{{ .Values.etlSourceDatabase.user }}",
+      "connection.password": "{{ .Values.etlSourceDatabase.pw }}",
+      "topic.prefix": "enum_project_type",
+      "mode":"bulk",
+      "query":"select id, name, audit_created_at from project_type",
+      "quote.sql.identifiers":"never",
+      "table.types":"TABLE",
+      "transforms":"RenameField",
+      "transforms.RenameField.type":"org.apache.kafka.connect.transforms.ReplaceField$Value",
+      "transforms.RenameField.renames":"audit_created_at:auditCreatedAt",
+      "errors.tolerance":"all",
+      "validate.non.null": false,
+      "poll.interval.ms":86400000}
+    }'
+
+    curl -X POST {{ .Values.kafkaConnect.host }}:{{ .Values.kafkaConnect.nodePort }}/connectors -H "Content-Type: application/json" -d '{
+      "name": "enum_work_event_type",
+      "config": {
+      "connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
+      "connection.url": "jdbc:postgresql://{{ .Values.etlSourceDatabase.host }}:{{ .Values.etlSourceDatabase.port }}/{{ .Values.etlSourceDatabase.name }}",
+      "connection.user": "{{ .Values.etlSourceDatabase.user }}",
+      "connection.password": "{{ .Values.etlSourceDatabase.pw }}",
+      "topic.prefix": "enum_work_event_type",
+      "mode":"bulk",
+      "query":"select id, name, audit_created_at from work_event_type",
+      "quote.sql.identifiers":"never",
+      "table.types":"TABLE",
+      "transforms":"RenameField",
+      "transforms.RenameField.type":"org.apache.kafka.connect.transforms.ReplaceField$Value",
+      "transforms.RenameField.renames":"audit_created_at:auditCreatedAt",
+      "errors.tolerance":"all",
+      "validate.non.null": false,
+      "poll.interval.ms":86400000}
+    }'
+
+    curl -X POST {{ .Values.kafkaConnect.host }}:{{ .Values.kafkaConnect.nodePort }}/connectors -H "Content-Type: application/json" -d '{
+      "name": "processed_work_event_search",
+      "config": {
+      "connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
+      "connection.url": "jdbc:postgresql://{{ .Values.etlSourceDatabase.host }}:{{ .Values.etlSourceDatabase.port }}/{{ .Values.etlSourceDatabase.name }}",
+      "connection.user": "{{ .Values.etlSourceDatabase.user }}",
+      "connection.password": "{{ .Values.etlSourceDatabase.pw }}",
+      "topic.prefix": "processed_work_event_search",
+      "mode":"bulk",
+      "query":"select id, org_id, search_lookup_sha, audit_created_at from work_event_search",
+      "quote.sql.identifiers":"never",
+      "table.types":"TABLE",
+      "transforms":"RenameField",
+      "transforms.RenameField.type":"org.apache.kafka.connect.transforms.ReplaceField$Value",
+      "transforms.RenameField.renames":"org_id:orgId, search_lookup_sha:searchLookupSha, audit_created_at:auditCreatedAt",
+      "errors.tolerance":"all",
+      "validate.non.null": false,
+      "poll.interval.ms":86400000}
+    }'
+
+    curl -X POST {{ .Values.kafkaConnect.host }}:{{ .Values.kafkaConnect.nodePort }}/connectors -H "Content-Type: application/json" -d '{
+      "name": "processed_work_event_primary_occurrence",
+      "config": {
+      "connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
+      "connection.url": "jdbc:postgresql://{{ .Values.etlSourceDatabase.host }}:{{ .Values.etlSourceDatabase.port }}/{{ .Values.etlSourceDatabase.name }}",
+      "connection.user": "{{ .Values.etlSourceDatabase.user }}",
+      "connection.password": "{{ .Values.etlSourceDatabase.pw }}",
+      "topic.prefix": "processed_work_event_primary_occurrence",
+      "mode":"timestamp",
+      "timestamp.column.name":"audit_created_at",
+      "query":"select id, work_event_id, audit_created_at from work_event_occurrence",
+      "quote.sql.identifiers":"never",
+      "table.types":"TABLE",
+      "transforms":"RenameField",
+      "transforms.RenameField.type":"org.apache.kafka.connect.transforms.ReplaceField$Value",
+      "transforms.RenameField.renames":"work_event_id:workEventId, audit_created_at:auditCreatedAt",
+      "errors.tolerance":"all",
+      "validate.non.null": false,
+      "poll.interval.ms":60000}
     }'
 
     echo "**** Entering wait loop to keep container alive... ****"
