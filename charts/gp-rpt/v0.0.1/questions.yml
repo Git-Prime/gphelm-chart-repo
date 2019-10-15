@@ -80,7 +80,7 @@ questions:
     label: "Number of ndots for DNS configuration"
     description: "Modifies the number of ndots in /etc/resolv.conf"
 
-  # New Repo Worker Settings
+  # Reporting API Service Settings
   - variable: reportingPipeline.reportingService.replicaCount
     type: string
     required: true
@@ -93,31 +93,15 @@ questions:
     type: string
     required: true
     group: "Reporting Pipeline / Reporting API Services"
-    label: New Repo Worker Java Options
+    label: Reporting API Service Java Options
     description: The Java options for the services.
     default: "-d64 -Xms2g -Xmx4g"
-
-  - variable: reportingPipeline.reportingService.newListeners
-    type: string
-    required: true
-    group: "Reporting Pipeline / Reporting API Services"
-    label: New Repo Worker Concurrent Jobs Per Pod
-    description: The number of concurrent jobs for the services.
-    default: 2
-
-  - variable: reportingPipeline.reportingService.newThreadsPerListener
-    type: string
-    required: true
-    group: "Reporting Pipeline / Reporting API Services"
-    label: New Repo Worker Threads Per Job
-    description: The number of threads per job to use for the services.
-    default: 1
 
   - variable: reportingPipeline.reportingService.resources.requests.cpu
     type: string
     required: true
     group: "Reporting Pipeline / Reporting API Services"
-    label: New Repo Worker Requested CPU
+    label: Reporting API Service Requested CPU
     description: The number of CPUs the services will request.
     default: "2"
 
@@ -125,7 +109,7 @@ questions:
     type: string
     required: true
     group: "Reporting Pipeline / Reporting API Services"
-    label: New Repo Worker Requested Memory
+    label: Reporting API Service Requested Memory
     description: The maximum amount of memory a worker will request.
     default: "4Gi"
 
@@ -133,7 +117,7 @@ questions:
     type: string
     required: true
     group: "Reporting Pipeline / Reporting API Services"
-    label: New Repo Worker CPU Limit
+    label: Reporting API Service CPU Limit
     description: The maximum number of CPUs the services can use.
     default: "4"
 
@@ -141,7 +125,7 @@ questions:
     type: string
     required: true
     group: "Reporting Pipeline / Reporting API Services"
-    label: New Repo Worker Memory Limit
+    label: Reporting API Service Memory Limit
     description: The maximum amount of memory a service can use.
     default: "8Gi"
 
@@ -149,7 +133,7 @@ questions:
   - variable: reportingPipeline.reportingService.logLevel
     type: enum
     required: true
-    group: "Reporting Pipeline / PR Workers"
+    group: "Reporting Pipeline"
     label: Log Level
     description: The level of logging for this deployment.
     options:
