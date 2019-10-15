@@ -647,6 +647,12 @@ data:
       "poll.interval.ms":60000}
     }'
 
+    echo "**** The following connectors have been registered ****"
+
+    curl {{ .Values.kafkaConnect.host }}:{{ .Values.kafkaConnect.nodePort }}/connectors
+
+    echo "*******************************************************"
+
     echo "**** Entering wait loop to keep container alive... ****"
     while :
     do
