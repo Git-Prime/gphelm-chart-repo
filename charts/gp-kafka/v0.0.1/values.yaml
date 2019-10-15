@@ -9,7 +9,7 @@ kafkaConnect:
   nodePort: 31083
   targetPort: 8083
 
-etlSourceDatabase:
+rawSourceDatabase:
   host: host.docker.internal
   port: 5432
   name: gitprime
@@ -17,7 +17,7 @@ etlSourceDatabase:
   pw: ""
   incrementingPollIntervalMS: 10000
 
-etlDestinationDatabase:
+sinkDatabase:
   host: host.docker.internal
   port: 5432
   name: octocat
