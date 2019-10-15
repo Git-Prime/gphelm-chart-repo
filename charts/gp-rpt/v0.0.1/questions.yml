@@ -43,6 +43,7 @@ questions:
     group: "Reporting Pipeline"
     label: Reporting Pipeline Build SHA
     description: The commit SHA of the GitPrime Reporting Pipeline build you want to deploy.
+    default: latest
 
   - variable: reportingPipeline.volumes.enableLocalMount
     type: boolean
@@ -64,7 +65,7 @@ questions:
         label: "Directory on Pod"
         description: "The directory inside the pod to mount the volume."
         required: true
-        default: "/var/repos"
+        default: "/var/data"
     
   - variable: reportingPipeline.datadog.enabled
     type: boolean
@@ -79,6 +80,7 @@ questions:
     group: "Reporting Pipeline"
     label: "Number of ndots for DNS configuration"
     description: "Modifies the number of ndots in /etc/resolv.conf"
+    default: 2
 
   # Reporting API Service Settings
   - variable: reportingPipeline.reportingService.replicaCount
@@ -129,7 +131,6 @@ questions:
     description: The maximum amount of memory a service can use.
     default: "8Gi"
 
-
   - variable: reportingPipeline.reportingService.logLevel
     type: enum
     required: true
@@ -143,8 +144,3 @@ questions:
       - WARN
       - ERROR
     default: "INFO"
-
-
-####
-#### Eventually we'll want to put the GitPrime Main application settings here
-####
