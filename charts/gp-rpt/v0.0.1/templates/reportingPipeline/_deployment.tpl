@@ -25,7 +25,7 @@ spec:
     spec:
       containers:
         - name: gitprime-rpt-{{- template "helpers.environment.fullName" .}}-{{ .templateData.operationMode }}
-          image: gp-docker.gitprime-ops.com/cloud/gitprime-rpt-etl-app:{{ .Values.reportingPipeline.build.commitSHA }}
+          image: gp-docker.gitprime-ops.com/cloud/gitprime-rpt-reporting-app:{{ .Values.reportingPipeline.build.commitSHA }}
           imagePullPolicy: IfNotPresent
         {{- if .templateData.httpHost }}
           ports:
