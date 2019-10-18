@@ -162,7 +162,11 @@ spec:
           volumeMounts:
             - mountPath: {{ quote .Values.dataPipeline.volumes.podMountDirectory }}
               name: repository-storage-volume
+          {{- else }}
+          volumeMounts:
           {{- end }}
+            - mountPath: /tmp
+              name: ephemeral-tmp-volume
           terminationMessagePath: /dev/termination-log
           terminationMessagePolicy: File
       dnsPolicy: ClusterFirst
@@ -180,5 +184,11 @@ spec:
           path: {{ quote .Values.dataPipeline.volumes.nodeMountDirectory }}
           type: DirectoryOrCreate
         name: repository-storage-volume
+      {{- else }}
+      volumes:
       {{- end }}
+      - hostPath:
+          path: /mnt/ephemeraltmp
+          type: DirectoryOrCreate
+        name: ephemeral-tmp-volume
 {{- end }}
