@@ -188,7 +188,7 @@ spec:
       volumes:
       {{- end }}
       - hostPath:
-          path: /mnt/ephemeraltmp
+          path: /mnt/local-ssd
           type: DirectoryOrCreate
         name: ephemeral-tmp-volume
 {{- end }}
