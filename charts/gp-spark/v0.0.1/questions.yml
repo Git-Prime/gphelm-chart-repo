@@ -97,7 +97,7 @@ questions:
     description: Use a string to set the config options for in the form "-Dx=y"
     default: ""
   - variable: spark.master.debug
-    type: string
+    type: bool
     required: true
     group: "Spark master"
     label: Debug
@@ -118,7 +118,7 @@ questions:
     default: 1G1
 
   - variable: spark.master.livenessProbe.enabled
-    type: string
+    type: bool
     required: true
     group: "Liveness probe"
     label: Liveness probe enabled
@@ -157,7 +157,7 @@ questions:
       default: 1
 
   - variable: spark.master.readinessProbe.enabled
-    type: string
+    type: bool
     required: true
     group: "Readiness probe"
     label: Readiness probe enabled
@@ -224,7 +224,7 @@ questions:
         description: Set extra options to configure the worker in the form -Dx=y
         default: ""
       - variable: spark.worker.debug
-        type: string
+        type: bool
         required: true
         group: "Spark worker"
         label: Debug
@@ -265,7 +265,7 @@ questions:
         default: 250m
 
       - variable: spark.worker.autoscaling.enabled
-        type: string
+        type: bool
         required: true
         group: "Autoscaling"
         label: Autoscaling enabled
@@ -287,7 +287,7 @@ questions:
             default: 5
 
       - variable: spark.worker.livenessProbe.enabled
-        type: string
+        type: bool
         required: true
         group: "Worker liveness probe"
         label: Liveness probe enabled
@@ -325,7 +325,7 @@ questions:
             description: Minimum consecutive successes for the probe to be considered successful after having failed
             default: 1
       - variable: spark.worker.readinessProbe.enabled
-        type: string
+        type: bool
         required: true
         group: "Worker readiness probe"
         label: Readiness probe enabled
