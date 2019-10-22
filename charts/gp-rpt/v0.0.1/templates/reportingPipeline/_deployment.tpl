@@ -31,18 +31,6 @@ spec:
           ports:
           - name: http
             containerPort: 8080
-          livenessProbe:
-            httpGet:
-              path: /actuator/health
-              port: http
-            initialDelaySeconds: 120
-            timeoutSeconds: 5
-          readinessProbe:
-            httpGet:
-              path: /actuator/health
-              port: http
-            initialDelaySeconds: 30
-            timeoutSeconds: 1
         {{- end }}
           env:
             - name: SYSTEM_ENV_PARENT
