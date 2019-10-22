@@ -267,7 +267,7 @@ questions:
   - variable: spark.worker.autoscaling.enabled
     type: boolean
     required: true
-    group: "Autoscaling"
+    group: "Spark worker autoscaling"
     label: Autoscaling enabled
     default: true
     description: Enable autoscaling depending on CPU
@@ -289,7 +289,7 @@ questions:
   - variable: spark.worker.livenessProbe.enabled
     type: boolean
     required: true
-    group: "Worker liveness probe"
+    group: "Spark worker liveness probe"
     label: Liveness probe enabled
     default: true
     show_subquestion_if: true
@@ -328,7 +328,7 @@ questions:
   - variable: spark.worker.readinessProbe.enabled
     type: boolean
     required: true
-    group: "Worker readiness probe"
+    group: "Spark worker readiness probe"
     label: Readiness probe enabled
     default: true
     show_subquestion_if: true
