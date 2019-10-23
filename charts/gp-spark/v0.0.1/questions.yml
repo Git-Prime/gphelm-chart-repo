@@ -289,10 +289,17 @@ questions:
     label: Memory requests
     default: 250m
 
+  - variable: spark.worker.replicaCount
+    type: int
+    required: true
+    group: "Spark worker scaling"
+    label: Replica count
+    description: Number of spark workers (will be the min number when autoscaling is enabled)
+    default: 2
   - variable: spark.worker.autoscaling.enabled
     type: boolean
     required: true
-    group: "Spark worker autoscaling"
+    group: "Spark worker scaling"
     label: Autoscaling enabled
     default: true
     description: Enable autoscaling depending on CPU
