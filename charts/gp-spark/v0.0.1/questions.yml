@@ -115,7 +115,7 @@ questions:
     required: false
     group: "Spark master resources"
     label: Memory limits
-    default: 1G1
+    default: 1Gi
 
   - variable: spark.master.livenessProbe.enabled
     type: boolean
