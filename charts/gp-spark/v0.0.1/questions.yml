@@ -121,7 +121,7 @@ questions:
     required: false
     group: "Spark master resources"
     label: CPU requests
-    default: 256mi
+    default: 256Mi
   - variable: spark.master.resources.requests.memory
     type: string
     required: false
@@ -281,7 +281,7 @@ questions:
     required: false
     group: "Spark worker resources"
     label: CPU requests
-    default: 256mi
+    default: 256Mi
   - variable: spark.master.resources.requests.memory
     type: string
     required: false
