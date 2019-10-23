@@ -116,6 +116,18 @@ questions:
     group: "Spark master resources"
     label: Memory limits
     default: 1Gi
+  - variable: spark.master.resources.requests.cpu
+    type: string
+    required: false
+    group: "Spark master resources"
+    label: CPU requests
+    default: 256mi
+  - variable: spark.master.resources.requests.memory
+    type: string
+    required: false
+    group: "Spark master resources"
+    label: Memory requests
+    default: 250m
 
   - variable: spark.master.livenessProbe.enabled
     type: boolean
@@ -251,17 +263,30 @@ questions:
     label: Core limit
     description: Set the maximum number of cores that the worker can use
     default: ""
+
   - variable: spark.worker.resources.limits.cpu
     type: string
     required: false
-    group: "Spark worker limits"
+    group: "Spark worker resources"
     label: CPU limits
-    default: 256Mi
-  - variable: spark.worker.resources.limits.memory
+    default: 200m
+  - variable: spark.master.resources.limits.memory
     type: string
     required: false
-    group: "Spark worker limits"
+    group: "Spark worker resources"
     label: Memory limits
+    default: 1Gi
+  - variable: spark.master.resources.requests.cpu
+    type: string
+    required: false
+    group: "Spark worker resources"
+    label: CPU requests
+    default: 256mi
+  - variable: spark.master.resources.requests.memory
+    type: string
+    required: false
+    group: "Spark worker resources"
+    label: Memory requests
     default: 250m
 
   - variable: spark.worker.autoscaling.enabled
@@ -282,7 +307,7 @@ questions:
       - variable: spark.worker.autoscaling.replicasMax
         type: int
         required: true
-        label: Period seconds
+        label: Max replicas
         description: Maximum number of workers when using autoscaling
         default: 5
 
