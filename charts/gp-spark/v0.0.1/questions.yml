@@ -270,19 +270,19 @@ questions:
     group: "Spark worker resources"
     label: CPU limits
     default: 250m
-  - variable: spark.master.resources.limits.memory
+  - variable: spark.worker.resources.limits.memory
     type: string
     required: false
     group: "Spark worker resources"
     label: Memory limits
     default: 1Gi
-  - variable: spark.master.resources.requests.cpu
+  - variable: spark.worker.resources.requests.cpu
     type: string
     required: false
     group: "Spark worker resources"
     label: CPU requests
     default: 200m
-  - variable: spark.master.resources.requests.memory
+  - variable: spark.worker.resources.requests.memory
     type: string
     required: false
     group: "Spark worker resources"
