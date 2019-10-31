@@ -47,7 +47,7 @@ spec:
     - name: {{ include "spark.fullname" . }}-web-nodeport
       port: {{ .Values.master.webPort }}
       nodePort: {{ .Values.master.web.nodePort }}
-      targetPort: {{ .Values.master.master.webPort }}
+      targetPort: {{ .Values.master.webPort }}
   selector:
     app.kubernetes.io/name: {{ include "spark.name" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
