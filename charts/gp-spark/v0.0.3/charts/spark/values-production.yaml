@@ -109,12 +109,6 @@ master:
     failureThreshold: 6
     successThreshold: 1
 
-  persistence:
-    enabled: true
-    size: 5Gi
-    storageClass: "-"
-    accessMode: "ReadWriteOnce"
-
 worker:
   ## Spark worker specific configuration
 
@@ -148,10 +142,10 @@ worker:
 
   autoscaling:
     ## Enable replica autoscaling depending on CPU
-    enabled: false
+    enabled: true
     CpuTargetPercentage: 50
     ## Max number of workers when using autoscaling
-    replicasMax: 5
+    replicasMax: 10
 
   ## Set to true if you would like to see extra information on logs
   ## It turns BASH and NAMI debugging in minideb
@@ -213,12 +207,6 @@ worker:
     failureThreshold: 6
     successThreshold: 1
 
-  persistence:
-    enabled: true
-    size: 5Gi
-    storageClass: "-"
-    accessMode: "ReadWriteOnce"
-
 ## Security configuration
 security:
   ## Name of the secret that contains all the passwords. This is optional, by default random passwords are generated.
@@ -226,16 +214,16 @@ security:
 
   ## RPC configuration
   rpc:
-    authenticationEnabled: no
-    encryptionEnabled: no
+    authenticationEnabled: yes
+    encryptionEnabled: yes
 
   ## Enables local storage encryption
-  storageEncryptionEnabled: no
+  storageEncryptionEnabled: yes
 
   ## SSL configuration
   ssl:
-    enabled: no
-    needClientAuth: no
+    enabled: yes
+    needClientAuth: yes
     protocol: TLSv1.2
 
   ## Name of the secret that contains the certificates
@@ -262,7 +250,7 @@ service:
 
 ## Ingress controller to access the web UI.
 ingress:
-  enabled: false
+  enabled: true
 
   ## Set this to true in order to add the corresponding annotations for cert-manager
   certManager: false

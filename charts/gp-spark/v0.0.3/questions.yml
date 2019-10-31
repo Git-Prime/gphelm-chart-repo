@@ -71,17 +71,32 @@ questions:
   - variable: spark.master.webPort
     type: string
     required: true
-    group: "Spark master"
+    group: "Spark master  "
     label: Web port
     description: Specify the port where the web interface will listen on the master.
     default: "8080"
+  - variable: spark.master.web.nodePort
+    type: string
+    required: true
+    group: "Spark master networking"
+    label: Web node port
+    description: Specify a node-level port for where the web interface will listen on the master.
+    default: "32080"
   - variable: spark.master.clusterPort
     type: string
     required: true
-    group: "Spark master"
+    group: "Spark master networking"
     label: Cluster port
     description: Specify the port where the master listens to communicate with workers
     default: "7077"
+  - variable: spark.master.cluster.nodePort
+    type: string
+    required: true
+    group: "Spark master networking"
+    label: Cluster node port
+    description: Specify a node-level port where the master listens to communicate with workers
+    default: "32077"
+
   - variable: spark.master.daemonMemoryLimit
     type: string
     required: false
