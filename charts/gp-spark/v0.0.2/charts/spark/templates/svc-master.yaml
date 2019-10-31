@@ -30,3 +30,47 @@ spec:
     app.kubernetes.io/name: {{ include "spark.name" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/component: master
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "spark.fullname" . }}-web-nodeport
+  labels:
+    app.kubernetes.io/name: {{ include "spark.name" . }}
+    helm.sh/chart: {{ include "spark.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    app.kubernetes.io/component: master
+spec:
+  type: NodePort
+  ports:
+    - name: {{ include "spark.fullname" . }}-web-nodeport
+      port: {{ .Values.master.webPort }}
+      nodePort: {{ .Values.master.web.nodePort }}
+      targetPort: {{ .Values.master.master.webPort }}
+  selector:
+    app.kubernetes.io/name: {{ include "spark.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/component: master
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "spark.fullname" . }}-cluster-nodeport
+  labels:
+    app.kubernetes.io/name: {{ include "spark.name" . }}
+    helm.sh/chart: {{ include "spark.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    app.kubernetes.io/component: master
+spec:
+  type: NodePort
+  ports:
+    - name: {{ include "spark.fullname" . }}-cluster-nodeport
+      port: {{ .Values.master.clusterPort }}
+      nodePort: {{ .Values.master.cluster.nodePort }}
+      targetPort: {{ .Values.master.cluster.clusterPort }}
+  selector:
+    app.kubernetes.io/name: {{ include "spark.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/component: master

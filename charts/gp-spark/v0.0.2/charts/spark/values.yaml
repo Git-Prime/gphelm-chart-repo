@@ -43,6 +43,11 @@ master:
   webPort: 8080
   clusterPort: 7077
 
+  cluster:
+    nodePort: 32077
+  web:
+    nodePort: 32080
+
   ## Set the master daemon memory limit.
   # daemonMemoryLimit:
 
