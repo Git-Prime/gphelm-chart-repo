@@ -69,7 +69,7 @@ spec:
     - name: {{ include "spark.fullname" . }}-cluster-nodeport
       port: {{ .Values.master.clusterPort }}
       nodePort: {{ .Values.master.cluster.nodePort }}
-      targetPort: {{ .Values.master.cluster.clusterPort }}
+      targetPort: {{ .Values.master.clusterPort }}
   selector:
     app.kubernetes.io/name: {{ include "spark.name" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
