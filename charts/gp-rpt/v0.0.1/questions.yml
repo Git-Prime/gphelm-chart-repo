@@ -37,6 +37,13 @@ questions:
 ####
 #### Reporting Pipeline Settings
 ####
+  - variable: reportingPipeline.rancher.debug
+    type: string
+    required: true
+    group: "Reporting Pipeline Debug settings"
+    label: This is just a debug message to see if Rancher is picking up changes.
+    default: "1"
+
   - variable: reportingPipeline.build.commitSHA
     type: string
     required: true
