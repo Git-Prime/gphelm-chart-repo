@@ -89,7 +89,26 @@ questions:
     description: "Modifies the number of ndots in /etc/resolv.conf"
     default: 2
 
+  webPort: 8080
+  nodePort: 33080
+
   # Reporting API Service Settings
+  - variable: reportingPipeline.reportingService.webPort
+    type: string
+    required: true
+    group: "Reporting Pipeline / Reporting API Services"
+    label: Application port binding
+    description: The port binding that the application uses to listen to web requests
+    default: "8080"
+
+  - variable: reportingPipeline.reportingService.nodePort
+    type: string
+    required: true
+    group: "Reporting Pipeline / Reporting API Services"
+    label: Application node port
+    description: The port that is exposed on the node which routes to the app port binding
+    default: "33080"
+
   - variable: reportingPipeline.reportingService.replicaCount
     type: string
     required: true
