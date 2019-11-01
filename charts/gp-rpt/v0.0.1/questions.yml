@@ -89,9 +89,6 @@ questions:
     description: "Modifies the number of ndots in /etc/resolv.conf"
     default: 2
 
-  webPort: 8080
-  nodePort: 33080
-
   # Reporting API Service Settings
   - variable: reportingPipeline.reportingService.webPort
     type: string
