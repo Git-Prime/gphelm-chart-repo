@@ -126,7 +126,7 @@ spec:
   ports:
     - name: gitprime-rpt-{{- template "helpers.environment.fullName" .}}-{{ .templateData.operationMode }}-nodeport
       port: {{ .Values.reportingPipeline.reportingService.webPort }}
-      nodePort: {{ Values.reportingPipeline.reportingService.nodePort }}
-      targetPort: {{ Values.reportingPipeline.reportingService.webPort }}
+      nodePort: {{ .Values.reportingPipeline.reportingService.nodePort }}
+      targetPort: {{ .Values.reportingPipeline.reportingService.webPort }}
   selector:
     app: gitprime-rpt-{{- template "helpers.environment.fullName" .}}-{{ .templateData.operationMode }}
