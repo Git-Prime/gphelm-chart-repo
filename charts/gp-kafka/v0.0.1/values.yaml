@@ -13,7 +13,7 @@ rawSourceDatabase:
   host: host.docker.internal
   port: 5432
   name: gitprime
-  user: gitprime_app_user
+  user: ""
   pw: ""
   incrementingPollIntervalMS: 10000
 
@@ -21,7 +21,7 @@ sinkDatabase:
   host: host.docker.internal
   port: 5432
   name: octocat
-  user: gitprime_app_user
+  user: ""
   pw: ""
   incrementingPollIntervalMS: 10000
 

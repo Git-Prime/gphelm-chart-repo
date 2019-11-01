@@ -138,14 +138,14 @@ questions:
     required: true
     group: "kafka-connect"
     label: Kafka connect HTTP host name for REST registration service request
-    default: "http://sandbox-k8s-cluster-cp-02.gitprime-ops.com"
+    default: ""
 
   - variable: rawSourceDatabase.host
     type: string
     required: true
     group: "Raw Source Database"
     label: Raw source database (main gitprime app) host name
-    default: "sandbox-db-01.gitprime-ops.com"
+    default: ""
   - variable: rawSourceDatabase.port
     type: string
     required: true
@@ -157,13 +157,13 @@ questions:
     required: true
     group: "Raw Source Database"
     label: Raw source database (main gitprime app) name
-    default: "gitprime_sandbox_09"
+    default: ""
   - variable: rawSourceDatabase.user
     type: string
     required: true
     group: "Raw Source Database"
     label: Raw source database (main gitprime app) user
-    default: "gitprime_app_user"
+    default: ""
   - variable: rawSourceDatabase.pw
     type: string
     required: true
@@ -182,7 +182,7 @@ questions:
     required: true
     group: "Sink Database"
     label: Processed data sink database (Octocat) host name
-    default: "sandbox-db-01.gitprime-ops.com"
+    default: ""
   - variable: sinkDatabase.port
     type: string
     required: true
@@ -194,13 +194,13 @@ questions:
     required: true
     group: "Sink Database"
     label: Processed data sink database (Octocat) name
-    default: "gitprime_octocat_09"
+    default: ""
   - variable: sinkDatabase.user
     type: string
     required: true
     group: "Sink Database"
     label: Processed data sink database (Octocat) user
-    default: "gitprime_app_user"
+    default: ""
   - variable: sinkDatabase.pw
     type: string
     required: true
