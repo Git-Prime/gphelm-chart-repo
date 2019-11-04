@@ -30,7 +30,7 @@ spec:
         {{- if .templateData.httpHost }}
           ports:
           - name: http
-            containerPort: 8080
+            containerPort: {{ .Values.reportingPipeline.reportingService.webPort }}
         {{- end }}
           env:
             - name: SYSTEM_ENV_PARENT
@@ -113,7 +113,6 @@ spec:
           type: DirectoryOrCreate
         name: repository-storage-volume
       {{- end }}
-{{- end }}
 ---
 apiVersion: v1
 kind: Service
@@ -130,3 +129,4 @@ spec:
       targetPort: {{ .Values.reportingPipeline.reportingService.webPort }}
   selector:
     app: gitprime-rpt-{{- template "helpers.environment.fullName" .}}-{{ .templateData.operationMode }}
+{{- end }}
