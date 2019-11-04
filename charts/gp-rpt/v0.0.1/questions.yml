@@ -104,7 +104,7 @@ questions:
     group: "Reporting Pipeline / Reporting API Services"
     label: Application node port
     description: The port that is exposed on the node which routes to the app port binding
-    default: "33080"
+    default: "30180"
 
   - variable: reportingPipeline.reportingService.replicaCount
     type: string

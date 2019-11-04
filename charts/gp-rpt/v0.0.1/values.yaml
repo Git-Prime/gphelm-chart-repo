@@ -22,4 +22,4 @@ reportingPipeline:
     replicaCount: 1
     javaOptions: ""
     webPort: "8080"
-    nodePort: "33080"
+    nodePort: "30180"
