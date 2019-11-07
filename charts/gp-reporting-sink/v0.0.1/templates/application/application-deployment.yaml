@@ -1,0 +1,14 @@
+{{- $templateData := dict "operationMode" "reporting" }}
+{{- $_ := set $templateData "replicaCount" .Values.application.replicaCount }}
+{{- $_ := set $templateData "environment" .Values.application.environment }}
+{{- $_ := set $templateData "javaOptions" .Values.application.javaOptions }}
+{{- $_ := set $templateData "processorThreadCount" .Values.application.processorThreadCount }}
+{{- $_ := set $templateData "maxConcurrentJobs" .Values.application.maxConcurrentJobs }}
+{{- $_ := set $templateData "maxCommitCount" .Values.application.maxCommitCount }}
+{{- $_ := set $templateData "resources" .Values.application.resources }}
+{{- $_ := set $templateData "logLevel" .Values.application.logLevel }}
+{{- $_ := set $templateData "httpHost" "True" }}
+{{- $templateData := dict "Values" .Values "templateData" $templateData }}
+{{- include "application.deploymentTemplate" $templateData }}
+
+
