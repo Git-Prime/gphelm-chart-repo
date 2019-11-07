@@ -1,7 +1,7 @@
 {{- /* This represents a deployment that runs the main Reporting Pipeline component and moves into different modes based on */}}
 {{- /* environment variables and the like. */}}
 {{- define "deploymentTemplate" }}
-{{- $globalEnvironment := .Values.environment }}
+{{- $globalEnvironment := .Values.application.environment }}
 {{- $environment := .templateData.environment }}
 apiVersion: apps/v1
 kind: Deployment

@@ -9,6 +9,6 @@
 {{- $_ := set $templateData "logLevel" .Values.application.logLevel }}
 {{- $_ := set $templateData "httpHost" "True" }}
 {{- $templateData := dict "Values" .Values "templateData" $templateData }}
-{{- include "deploymentTemplate" $templateData }}
+{{- include "application.deploymentTemplate" $templateData }}
 
 

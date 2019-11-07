@@ -1,7 +1,7 @@
 {{- /* This represents a deployment that runs the main Reporting Pipeline component and moves into different modes based on */}}
 {{- /* environment variables and the like. */}}
-{{- define "deploymentTemplate" }}
-{{- $globalEnvironment := .Values.environment }}
+{{- define "application.deploymentTemplate" }}
+{{- $globalEnvironment := .Values.application.environment }}
 {{- $environment := .templateData.environment }}
 apiVersion: apps/v1
 kind: Deployment
@@ -25,7 +25,7 @@ spec:
     spec:
       containers:
         - name: gitprime-reporting-api-{{- template "helpers.environment.fullName" .}}-{{ .templateData.operationMode }}
-          image: gp-docker.gitprime-ops.com/cloud/gitprime-reporting-api:{{ .Values.build.commitSHA }}
+          image: gp-docker.gitprime-ops.com/cloud/gitprime-reporting-shell:{{ .Values.build.commitSHA }}
           imagePullPolicy: IfNotPresent
         {{- if .templateData.httpHost }}
           ports:
