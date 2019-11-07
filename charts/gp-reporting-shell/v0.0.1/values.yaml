@@ -21,4 +21,4 @@ application:
   replicaCount: 1
   javaOptions: ""
   webPort: "8080"
-  nodePort: "30180"
+  nodePort: "30280"
