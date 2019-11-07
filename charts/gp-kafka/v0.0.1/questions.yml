@@ -135,81 +135,81 @@ questions:
 
   - variable: kafkaConnect.host
     type: string
-    required: true
+    required: false
     group: "kafka-connect"
     label: Kafka connect HTTP host name for REST registration service request
     default: ""
 
   - variable: rawSourceDatabase.host
     type: string
-    required: true
+    required: false
     group: "Raw Source Database"
     label: Raw source database (main gitprime app) host name
     default: ""
   - variable: rawSourceDatabase.port
     type: string
-    required: true
+    required: false
     group: "Raw Source Database"
     label: Raw source database (main gitprime app) port
     default: "5432"
   - variable: rawSourceDatabase.name
     type: string
-    required: true
+    required: false
     group: "Raw Source Database"
     label: Raw source database (main gitprime app) name
     default: ""
   - variable: rawSourceDatabase.user
     type: string
-    required: true
+    required: false
     group: "Raw Source Database"
     label: Raw source database (main gitprime app) user
     default: ""
   - variable: rawSourceDatabase.pw
     type: string
-    required: true
+    required: false
     group: "Raw Source Database"
     label: Raw source database pw (temporary - to be removed shortly after hookup to Vault)
     default: ""
   - variable: rawSourceDatabase.incrementingPollIntervalMS
     type: string
-    required: true
+    required: false
     group: "Raw Source Database"
     label: Interval with which to wait between polling for new incremental data from the main gitprime source database
     default: "60000"
 
   - variable: sinkDatabase.host
     type: string
-    required: true
+    required: false
     group: "Sink Database"
     label: Processed data sink database (Octocat) host name
     default: ""
   - variable: sinkDatabase.port
     type: string
-    required: true
+    required: false
     group: "Sink Database"
     label: Processed data sink database (Octocat) port
     default: "5432"
   - variable: sinkDatabase.name
     type: string
-    required: true
+    required: false
     group: "Sink Database"
     label: Processed data sink database (Octocat) name
     default: ""
   - variable: sinkDatabase.user
     type: string
-    required: true
+    required: false
     group: "Sink Database"
     label: Processed data sink database (Octocat) user
     default: ""
   - variable: sinkDatabase.pw
     type: string
-    required: true
+    required: false
     group: "Sink Database"
     label: Processed data sink database pw (temporary - to be removed shortly after hookup to Vault)
     default: ""
   - variable: sinkDatabase.incrementingPollIntervalMS
     type: string
-    required: true
+    required: false
     group: "Sink Database"
     label: Interval with which to wait between polling for new incremental data from the main gitprime source database
     default: "60000"

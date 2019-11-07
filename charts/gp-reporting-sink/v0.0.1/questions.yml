@@ -97,7 +97,7 @@ questions:
     group: "Application / Reporting API Services"
     label: Application node port
     description: The port that is exposed on the node which routes to the app port binding
-    default: "30180"
+    default: "30280"
 
   - variable: application.replicaCount
     type: string

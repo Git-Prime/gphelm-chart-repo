@@ -1,6 +1,6 @@
 apiVersion: v1
 appVersion: "0.0.1"
-description: A Helm chart for the GitPrime Reporting Shell
+description: A Helm chart for the GitPrime Reporting API
 name: gp-reporting-api
 version: 0.0.1
 icon: https://s3-us-west-2.amazonaws.com/gitprime-email-images/gitprime-logo-icon.png
