@@ -5,7 +5,6 @@
 {{- $_ := set $templateData "processorThreadCount" .Values.dataPipeline.prWorker.processorThreadCount }}
 {{- $_ := set $templateData "maxConcurrentJobs" .Values.dataPipeline.prWorker.maxConcurrentJobs }}
 {{- $_ := set $templateData "maxCommitCount" .Values.dataPipeline.prWorker.maxCommitCount }}
-{{- $_ := set $templateData "maxConcurrentProjectsPerOrg" .Values.dataPipeline.prWorker.maxConcurrentProjectsPerOrg }}
 {{- $_ := set $templateData "resources" .Values.dataPipeline.prWorker.resources }}
 {{- $_ := set $templateData "logLevel" .Values.dataPipeline.prWorker.logLevel }}
 {{- $_ := set $templateData "prListeners" .Values.dataPipeline.prWorker.prListeners }}
