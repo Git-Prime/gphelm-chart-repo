@@ -5,6 +5,7 @@
 {{- $_ := set $templateData "processorThreadCount" .Values.dataPipeline.ticketWorker.processorThreadCount }}
 {{- $_ := set $templateData "maxConcurrentJobs" .Values.dataPipeline.ticketWorker.maxConcurrentJobs }}
 {{- $_ := set $templateData "maxCommitCount" .Values.dataPipeline.ticketWorker.maxCommitCount }}
+{{- $_ := set $templateData "maxConcurrentProjectsPerOrg" .Values.dataPipeline.ticketWorker.maxConcurrentProjectsPerOrg }}
 {{- $_ := set $templateData "resources" .Values.dataPipeline.ticketWorker.resources }}
 {{- $_ := set $templateData "logLevel" .Values.dataPipeline.ticketWorker.logLevel }}
 {{- $_ := set $templateData "ticketListeners" .Values.dataPipeline.ticketWorker.ticketListeners }}
