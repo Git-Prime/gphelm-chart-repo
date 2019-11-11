@@ -149,6 +149,8 @@ dataPipeline:
         value: 0
       - name: GP_MAX_REPO_PROCESSING_SECONDS
         value: 2700
+      - name: GP_MAX_CONCURRENT_PROJECTS_PER_ORG
+        value: 40
       - name: GP_SCHEDULED_TASK_SET
         value: local_tasks
     resources:
@@ -184,6 +186,8 @@ dataPipeline:
         value: 1
       - name: GP_MAX_REPO_PROCESSING_SECONDS
         value: 2700
+      - name: GP_MAX_CONCURRENT_PROJECTS_PER_ORG
+        value: 40
       - name: GP_SCHEDULED_TASK_SET
         value: local_tasks
     resources:

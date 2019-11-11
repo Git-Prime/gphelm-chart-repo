@@ -129,6 +129,10 @@ spec:
             - name: GP_REPO_DELETE_PER_LISTENER
               value: {{ quote .templateData.repoDeleteThreadsPerListener }}
           {{- end}}
+          {{- if .templateData.maxConcurrentProjectsPerOrg }}
+            - name: GP_MAX_CONCURRENT_PROJECTS_PER_ORG
+              value: {{ quote .templateData.maxConcurrentProjectsPerOrg }}
+          {{- end}}
           {{- range $globalEnvironment }}
             - name: {{ .name }}
               value: {{ .value | quote }}
