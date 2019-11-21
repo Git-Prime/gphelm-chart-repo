@@ -35,7 +35,7 @@ questions:
     default: "01"
 
   ####
-  #### Reporting Pipeline Settings
+  #### Reporting Shell Settings
   ####
   - variable: build.commitSHA
     type: string
@@ -44,13 +44,6 @@ questions:
     label: Application Build SHA
     description: The commit SHA of the GitPrime Application build you want to deploy.
     default: latest
-
-  - variable: application.activeProfiles
-    type: string
-    required: true
-    group: "Application"
-    label: Application profiles
-    description: The names of the profiles to apply that determine the sink behavior (i.e. commit-event-sink, pull-request-sink, work-event-sink, demo)
 
   - variable: volumes.enableLocalMount
     type: boolean
@@ -89,11 +82,11 @@ questions:
     description: "Modifies the number of ndots in /etc/resolv.conf"
     default: 2
 
-  # Reporting API Service Settings
+  # Reporting Sink Settings
   - variable: application.webPort
     type: string
     required: true
-    group: "Application / Reporting API Services"
+    group: "Application / Reporting Shell Services"
     label: Application port binding
     description: The port binding that the application uses to listen to web requests
     default: "8080"
@@ -101,7 +94,7 @@ questions:
   - variable: application.nodePort
     type: string
     required: true
-    group: "Application / Reporting API Services"
+    group: "Application / Reporting Shell Services"
     label: Application node port
     description: The port that is exposed on the node which routes to the app port binding
     default: "30280"
@@ -109,7 +102,7 @@ questions:
   - variable: application.replicaCount
     type: string
     required: true
-    group: "Application / Reporting API Services"
+    group: "Application / Reporting Shell Services"
     label: Number of Pods for services
     description: The number of pods to deploy for the services that handle new repositories.
     default: 1
@@ -117,40 +110,40 @@ questions:
   - variable: application.javaOptions
     type: string
     required: true
-    group: "Application / Reporting API Services"
-    label: Reporting API Service Java Options
+    group: "Application / Reporting Shell Services"
+    label: Reporting Shell Service Java Options
     description: The Java options for the services.
     default: "-d64 -Xms2g -Xmx4g"
 
   - variable: application.resources.requests.cpu
     type: string
     required: true
-    group: "Application / Reporting API Services"
-    label: Reporting API Service Requested CPU
+    group: "Application / Reporting Shell Services"
+    label: Reporting Shell Service Requested CPU
     description: The number of CPUs the services will request.
     default: "2"
 
   - variable: application.resources.requests.memory
     type: string
     required: true
-    group: "Application / Reporting API Services"
-    label: Reporting API Service Requested Memory
+    group: "Application / Reporting Shell Services"
+    label: Reporting Shell Service Requested Memory
     description: The maximum amount of memory a worker will request.
     default: "4Gi"
 
   - variable: application.resources.limits.cpu
     type: string
     required: true
-    group: "Application / Reporting API Services"
-    label: Reporting API Service CPU Limit
+    group: "Application / Reporting Shell Services"
+    label: Reporting Shell Service CPU Limit
     description: The maximum number of CPUs the services can use.
     default: "4"
 
   - variable: application.resources.limits.memory
     type: string
     required: true
-    group: "Application / Reporting API Services"
-    label: Reporting API Service Memory Limit
+    group: "Application / Reporting Shell Services"
+    label: Reporting Shell Service Memory Limit
     description: The maximum amount of memory a service can use.
     default: "8Gi"
 
