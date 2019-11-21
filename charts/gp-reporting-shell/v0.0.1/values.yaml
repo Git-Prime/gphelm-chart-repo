@@ -22,3 +22,4 @@ application:
   javaOptions: ""
   webPort: "8080"
   nodePort: "30280"
+  activeProfile: ""

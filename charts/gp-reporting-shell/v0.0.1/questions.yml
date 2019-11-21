@@ -45,6 +45,18 @@ questions:
     description: The commit SHA of the GitPrime Application build you want to deploy.
     default: latest
 
+  - variable: application.activeProfile
+    type: string
+    required: true
+    group: "Application"
+    label: Application profile
+    description: The name of the profile that determines the sink behavior
+    options:
+      - commit-event-sink
+      - pull-request-sink
+      - work-event-sink
+      - demo
+
   - variable: volumes.enableLocalMount
     type: boolean
     required: true
