@@ -33,8 +33,8 @@ spec:
             containerPort: {{ .Values.application.webPort }}
         {{- end }}
           env:
-            - name: ACTIVE_PROFILE
-              value: {{ quote .Values.application.activeProfile}}
+            - name: ACTIVE_PROFILES
+              value: {{ quote .Values.application.activeProfiles}}
             - name: SYSTEM_ENV_PARENT
               value: {{ quote .Values.environment.parentName }}
             - name: SYSTEM_ENV_MODIFIER
