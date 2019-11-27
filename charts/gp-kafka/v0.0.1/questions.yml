@@ -140,76 +140,28 @@ questions:
     label: Kafka connect HTTP host name for REST registration service request
     default: ""
 
-  - variable: rawSourceDatabase.host
+  - variable: kafkaConnect.resources.requests.cpu
     type: string
     required: false
-    group: "Raw Source Database"
-    label: Raw source database (main gitprime app) host name
-    default: ""
-  - variable: rawSourceDatabase.port
+    group: "kafka-connect resources"
+    label: The amount of CPU to request.
+    default: "100m"
+  - variable: kafkaConnect.resources.requests.memory
     type: string
     required: false
-    group: "Raw Source Database"
-    label: Raw source database (main gitprime app) port
-    default: "5432"
-  - variable: rawSourceDatabase.name
-    type: string
-    required: false
-    group: "Raw Source Database"
-    label: Raw source database (main gitprime app) name
-    default: ""
-  - variable: rawSourceDatabase.user
-    type: string
-    required: false
-    group: "Raw Source Database"
-    label: Raw source database (main gitprime app) user
-    default: ""
-  - variable: rawSourceDatabase.pw
-    type: string
-    required: false
-    group: "Raw Source Database"
-    label: Raw source database pw (temporary - to be removed shortly after hookup to Vault)
-    default: ""
-  - variable: rawSourceDatabase.incrementingPollIntervalMS
-    type: string
-    required: false
-    group: "Raw Source Database"
-    label: Interval with which to wait between polling for new incremental data from the main gitprime source database
-    default: "60000"
+    group: "kafka-connect resources"
+    label: The amount of memory request.
+    default: "250Mi"
 
-  - variable: sinkDatabase.host
+  - variable: kafkaConnect.resources.limits.cpu
     type: string
     required: false
-    group: "Sink Database"
-    label: Processed data sink database (Octocat) host name
-    default: ""
-  - variable: sinkDatabase.port
+    group: "kafka-connect resources"
+    label: The upper limit CPU usage for a Kafka Connect Pod.
+    default: "250m"
+  - variable: kafkaConnect.resources.limits.memory
     type: string
     required: false
-    group: "Sink Database"
-    label: Processed data sink database (Octocat) port
-    default: "5432"
-  - variable: sinkDatabase.name
-    type: string
-    required: false
-    group: "Sink Database"
-    label: Processed data sink database (Octocat) name
-    default: ""
-  - variable: sinkDatabase.user
-    type: string
-    required: false
-    group: "Sink Database"
-    label: Processed data sink database (Octocat) user
-    default: ""
-  - variable: sinkDatabase.pw
-    type: string
-    required: false
-    group: "Sink Database"
-    label: Processed data sink database pw (temporary - to be removed shortly after hookup to Vault)
-    default: ""
-  - variable: sinkDatabase.incrementingPollIntervalMS
-    type: string
-    required: false
-    group: "Sink Database"
-    label: Interval with which to wait between polling for new incremental data from the main gitprime source database
-    default: "60000"
+    group: "kafka-connect resources"
+    label: The upper limit memory usage for a Kafka Connect Pod.
+    default: "1G1"

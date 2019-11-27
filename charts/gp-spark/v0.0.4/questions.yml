@@ -1,0 +1,468 @@
+questions:
+
+  ####
+  #### General environment settings
+  ####
+  - variable: environment.parentName
+    type: enum
+    required: true
+    group: "Environment"
+    label: Environment Parent
+    description: The name of the parent environment we will deploy into and funcation as.
+    options:
+      - sandbox
+      - canary
+      - production
+    default: sandbox
+
+  - variable: environment.modifierValue
+    type: enum
+    required: false
+    group: "Environment"
+    label: Environment Modifier
+    description: The modifier name for the environment we will deploy into and funcation as.
+    options:
+      - prime
+      - qa
+      - 01
+      - 02
+      - 03
+      - 04
+      - 05
+      - 06
+      - 07
+      - 08
+      - 09
+      - 10
+    default: ""
+
+  ####
+  #### spark settings
+  ####
+  - variable: spark.service.type
+    type: string
+    required: true
+    group: "Spark services"
+    label: Service Type
+    description: Kubernetes Service type
+    default: "ClusterIP"
+  - variable: spark.service.clusterPort
+    type: string
+    required: true
+    group: "Spark services"
+    label: Cluster port
+    description: Spark cluster port
+    default: "7077"
+  - variable: spark.service.webPort
+    type: string
+    required: true
+    group: "Spark services"
+    label: Web port
+    description: Spark client port
+    default: "80"
+  - variable: spark.service.nodePort
+    type: string
+    required: false
+    group: "Spark services"
+    label: Node port
+    description: Port to bind to for NodePort service type (client port)
+    default: "31077"
+
+  - variable: spark.master.webPort
+    type: string
+    required: true
+    group: "Spark master  "
+    label: Web port
+    description: Specify the port where the web interface will listen on the master.
+    default: "8080"
+  - variable: spark.master.web.nodePort
+    type: string
+    required: true
+    group: "Spark master networking"
+    label: Web node port
+    description: Specify a node-level port for where the web interface will listen on the master.
+    default: "32080"
+  - variable: spark.master.clusterPort
+    type: string
+    required: true
+    group: "Spark master networking"
+    label: Cluster port
+    description: Specify the port where the master listens to communicate with workers
+    default: "7077"
+  - variable: spark.master.cluster.nodePort
+    type: string
+    required: true
+    group: "Spark master networking"
+    label: Cluster node port
+    description: Specify a node-level port where the master listens to communicate with workers
+    default: "32077"
+
+  - variable: spark.master.daemonMemoryLimit
+    type: string
+    required: false
+    group: "Spark master"
+    label: Daemon memory limit.
+    description: Set the master daemon memory limit.
+    default: ""
+  - variable: spark.master.configOptions
+    type: string
+    required: false
+    group: "Spark master"
+    label: Configuration options
+    description: Use a string to set the config options for in the form "-Dx=y"
+    default: ""
+  - variable: spark.master.debug
+    type: boolean
+    required: true
+    group: "Spark master"
+    label: Debug
+    description: Set to true if you would like to see extra information on logs
+    default: false
+
+  - variable: spark.master.resources.limits.cpu
+    type: string
+    required: false
+    group: "Spark master resources"
+    label: CPU limits
+    default: 250m
+  - variable: spark.master.resources.limits.memory
+    type: string
+    required: false
+    group: "Spark master resources"
+    label: Memory limits
+    default: 1Gi
+  - variable: spark.master.resources.requests.cpu
+    type: string
+    required: false
+    group: "Spark master resources"
+    label: CPU requests
+    default: 200m
+  - variable: spark.master.resources.requests.memory
+    type: string
+    required: false
+    group: "Spark master resources"
+    label: Memory requests
+    default: 256Mi
+
+  - variable: spark.master.persistence.enabled
+    type: boolean
+    required: true
+    group: "Spark master persistence"
+    label: Persistence enabled
+    default: true
+    show_subquestion_if: true
+    subquestions:
+      - variable: spark.master.persistence.size
+        type: string
+        required: true
+        label: Persistence size
+        default: 5Gi
+      - variable: spark.master.persistence.storageClass
+        type: string
+        required: true
+        label: Storage class
+        description: Volume storage class
+        default:  "nfs-client"
+      - variable: spark.master.persistence.accessMode
+        type: enum
+        required: true
+        label: Access mode
+        options:
+          - ReadWriteOnce
+          - ReadWriteMany
+        default: "ReadWriteOnce"
+
+  - variable: spark.master.livenessProbe.enabled
+    type: boolean
+    required: true
+    group: "Spark master liveness probe"
+    label: Liveness probe enabled
+    default: true
+    show_subquestion_if: true
+    subquestions:
+    - variable: spark.master.livenessProbe.initialDelaySeconds
+      type: int
+      required: true
+      label: Initial delay seconds
+      description: Delay before liveness probe is initiated
+      default: 180
+    - variable: spark.master.livenessProbe.periodSeconds
+      type: int
+      required: true
+      label: Period seconds
+      description: How often to perform the probe
+      default: 20
+    - variable: spark.master.livenessProbe.timeoutSeconds
+      type: int
+      required: true
+      label: Timeout seconds
+      description: When the probe times out
+      default: 5
+    - variable: spark.master.livenessProbe.failureThreshold
+      type: int
+      required: true
+      label: Failure threshold
+      description: Minimum consecutive failures for the probe to be considered failed after having succeeded.
+      default: 6
+    - variable: spark.master.livenessProbe.successThreshold
+      type: int
+      required: true
+      label: Success threshold
+      description: Minimum consecutive successes for the probe to be considered successful after having failed
+      default: 1
+
+  - variable: spark.master.readinessProbe.enabled
+    type: boolean
+    required: true
+    group: "Spark master readiness probe"
+    label: Readiness probe enabled
+    default: true
+    show_subquestion_if: true
+    subquestions:
+      - variable: spark.master.readinessProbe.initialDelaySeconds
+        type: int
+        required: true
+        label: Initial delay seconds
+        description: Delay before readiness probe is initiated
+        default: 30
+      - variable: spark.master.readinessProbe.periodSeconds
+        type: int
+        required: true
+        label: Period seconds
+        description: How often to perform the probe
+        default: 10
+      - variable: spark.master.readinessProbe.timeoutSeconds
+        type: int
+        required: true
+        label: Timeout seconds
+        description: When the probe times out
+        default: 5
+      - variable: spark.master.readinessProbe.failureThreshold
+        type: int
+        required: true
+        label: Failure threshold
+        description: Minimum consecutive failures for the probe to be considered failed after having succeeded.
+        default: 6
+      - variable: spark.master.readinessProbe.successThreshold
+        type: int
+        required: true
+        label: Success threshold
+        description: Minimum consecutive successes for the probe to be considered successful after having failed
+        default: 1
+
+  - variable: spark.worker.webPort
+    type: string
+    required: true
+    group: "Spark worker"
+    label: Web port
+    description: Specify the port where the web interface will listen on the worker.
+    default: "8080"
+  - variable: spark.worker.clusterPort
+    type: string
+    required: true
+    group: "Spark worker"
+    label: Cluster port
+    description: Specify the port where the worker listens to communicate with the master
+    default: "7077"
+  - variable: spark.worker.javaOptions
+    type: string
+    required: false
+    group: "Spark worker"
+    label: Java options
+    description: Set options for the JVM in the form -Dx=y
+    default: ""
+  - variable: spark.worker.configOptions
+    type: string
+    required: false
+    group: "Spark worker"
+    label: Config options
+    description: Set extra options to configure the worker in the form -Dx=y
+    default: ""
+  - variable: spark.worker.debug
+    type: boolean
+    required: true
+    group: "Spark worker"
+    label: Debug
+    description: Set to true if you would like to see extra information on logs
+    default: false
+
+  - variable: spark.worker.daemonMemoryLimit
+    type: string
+    required: false
+    group: "Spark worker limits"
+    label: Daemon memory limit
+    description: Set the memory limit for the worker daemon
+    default: ""
+  - variable: spark.worker.memoryLimit
+    type: string
+    required: false
+    group: "Spark worker limits"
+    label: Memory limit
+    default: ""
+  - variable: spark.worker.coreLimit
+    type: string
+    required: false
+    group: "Spark worker limits"
+    label: Core limit
+    description: Set the maximum number of cores that the worker can use
+    default: ""
+
+  - variable: spark.worker.resources.limits.cpu
+    type: string
+    required: false
+    group: "Spark worker resources"
+    label: CPU limits
+    default: 250m
+  - variable: spark.worker.resources.limits.memory
+    type: string
+    required: false
+    group: "Spark worker resources"
+    label: Memory limits
+    default: 1Gi
+  - variable: spark.worker.resources.requests.cpu
+    type: string
+    required: false
+    group: "Spark worker resources"
+    label: CPU requests
+    default: 200m
+  - variable: spark.worker.resources.requests.memory
+    type: string
+    required: false
+    group: "Spark worker resources"
+    label: Memory requests
+    default: 250Mi
+
+  - variable: spark.worker.persistence.enabled
+    type: boolean
+    required: true
+    group: "Spark worker persistence"
+    label: Persistence enabled
+    default: true
+    show_subquestion_if: true
+    subquestions:
+      - variable: spark.worker.persistence.size
+        type: string
+        required: true
+        label: Persistence size
+        default: 5Gi
+      - variable: spark.worker.persistence.storageClass
+        type: string
+        required: true
+        label: Storage class
+        description: Volume storage class
+        default:  "nfs-client"
+      - variable: spark.worker.persistence.accessMode
+        type: enum
+        required: true
+        label: Access mode
+        options:
+          - ReadWriteOnce
+          - ReadWriteMany
+        default: "ReadWriteOnce"
+
+  - variable: spark.worker.replicaCount
+    type: int
+    required: true
+    group: "Spark worker scaling"
+    label: Replica count
+    description: Number of spark workers (will be the min number when autoscaling is enabled)
+    default: 2
+  - variable: spark.worker.autoscaling.enabled
+    type: boolean
+    required: true
+    group: "Spark worker scaling"
+    label: Autoscaling enabled
+    default: true
+    description: Enable autoscaling depending on CPU
+    show_subquestion_if: true
+    subquestions:
+      - variable: spark.worker.autoscaling.CpuTargetPercentage
+        type: int
+        required: true
+        label: CPU target percentage
+        description: k8s hpa cpu targetPercentage
+        default: 50
+      - variable: spark.worker.autoscaling.replicasMax
+        type: int
+        required: true
+        label: Max replicas
+        description: Maximum number of workers when using autoscaling
+        default: 5
+
+  - variable: spark.worker.livenessProbe.enabled
+    type: boolean
+    required: true
+    group: "Spark worker liveness probe"
+    label: Liveness probe enabled
+    default: true
+    show_subquestion_if: true
+    subquestions:
+      - variable: spark.worker.livenessProbe.initialDelaySeconds
+        type: int
+        required: true
+        label: Initial delay seconds
+        description: Delay before liveness probe is initiated
+        default: 180
+      - variable: spark.worker.livenessProbe.periodSeconds
+        type: int
+        required: true
+        label: Period seconds
+        description: How often to perform the probe
+        default: 20
+      - variable: spark.worker.livenessProbe.timeoutSeconds
+        type: int
+        required: true
+        label: Timeout seconds
+        description: When the probe times out
+        default: 5
+      - variable: spark.worker.livenessProbe.failureThreshold
+        type: int
+        required: true
+        label: Failure threshold
+        description: Minimum consecutive failures for the probe to be considered failed after having succeeded.
+        default: 6
+      - variable: spark.worker.livenessProbe.successThreshold
+        type: int
+        required: true
+        label: Success threshold
+        description: Minimum consecutive successes for the probe to be considered successful after having failed
+        default: 1
+
+  - variable: spark.worker.readinessProbe.enabled
+    type: boolean
+    required: true
+    group: "Spark worker readiness probe"
+    label: Readiness probe enabled
+    default: true
+    show_subquestion_if: true
+    subquestions:
+      - variable: spark.worker.readinessProbe.initialDelaySeconds
+        type: int
+        required: true
+        label: Initial delay seconds
+        description: Delay before readiness probe is initiated
+        default: 30
+      - variable: spark.worker.readinessProbe.periodSeconds
+        type: int
+        required: true
+        label: Period seconds
+        description: How often to perform the probe
+        default: 20
+      - variable: spark.worker.readinessProbe.timeoutSeconds
+        type: int
+        required: true
+        label: Timeout seconds
+        description: When the probe times out
+        default: 5
+      - variable: spark.worker.readinessProbe.failureThreshold
+        type: int
+        required: true
+        label: Failure threshold
+        description: worker consecutive failures for the probe to be considered failed after having succeeded.
+        default: 6
+      - variable: spark.worker.readinessProbe.successThreshold
+        type: int
+        required: true
+        label: Success threshold
+        description: Minimum consecutive successes for the probe to be considered successful after having failed
+        default: 1
