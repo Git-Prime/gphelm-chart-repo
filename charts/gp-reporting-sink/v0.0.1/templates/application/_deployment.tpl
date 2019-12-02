@@ -6,14 +6,14 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: gitprime-reporting-api-{{- template "helpers.environment.fullName" .}}-{{ .templateData.operationMode }}
+  name: gitprime-reporting-sink-{{- template "helpers.environment.fullName" .}}-{{ .templateData.operationMode }}
   labels:
-    app: gitprime-reporting-api-{{- template "helpers.environment.fullName" .}}-{{ .templateData.operationMode }}
+    app: gitprime-reporting-sink-{{- template "helpers.environment.fullName" .}}-{{ .templateData.operationMode }}
 spec:
   replicas: {{ .templateData.replicaCount }}
   selector:
     matchLabels:
-      app: gitprime-reporting-api-{{- template "helpers.environment.fullName" .}}-{{ .templateData.operationMode }}
+      app: gitprime-reporting-sink-{{- template "helpers.environment.fullName" .}}-{{ .templateData.operationMode }}
   strategy:
     rollingUpdate:
       maxSurge: 25%
@@ -21,10 +21,10 @@ spec:
   template:
     metadata:
       labels:
-        app: gitprime-reporting-api-{{- template "helpers.environment.fullName" .}}-{{ .templateData.operationMode }}
+        app: gitprime-reporting-sink-{{- template "helpers.environment.fullName" .}}-{{ .templateData.operationMode }}
     spec:
       containers:
-        - name: gitprime-reporting-api-{{- template "helpers.environment.fullName" .}}-{{ .templateData.operationMode }}
+        - name: gitprime-reporting-sink-{{- template "helpers.environment.fullName" .}}-{{ .templateData.operationMode }}
           image: gp-docker.gitprime-ops.com/cloud/gitprime-reporting-sink:{{ .Values.build.commitSHA }}
           imagePullPolicy: IfNotPresent
         {{- if .templateData.httpHost }}
@@ -119,16 +119,16 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: gitprime-reporting-api-{{- template "helpers.environment.fullName" .}}-{{ .templateData.operationMode }}-nodeport
+  name: gitprime-reporting-sink-{{- template "helpers.environment.fullName" .}}-{{ .templateData.operationMode }}-nodeport
   labels:
-    app: gitprime-reporting-api-{{- template "helpers.environment.fullName" .}}-{{ .templateData.operationMode }}
+    app: gitprime-reporting-sink-{{- template "helpers.environment.fullName" .}}-{{ .templateData.operationMode }}
 spec:
   type: NodePort
   ports:
-    - name: gitprime-reporting-api-{{- template "helpers.environment.fullName" .}}-{{ .templateData.operationMode }}-nodeport
+    - name: gitprime-reporting-sink-{{- template "helpers.environment.fullName" .}}-{{ .templateData.operationMode }}-nodeport
       port: {{ .Values.application.webPort }}
       nodePort: {{ .Values.application.nodePort }}
       targetPort: {{ .Values.application.webPort }}
   selector:
-    app: gitprime-reporting-api-{{- template "helpers.environment.fullName" .}}-{{ .templateData.operationMode }}
+    app: gitprime-reporting-sink-{{- template "helpers.environment.fullName" .}}-{{ .templateData.operationMode }}
 {{- end }}
