@@ -95,6 +95,31 @@ questions:
     label: Persistence storage class for data log dir. Valid options are nil, "-", or storage class name.
     default: "nfs-client"
 
+  - variable: cp-helm-charts.cp-kafka-connect.image
+    type: string
+    required: true
+    group: "cp-helm-charts/cp-kafka-connect image"
+    label: Image
+    description: "Docker Image of Confluent Kafka Connect."
+    options:
+      - gp-docker.gitprime-ops.com/gp-kafka-connect
+      - confluentinc/cp-kafka-connect
+    default: "gp-docker.gitprime-ops.com/gp-kafka-connect"
+  - variable: cp-helm-charts.cp-kafka-connect.imageTag
+    type: string
+    required: true
+    group: "cp-helm-charts/cp-kafka-connect image"
+    label: Image tag
+    description: "Docker Image Tag of Confluent Kafka Connect (use 5.3.1 for cp-kafka-connect)"
+    default: "latest"
+
+  - variable: cp-helm-charts.cp-kafka-connect.replicaCount
+    type: string
+    required: true
+    group: "cp-helm-charts/cp-kafka-connect"
+    label: Replica count
+    description: "The number of Kafka Connect Servers"
+    default: "1"
   - variable: cp-helm-charts.cp-kafka-connect.configurationOverrides.config.storage.replication.factor
     type: string
     required: true
