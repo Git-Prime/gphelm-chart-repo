@@ -62,7 +62,7 @@ questions:
     required: true
     group: "cp-helm-charts/cp-kafka"
     label: Persistence size
-    default: "5Gi"
+    default: "10Gi"
 
   - variable: cp-helm-charts.cp-zookeeper.servers
     type: string
@@ -112,6 +112,18 @@ questions:
     label: Image tag
     description: "Docker Image Tag of Confluent Kafka Connect (use 5.3.1 for cp-kafka-connect)"
     default: "latest"
+  - variable: cp-helm-charts.cp-kafka-connect.imagePullPolicy
+    type: string
+    required: false
+    group: "cp-helm-charts/cp-kafka-connect image"
+    label: Image pull policy
+    description: "Policy for pulling images"
+    options:
+      - IfNotPresent
+      - Always
+      - Never
+      - ""
+    default: "IfNotPresent"
 
   - variable: cp-helm-charts.cp-kafka-connect.replicaCount
     type: string
@@ -176,7 +188,7 @@ questions:
     required: false
     group: "kafka-connect resources"
     label: The amount of memory request.
-    default: "250Mi"
+    default: "500mi"
 
   - variable: kafkaConnect.resources.limits.cpu
     type: string
