@@ -21,6 +21,6 @@ application:
   replicaCount: 1
   javaOptions: ""
   webPort: "8080"
-  nodePort: "30680"
-  activeProfiles: ""
+  nodePort: "30480"
+  activeProfiles: "pull-request-sink"
 
