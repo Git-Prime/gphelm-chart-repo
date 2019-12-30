@@ -117,32 +117,32 @@ questions:
     group: "Spark master"
     label: Debug
     description: Set to true if you would like to see extra information on logs
-    default: false
+    default: true
 
   - variable: spark.master.resources.limits.cpu
     type: string
     required: false
     group: "Spark master resources"
-    label: CPU limits (e.g. 250m)
-    default: ""
+    label: CPU limits
+    default: 250m
   - variable: spark.master.resources.limits.memory
     type: string
     required: false
     group: "Spark master resources"
-    label: Memory limits (e.g. 1Gi)
-    default: ""
+    label: Memory limits
+    default: 2Gi
   - variable: spark.master.resources.requests.cpu
     type: string
     required: false
     group: "Spark master resources"
-    label: CPU requests (200m)
-    default: ""
+    label: CPU requests
+    default: 200m
   - variable: spark.master.resources.requests.memory
     type: string
     required: false
     group: "Spark master resources"
-    label: Memory requests (e.g. 256Mi)
-    default: ""
+    label: Memory requests
+    default: 1Gi
 
   - variable: spark.master.persistence.enabled
     type: boolean
@@ -180,36 +180,36 @@ questions:
     default: true
     show_subquestion_if: true
     subquestions:
-    - variable: spark.master.livenessProbe.initialDelaySeconds
-      type: int
-      required: true
-      label: Initial delay seconds
-      description: Delay before liveness probe is initiated
-      default: 180
-    - variable: spark.master.livenessProbe.periodSeconds
-      type: int
-      required: true
-      label: Period seconds
-      description: How often to perform the probe
-      default: 20
-    - variable: spark.master.livenessProbe.timeoutSeconds
-      type: int
-      required: true
-      label: Timeout seconds
-      description: When the probe times out
-      default: 5
-    - variable: spark.master.livenessProbe.failureThreshold
-      type: int
-      required: true
-      label: Failure threshold
-      description: Minimum consecutive failures for the probe to be considered failed after having succeeded.
-      default: 6
-    - variable: spark.master.livenessProbe.successThreshold
-      type: int
-      required: true
-      label: Success threshold
-      description: Minimum consecutive successes for the probe to be considered successful after having failed
-      default: 1
+      - variable: spark.master.livenessProbe.initialDelaySeconds
+        type: int
+        required: true
+        label: Initial delay seconds
+        description: Delay before liveness probe is initiated
+        default: 180
+      - variable: spark.master.livenessProbe.periodSeconds
+        type: int
+        required: true
+        label: Period seconds
+        description: How often to perform the probe
+        default: 20
+      - variable: spark.master.livenessProbe.timeoutSeconds
+        type: int
+        required: true
+        label: Timeout seconds
+        description: When the probe times out
+        default: 5
+      - variable: spark.master.livenessProbe.failureThreshold
+        type: int
+        required: true
+        label: Failure threshold
+        description: Minimum consecutive failures for the probe to be considered failed after having succeeded.
+        default: 6
+      - variable: spark.master.livenessProbe.successThreshold
+        type: int
+        required: true
+        label: Success threshold
+        description: Minimum consecutive successes for the probe to be considered successful after having failed
+        default: 1
 
   - variable: spark.master.readinessProbe.enabled
     type: boolean
@@ -286,6 +286,14 @@ questions:
     description: Set to true if you would like to see extra information on logs
     default: false
 
+  - variable: spark.worker.javaOptions
+      type: boolean
+      required: true
+      group: "Spark worker options"
+      label: Debug
+      description: Set to true if you would like to see extra information on logs
+      default: false
+
   - variable: spark.worker.daemonMemoryLimit
     type: string
     required: false
@@ -293,10 +301,8 @@ questions:
     label: Daemon memory limit
     description: Set the memory limit for the worker daemon
     default: ""
-
   - variable: spark.worker.memoryLimit
     type: string
-    description: Set the maximum memory the worker is allowed to use
     required: false
     group: "Spark worker limits"
     label: Memory limit
@@ -314,25 +320,25 @@ questions:
     required: false
     group: "Spark worker resources"
     label: CPU limits
-    default: ""
+    default: 1
   - variable: spark.worker.resources.limits.memory
     type: string
     required: false
     group: "Spark worker resources"
-    label: Memory limits (e.g. 20Gi)
-    default: ""
+    label: Memory limits
+    default: 19Gi
   - variable: spark.worker.resources.requests.cpu
     type: string
     required: false
     group: "Spark worker resources"
-    label: CPU requests (e.g. 200m)
-    default: ""
+    label: CPU requests
+    default: 0.5
   - variable: spark.worker.resources.requests.memory
     type: string
     required: false
     group: "Spark worker resources"
-    label: Memory requests (e.g. 250Mi)
-    default: ""
+    label: Memory requests
+    default: 2Gi
 
   - variable: spark.worker.persistence.enabled
     type: boolean
@@ -378,7 +384,7 @@ questions:
     description: Enable autoscaling depending on CPU
     show_subquestion_if: true
     subquestions:
-      - variable: spark.worker.autoscaling.cpuTargetPercentage
+      - variable: spark.worker.autoscaling.CpuTargetPercentage
         type: int
         required: true
         label: CPU target percentage
