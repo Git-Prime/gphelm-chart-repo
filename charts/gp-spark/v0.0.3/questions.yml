@@ -123,26 +123,26 @@ questions:
     type: string
     required: false
     group: "Spark master resources"
-    label: CPU limits
-    default: 250m
+    label: CPU limits (e.g. 250m)
+    default: ""
   - variable: spark.master.resources.limits.memory
     type: string
     required: false
     group: "Spark master resources"
-    label: Memory limits
-    default: 1Gi
+    label: Memory limits (e.g. 1Gi)
+    default: ""
   - variable: spark.master.resources.requests.cpu
     type: string
     required: false
     group: "Spark master resources"
-    label: CPU requests
-    default: 200m
+    label: CPU requests (200m)
+    default: ""
   - variable: spark.master.resources.requests.memory
     type: string
     required: false
     group: "Spark master resources"
-    label: Memory requests
-    default: 256Mi
+    label: Memory requests (e.g. 256Mi)
+    default: ""
 
   - variable: spark.master.persistence.enabled
     type: boolean
@@ -296,11 +296,11 @@ questions:
 
   - variable: spark.worker.memoryLimit
     type: string
-    description:
+    description: Set the maximum memory the worker is allowed to use
     required: false
     group: "Spark worker limits"
     label: Memory limit
-    default: Set the maximum memory the worker is allowed to use
+    default: ""
   - variable: spark.worker.coreLimit
     type: string
     required: false
@@ -378,7 +378,7 @@ questions:
     description: Enable autoscaling depending on CPU
     show_subquestion_if: true
     subquestions:
-      - variable: spark.worker.autoscaling.CpuTargetPercentage
+      - variable: spark.worker.autoscaling.cpuTargetPercentage
         type: int
         required: true
         label: CPU target percentage
