@@ -293,12 +293,14 @@ questions:
     label: Daemon memory limit
     description: Set the memory limit for the worker daemon
     default: ""
+
   - variable: spark.worker.memoryLimit
     type: string
+    description:
     required: false
     group: "Spark worker limits"
     label: Memory limit
-    default: ""
+    default: Set the maximum memory the worker is allowed to use
   - variable: spark.worker.coreLimit
     type: string
     required: false
@@ -312,25 +314,25 @@ questions:
     required: false
     group: "Spark worker resources"
     label: CPU limits
-    default: 250m
+    default: ""
   - variable: spark.worker.resources.limits.memory
     type: string
     required: false
     group: "Spark worker resources"
-    label: Memory limits
-    default: 1Gi
+    label: Memory limits (e.g. 20Gi)
+    default: ""
   - variable: spark.worker.resources.requests.cpu
     type: string
     required: false
     group: "Spark worker resources"
-    label: CPU requests
-    default: 200m
+    label: CPU requests (e.g. 200m)
+    default: ""
   - variable: spark.worker.resources.requests.memory
     type: string
     required: false
     group: "Spark worker resources"
-    label: Memory requests
-    default: 250Mi
+    label: Memory requests (e.g. 250Mi)
+    default: ""
 
   - variable: spark.worker.persistence.enabled
     type: boolean
