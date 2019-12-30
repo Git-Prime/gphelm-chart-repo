@@ -125,24 +125,6 @@ questions:
     group: "Spark master resources"
     label: CPU limits (e.g. 250m)
     default: ""
-  - variable: spark.master.resources.limits.memory
-    type: string
-    required: false
-    group: "Spark master resources"
-    label: Memory limits (e.g. 1Gi)
-    default: ""
-  - variable: spark.master.resources.requests.cpu
-    type: string
-    required: false
-    group: "Spark master resources"
-    label: CPU requests (200m)
-    default: ""
-  - variable: spark.master.resources.requests.memory
-    type: string
-    required: false
-    group: "Spark master resources"
-    label: Memory requests (e.g. 256Mi)
-    default: ""
 
   - variable: spark.master.persistence.enabled
     type: boolean
@@ -292,46 +274,6 @@ questions:
     group: "Spark worker limits"
     label: Daemon memory limit
     description: Set the memory limit for the worker daemon
-    default: ""
-
-  - variable: spark.worker.memoryLimit
-    type: string
-    description: Set the maximum memory the worker is allowed to use
-    required: false
-    group: "Spark worker limits"
-    label: Memory limit
-    default: ""
-  - variable: spark.worker.coreLimit
-    type: string
-    required: false
-    group: "Spark worker limits"
-    label: Core limit
-    description: Set the maximum number of cores that the worker can use
-    default: ""
-
-  - variable: spark.worker.resources.limits.cpu
-    type: string
-    required: false
-    group: "Spark worker resources"
-    label: CPU limits
-    default: ""
-  - variable: spark.worker.resources.limits.memory
-    type: string
-    required: false
-    group: "Spark worker resources"
-    label: Memory limits (e.g. 20Gi)
-    default: ""
-  - variable: spark.worker.resources.requests.cpu
-    type: string
-    required: false
-    group: "Spark worker resources"
-    label: CPU requests (e.g. 200m)
-    default: ""
-  - variable: spark.worker.resources.requests.memory
-    type: string
-    required: false
-    group: "Spark worker resources"
-    label: Memory requests (e.g. 250Mi)
     default: ""
 
   - variable: spark.worker.persistence.enabled
