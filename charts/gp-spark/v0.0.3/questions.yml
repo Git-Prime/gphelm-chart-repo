@@ -117,7 +117,7 @@ questions:
     group: "Spark master"
     label: Debug
     description: Set to true if you would like to see extra information on logs
-    default: true
+    default: false
 
   - variable: spark.master.resources.limits.cpu
     type: string
@@ -130,7 +130,7 @@ questions:
     required: false
     group: "Spark master resources"
     label: Memory limits
-    default: 2Gi
+    default: 1Gi
   - variable: spark.master.resources.requests.cpu
     type: string
     required: false
@@ -142,7 +142,7 @@ questions:
     required: false
     group: "Spark master resources"
     label: Memory requests
-    default: 1Gi
+    default: 256Mi
 
   - variable: spark.master.persistence.enabled
     type: boolean
@@ -301,6 +301,7 @@ questions:
     label: Daemon memory limit
     description: Set the memory limit for the worker daemon
     default: ""
+
   - variable: spark.worker.memoryLimit
     type: string
     required: false
@@ -320,25 +321,25 @@ questions:
     required: false
     group: "Spark worker resources"
     label: CPU limits
-    default: 1
+    default: 250m
   - variable: spark.worker.resources.limits.memory
     type: string
     required: false
     group: "Spark worker resources"
     label: Memory limits
-    default: 19Gi
+    default: 2Gi
   - variable: spark.worker.resources.requests.cpu
     type: string
     required: false
     group: "Spark worker resources"
     label: CPU requests
-    default: 0.5
+    default: 200m
   - variable: spark.worker.resources.requests.memory
     type: string
     required: false
     group: "Spark worker resources"
     label: Memory requests
-    default: 2Gi
+    default: 1Gi
 
   - variable: spark.worker.persistence.enabled
     type: boolean
