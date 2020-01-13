@@ -22,5 +22,4 @@ application:
   javaOptions: ""
   webPort: "8080"
   nodePort: "30680"
-  activeProfiles: ""
-
+  activeProfiles: "org-virtualteam-sink,ticket-sink,user-changed-sink,alias-sink,project-sink,pr-event-sink,pr-comment-sink,team-sink,organization-sink,member-sink,apex-sink,vendor-sink,work-event-sink,pull-request-sink,commit-event-sink,ticket,event-sink,ticket-comment-sink,group-sink,org-reportpreferences-sink,materialized-view-rights-sink"

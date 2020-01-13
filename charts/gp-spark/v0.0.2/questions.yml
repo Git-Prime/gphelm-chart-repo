@@ -147,7 +147,7 @@ questions:
         required: true
         label: Storage class
         description: Volume storage class
-        default:  "nfs-client"
+        default:  "ebs-gp2"
       - variable: spark.master.persistence.accessMode
         type: enum
         required: true
@@ -335,7 +335,7 @@ questions:
         required: true
         label: Storage class
         description: Volume storage class
-        default:  "nfs-client"
+        default:  "ebs-gp2"
       - variable: spark.worker.persistence.accessMode
         type: enum
         required: true
