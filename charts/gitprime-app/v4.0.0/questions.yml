@@ -494,6 +494,71 @@ questions:
     default: "INFO"
 
 
+
+  # Batch Worker Settings
+  - variable: dataPipeline.batchWorker.replicaCount
+    type: string
+    required: true
+    group: "Data Pipeline / Batch Workers"
+    label: Number of Pods for Batch Workers
+    description: The number of pods to deploy for the batch workers.
+    default: 1
+
+  - variable: dataPipeline.batchWorker.javaOptions
+    type: string
+    required: true
+    group: "Data Pipeline / Batch Workers"
+    label: Batch Worker Java Options
+    description: The Java options for the batch workers.
+    default: "-d64 -Xms2g -Xmx4g"
+
+  - variable: dataPipeline.batchWorker.resources.requests.cpu
+    type: string
+    required: true
+    group: "Data Pipeline / Batch Workers"
+    label: Batch Worker Requested CPU
+    description: The number of CPUs the batch workers will request.
+    default: "2"
+
+  - variable: dataPipeline.batchWorker.resources.requests.memory
+    type: string
+    required: true
+    group: "Data Pipeline / Batch Workers"
+    label: Batch Worker Requested Memory
+    description: The maximum amount of memory a batch worker will request.
+    default: "4Gi"
+
+  - variable: dataPipeline.batchWorker.resources.limits.cpu
+    type: string
+    required: true
+    group: "Data Pipeline / Batch Workers"
+    label: Batch CPU Limit
+    description: The maximum number of CPUs the batch workers can use.
+    default: "4"
+
+  - variable: dataPipeline.batchWorker.resources.limits.memory
+    type: string
+    required: true
+    group: "Data Pipeline / Batch Workers"
+    label: Batch Worker Memory Limit
+    description: The maximum amount of memory a batch worker can use.
+    default: "8Gi"
+
+  - variable: dataPipeline.batchWorker.logLevel
+    type: enum
+    required: true
+    group: "Data Pipeline / Batch Workers"
+    label: Log Level
+    description: The level of logging for this deployment.
+    options:
+      - TRACE
+      - DEBUG
+      - INFO
+      - WARN
+      - ERROR
+    default: "INFO"
+
+
 ####
 #### Eventually we'll want to put the GitPrime Main application settings here
 ####
