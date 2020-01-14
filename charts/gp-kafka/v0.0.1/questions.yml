@@ -176,12 +176,6 @@ questions:
     group: "kafka-connect"
     label: Kafka connect HTTP host name for REST registration service request
     default: ""
-  - variable: kafkaConnect.ingress.enabled
-    type: boolean
-    required: false
-    group: "kafka-connect"
-    label: Whether or not to create an ingress resource
-    default: false
 
   - variable: kafkaConnect.resources.requests.cpu
     type: string
@@ -208,3 +202,10 @@ questions:
     group: "kafka-connect resources"
     label: The upper limit memory usage for a Kafka Connect Pod.
     default: "1G1"
+
+  - variable: ingress.enabled
+    type: boolean
+    required: false
+    group: "kafka-connect"
+    label: Whether or not to create an ingress resource
+    default: false
