@@ -496,14 +496,6 @@ questions:
 
 
   # Batch Worker Settings
-  - variable: dataPipeline.batchWorker.replicaCount
-    type: string
-    required: true
-    group: "Data Pipeline / Batch Workers"
-    label: Number of Pods for Batch Workers
-    description: The number of pods to deploy for the batch workers.
-    default: 1
-
   - variable: dataPipeline.batchWorker.javaOptions
     type: string
     required: true
