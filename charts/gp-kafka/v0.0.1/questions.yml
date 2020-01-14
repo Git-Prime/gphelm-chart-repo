@@ -176,6 +176,12 @@ questions:
     group: "kafka-connect"
     label: Kafka connect HTTP host name for REST registration service request
     default: ""
+  - variable: kafkaConnect.ingress.enabled
+    type: boolean
+    required: false
+    group: "kafka-connect"
+    label: Whether or not to create an ingress resource
+    default: false
 
   - variable: kafkaConnect.resources.requests.cpu
     type: string

@@ -1,0 +1,38 @@
+{{- if .kafkaConnect.ingress.enabled }}
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: {{ template "cp-kafka-connect.fullname" . }}-ingress
+    labels:
+    app: {{ template "cp-kafka-connect.name" . }}
+    chart: {{ template "cp-kafka-connect.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+  annotations:
+    {{- range $key, $value := .Values.ingress.annotations }}
+    {{ $key }}: {{ $value | quote }}
+    {{- end }}
+spec:
+  rules:
+  {{- if .Values.ingress.hostName }}
+  - host: {{ .Values.ingress.hostName }}
+    http:
+  {{- else }}
+  - http:
+  {{- end }}
+      paths:
+        - path: {{ default "/" .path }}
+          backend:
+            serviceName: {{ template "cp-kafka-connect.fullname" . }}
+            servicePort: {{ .Values.kafkaConnect.port }}
+{{- if .Values.ingress.tls }}
+  tls:
+  - hosts:
+    {{- if  .Values.ingress.hostName }}
+    - {{ .Values.ingress.hostName }}
+    secretName: {{  .Values.ingress.tlsSecret }}
+    {{- else}}
+    - secretName: {{  .Values.ingress.tlsSecret }}
+    {{- end }}
+{{- end }}
+{{- end }}
