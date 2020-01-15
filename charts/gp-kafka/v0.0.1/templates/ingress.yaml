@@ -2,12 +2,12 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: {{ template "cp-kafka-connect.fullname" . }}-ingress
+  name: "{{ template "cp-kafka-connect.fullname" . }}-ingress"
     labels:
-    app: {{ template "cp-kafka-connect.name" . }}
-    chart: {{ template "cp-kafka-connect.chart" . }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
+    app: "{{ template "cp-kafka-connect.name" . }}"
+    chart: "{{ template "cp-kafka-connect.chart" . }}"
+    release: "{{ .Release.Name }}"
+    heritage: "{{ .Release.Service }}"
   annotations:
     {{- range $key, $value := .Values.ingress.annotations }}
     {{ $key }}: {{ $value | quote }}
