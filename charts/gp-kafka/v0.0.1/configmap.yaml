@@ -7,7 +7,11 @@ data:
   conf.yaml: |-
     instances:
       - jmx_url: "service:jmx:rmi:///jndi/rmi://gp-kafka-cp-kafka-connect-jmx.kafka:5555/jmxrmi"
+        name: kafka-connect
+      - jmx_url: "service:jmx:rmi:///jndi/rmi://gp-kafka-cp-kafka-jmx.kafka:5555/jmxrmi"
         name: kafka
+      - jmx_url: "service:jmx:rmi:///jndi/rmi://gp-kafka-cp-zookeeper-jmx.kafka:5555/jmxrmi"
+        name: zookeeper
     init_config:
       is_jmx: true
       collect_default_metrics: true

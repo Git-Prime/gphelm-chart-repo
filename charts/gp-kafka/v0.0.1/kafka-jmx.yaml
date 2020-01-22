@@ -18,3 +18,45 @@ spec:
     release: gp-kafka
   sessionAffinity: None
   type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: cp-kafka
+    io.cattle.field/appId: gp-kafka
+    release: gp-kafka
+  name: gp-kafka-cp-kafka-jmx
+  namespace: kafka
+spec:
+  ports:
+  - name: kafka-jmx
+    port: 5555
+    protocol: TCP
+    targetPort: 5555
+  selector:
+    app: cp-kafka
+    release: gp-kafka
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: cp-zookeeper
+    io.cattle.field/appId: gp-kafka
+    release: gp-kafka
+  name: gp-kafka-cp-zookeeper-jmx
+  namespace: kafka
+spec:
+  ports:
+  - name: zookeeper-jmx
+    port: 5555
+    protocol: TCP
+    targetPort: 5555
+  selector:
+    app: cp-zookeeper
+    release: gp-kafka
+  sessionAffinity: None
+  type: ClusterIP
