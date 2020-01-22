@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: cp-kafka-connect
+    io.cattle.field/appId: gp-kafka
+    release: gp-kafka
+  name: gp-kafka-cp-kafka-connect-jmx
+  namespace: kafka
+spec:
+  ports:
+  - name: kafka-jmx
+    port: 5555
+    protocol: TCP
+    targetPort: 5555
+  selector:
+    app: cp-kafka-connect
+    release: gp-kafka
+  sessionAffinity: None
+  type: ClusterIP
