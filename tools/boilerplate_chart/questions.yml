@@ -1,0 +1,37 @@
+questions:
+
+  ####
+  #### General environment settings
+  ####
+  - variable: environment.parentName
+    type: enum
+    required: true
+    group: "Environment"
+    label: Environment Parent
+    description: The name of the parent environment we will deploy into and funcation as.
+    options:
+      - sandbox
+      - canary
+      - production
+    default: sandbox
+
+  - variable: environment.modifierValue
+    type: enum
+    required: false
+    group: "Environment"
+    label: Environment Modifier
+    description: The modifier name for the environment we will deploy into and funcation as.
+    options:
+      - prime
+      - qa
+      - 01
+      - 02
+      - 03
+      - 04
+      - 05
+      - 06
+      - 07
+      - 08
+      - 09
+      - 10
+    default: ""
