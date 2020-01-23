@@ -182,13 +182,13 @@ questions:
     required: false
     group: "kafka-connect resources"
     label: The amount of CPU to request.
-    default: "100m"
+    default: "200m"
   - variable: kafkaConnect.resources.requests.memory
     type: string
     required: false
     group: "kafka-connect resources"
     label: The amount of memory request.
-    default: "500mi"
+    default: "750mi"
 
   - variable: kafkaConnect.resources.limits.cpu
     type: string
