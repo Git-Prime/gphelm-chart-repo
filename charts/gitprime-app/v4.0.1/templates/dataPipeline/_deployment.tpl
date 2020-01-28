@@ -141,6 +141,10 @@ spec:
             - name: GP_REPROCESS_WORKERS_PER_LISTENER
               value: {{ quote .templateData.reprocessThreadsPerListener }}
           {{- end}}
+          {{- if .templateData.reprocessMaxCommitCount }}
+            - name: GP_REPROCESS_MAX_COMMIT_COUNT
+              value: {{ quote .templateData.reprocessMaxCommitCount }}
+          {{- end}}
           {{- if .templateData.maxConcurrentProjectsPerOrg }}
             - name: GP_MAX_CONCURRENT_PROJECTS_PER_ORG
               value: {{ quote .templateData.maxConcurrentProjectsPerOrg }}

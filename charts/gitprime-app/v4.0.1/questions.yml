@@ -584,6 +584,14 @@ questions:
     description: The number of threads per job to use for the reprocess workers.
     default: 2
 
+  - variable: dataPipeline.reprocessWorker.reprocessMaxCommitCount
+    type: string
+    required: true
+    group: "Data Pipeline / Reprocess Workers"
+    label: Reprocess Worker Maximum Commit Count
+    description: The maximum number of commits each worker will handle before resting.
+    default: 10000
+
   - variable: dataPipeline.reprocessWorker.resources.requests.cpu
     type: string
     required: true
