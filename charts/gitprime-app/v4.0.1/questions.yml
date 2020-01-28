@@ -551,6 +551,85 @@ questions:
     default: "INFO"
 
 
+  # Reprocess Worker Settings
+  - variable: dataPipeline.reprocessWorker.replicaCount
+    type: string
+    required: true
+    group: "Data Pipeline / Reprocess Workers"
+    label: Number of Pods for Reprocess Workers
+    description: The number of pods to deploy for the workers that handle commit reprocessing.
+    default: 1
+
+  - variable: dataPipeline.reprocessWorker.javaOptions
+    type: string
+    required: true
+    group: "Data Pipeline / Reprocess Workers"
+    label: Reprocess Worker Java Options
+    description: The Java options for the reprocess workers.
+    default: "-d64 -Xms2g -Xmx4g"
+
+  - variable: dataPipeline.reprocessWorker.reprocessListeners
+    type: string
+    required: true
+    group: "Data Pipeline / Reprocess Workers"
+    label: Reprocess Worker Concurrent Jobs
+    description: The number of concurrent jobs for the reprocess workers.
+    default: 1
+
+  - variable: dataPipeline.reprocessWorker.reprocessThreadsPerListener
+    type: string
+    required: true
+    group: "Data Pipeline / Reprocess Workers"
+    label: Reprocess Worker Thread Count
+    description: The number of threads per job to use for the reprocess workers.
+    default: 2
+
+  - variable: dataPipeline.reprocessWorker.resources.requests.cpu
+    type: string
+    required: true
+    group: "Data Pipeline / Reprocess Workers"
+    label: Reprocess Worker Requested CPU
+    description: The number of CPUs the reprocess workers will request.
+    default: "2"
+
+  - variable: dataPipeline.reprocessWorker.resources.requests.memory
+    type: string
+    required: true
+    group: "Data Pipeline / Reprocess Workers"
+    label: Reprocess Worker Requested Memory
+    description: The maximum amount of memory a reprocess worker will request.
+    default: "4Gi"
+
+  - variable: dataPipeline.reprocessWorker.resources.limits.cpu
+    type: string
+    required: true
+    group: "Data Pipeline / Reprocess Workers"
+    label: Reprocess CPU Limit
+    description: The maximum number of CPUs the reprocess workers can use.
+    default: "4"
+
+  - variable: dataPipeline.reprocessWorker.resources.limits.memory
+    type: string
+    required: true
+    group: "Data Pipeline / Reprocess Workers"
+    label: Reprocess Worker Memory Limit
+    description: The maximum amount of memory a reprocess worker can use.
+    default: "8Gi"
+
+  - variable: dataPipeline.reprocessWorker.logLevel
+    type: enum
+    required: true
+    group: "Data Pipeline / Reprocess Workers"
+    label: Log Level
+    description: The level of logging for this deployment.
+    options:
+      - TRACE
+      - DEBUG
+      - INFO
+      - WARN
+      - ERROR
+    default: "INFO"
+
 ####
 #### Eventually we'll want to put the GitPrime Main application settings here
 ####
