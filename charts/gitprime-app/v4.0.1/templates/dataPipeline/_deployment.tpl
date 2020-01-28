@@ -133,6 +133,14 @@ spec:
             - name: GP_REPO_DELETE_PER_LISTENER
               value: {{ quote .templateData.repoDeleteThreadsPerListener }}
           {{- end}}
+          {{- if .templateData.reprocessListeners }}
+            - name: GP_REPROCESS_LISTENERS
+              value: {{ quote .templateData.reprocessListeners }}
+          {{- end}}
+          {{- if .templateData.reprocessThreadsPerListener }}
+            - name: GP_REPROCESS_WORKERS_PER_LISTENER
+              value: {{ quote .templateData.reprocessThreadsPerListener }}
+          {{- end}}
           {{- if .templateData.maxConcurrentProjectsPerOrg }}
             - name: GP_MAX_CONCURRENT_PROJECTS_PER_ORG
               value: {{ quote .templateData.maxConcurrentProjectsPerOrg }}
