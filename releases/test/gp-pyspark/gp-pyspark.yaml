@@ -7,13 +7,12 @@ metadata:
   annotations:
     fluxcd.io/automated: "true"
 spec:
-  releaseName: gp-pyspark-test
+  releaseName: gp-pyspark
   chart:
     git: git@github.com:GitPrime/gphelm-chart-repo
     path: charts/gp-pyspark
     version: v0.0.1
     ref: INFRA-915/add_pyspark_chart
   values:
-    jobs:
-      image:
-        tag: de899a38a07db3a435ec108fbadff08f9ff3609f
+    image:
+      tag: de899a38a07db3a435ec108fbadff08f9ff3609f

@@ -2,6 +2,9 @@ environment:
   parentName: "sandbox"
   modifierValue: "05"
 
+image:
+  tag: de899a38a07db3a435ec108fbadff08f9ff3609f
+
 jobs:
   - name: gp-pyspark
     image:
