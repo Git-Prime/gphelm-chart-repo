@@ -14,6 +14,6 @@ spec:
     version: v0.0.1
     ref: INFRA-915/add_pyspark_chart
   values:
-    image:
-      repository: gp-docker.gitprime-ops.com/cloud/gp-pyspark
-      tag: de899a38a07db3a435ec108fbadff08f9ff3609f
+    jobs:
+      image:
+        tag: de899a38a07db3a435ec108fbadff08f9ff3609f

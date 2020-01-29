@@ -6,7 +6,6 @@ jobs:
   - name: gp-pyspark
     image:
       repository: gp-docker.gitprime-ops.com/cloud/gp-pyspark
-      tag: de899a38a07db3a435ec108fbadff08f9ff3609f
       imagePullPolicy: Always
     env:
     - name: SYSTEM_ENV
