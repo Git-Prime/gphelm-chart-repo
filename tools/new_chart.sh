@@ -26,7 +26,7 @@ if [ -d "${CHART_ROOT}" ]; then
     echo "${CHART_ROOT} exists already. Will not overwrite"
 else
     mkdir -p "${CHART_ROOT}"
-    cp -aR "${REPO_ROOT}"/tools/boilerplate_chart/* "${CHART_ROOT}"/
+    cp -aR "${REPO_ROOT}"/boilerplate_chart/* "${CHART_ROOT}"/
 fi
 
 find ${CHART_ROOT} -type f -print0 | xargs -0 sed -i '' -e "s/APP_NAME/${CHART_NAME}/g"
