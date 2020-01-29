@@ -9,7 +9,7 @@ metadata:
 spec:
   releaseName: gp-pyspark
   chart:
-    git: git@github.com:GitPrime/gphelm-chart-repo
+    git: git@github.com:GitPrime/gphelm-chart-repo.git
     path: charts/gp-pyspark
     version: v0.0.1
     ref: INFRA-915/add_pyspark_chart
