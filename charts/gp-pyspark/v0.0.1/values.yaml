@@ -1,6 +1,6 @@
 environment:
-  parentName: "sandbox"
-  modifierValue: "05"
+  parentName: "canary"
+  modifierValue: ""
 
 image:
   tag: de899a38a07db3a435ec108fbadff08f9ff3609f
@@ -12,15 +12,15 @@ jobs:
       imagePullPolicy: Always
     env:
     - name: SYSTEM_ENV
-      value: "sandbox-05"
-    schedule: "15 0 * * *"
+      value: "canary"
+    schedule: "04 23 * * *"
     resources:
       limits:
-        cpu: 14
-        memory: 32Gi
+        cpu: 6
+        memory: 16Gi
       requests:
-        cpu: 8
-        memory: 12Gi
+        cpu: 2
+        memory: 8Gi
     failedJobsHistoryLimit: 1
     successfulJobsHistoryLimit: 3
     concurrencyPolicy: Forbid
