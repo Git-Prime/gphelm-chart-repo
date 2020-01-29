@@ -1,0 +1,6 @@
+{{- $_ := set $templateData "replicaCount" .Values.application.replicaCount }}
+{{- $_ := set $templateData "environment" .Values.application.environment }}
+{{- $_ := set $templateData "resources" .Values.application.resources }}
+{{- $_ := set $templateData "logLevel" .Values.application.logLevel }}
+{{- $templateData := dict "Values" .Values "templateData" $templateData }}
+{{- include "application.deploymentTemplate" $templateData }}
