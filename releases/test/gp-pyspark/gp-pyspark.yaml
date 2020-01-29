@@ -11,7 +11,7 @@ spec:
   chart:
     git: git@github.com:Git-Prime/gphelm-chart-repo.git
     path: charts/gp-pyspark
-    version: v0.0.1
+    version: 0.0.1
     ref: INFRA-915/add_pyspark_chart
   values:
     image:
