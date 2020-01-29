@@ -1,0 +1,18 @@
+---
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: gp-pyspark-test
+  namespace: pyspark
+  annotations:
+    fluxcd.io/automated: "true"
+spec:
+  releaseName: gp-pyspark-test
+  chart:
+    git: git@github.com:GitPrime/gphelm-chart-repo
+    path: charts/gp-pyspark
+    ref: master
+  values:
+    image:
+      repository: gp-docker.gitprime-ops.com/cloud/gp-pyspark
+      tag: master
