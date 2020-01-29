@@ -11,8 +11,9 @@ spec:
   chart:
     git: git@github.com:GitPrime/gphelm-chart-repo
     path: charts/gp-pyspark
-    ref: master
+    version: v0.0.1
+    ref: INFRA-915/add_pyspark_chart
   values:
     image:
       repository: gp-docker.gitprime-ops.com/cloud/gp-pyspark
-      tag: master
+      tag: de899a38a07db3a435ec108fbadff08f9ff3609f
