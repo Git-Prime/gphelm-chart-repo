@@ -16,7 +16,7 @@ jobs:
     schedule: "15 0 * * *"
     resources:
       limits:
-        cpu: 12
+        cpu: 14
         memory: 32Gi
       requests:
         cpu: 8
