@@ -3,7 +3,7 @@ apiVersion: helm.fluxcd.io/v1
 kind: HelmRelease
 metadata:
   name: gp-pyspark
-  namespace: pyspark
+  namespace: gp-pyspark
   annotations:
     fluxcd.io/automated: "true"
 spec:
@@ -15,5 +15,5 @@ spec:
     ref: INFRA-915/add_pyspark_chart
   values:
     image:
-      tag: de899a38a07db3a435ec108fbadff08f9ff3609f
-    suspend: true
+      tag: a665c4da4dce2feec4ccc4e28226a32617867b45
+    suspend: false

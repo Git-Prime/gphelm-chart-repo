@@ -1,10 +1,3 @@
-environment:
-  parentName: "canary"
-  modifierValue: ""
-
-image:
-  tag: de899a38a07db3a435ec108fbadff08f9ff3609f
-
 jobs:
   - name: gp-pyspark
     image:
@@ -12,12 +5,12 @@ jobs:
       imagePullPolicy: Always
     env:
     - name: SYSTEM_ENV
-      value: "canary"
-    schedule: "04 23 * * *"
+      value: "sandbox-05"
+    schedule: "0 3 * * *"
     resources:
       limits:
-        cpu: 6
-        memory: 16Gi
+        cpu: 10
+        memory: 32Gi
       requests:
         cpu: 2
         memory: 8Gi
@@ -25,4 +18,3 @@ jobs:
     successfulJobsHistoryLimit: 3
     concurrencyPolicy: Forbid
     restartPolicy: Never
-    suspend: true

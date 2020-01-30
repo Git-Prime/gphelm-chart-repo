@@ -3,6 +3,7 @@
 {{- $chart_version := .Chart.Version | replace "+" "_" }}
 {{- $release_name := .Release.Name }}
 {{- $image_tag := .Values.image.tag }}
+{{- $suspend := .Values.suspend }}
 
 {{- range $job := .Values.jobs }}
 ---
@@ -65,5 +66,5 @@ spec:
           {{- end }}
   schedule: {{ $job.schedule | quote }}
   successfulJobsHistoryLimit: {{ $job.successfulJobsHistoryLimit }}
-  suspend: {{ $job.suspend }}
+  suspend: {{ $suspend }}
 {{- end }}
