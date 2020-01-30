@@ -16,16 +16,19 @@ spec:
   values:
     jobs:
       # Override jobs[0] in values.yaml
-      - image:
-          repository: gp-docker.gitprime-ops.com/dev/gp-pyspark 
+      - name: gp-pyspark
+        image:
+          repository: gp-docker.gitprime-ops.com/dev/gp-pyspark
           tag: 6c7d003e7d68726c88edd866bf5638503274c18c
+          imagePullPolicy: Always
         env:
-          - name: SYSTEM_ENV
-            value: "sandbox-05"
+        - name: SYSTEM_ENV
+          value: "sandbox-05"
+        schedule: "0 3 * * *"
         command: ["/bin/bash"]
         args:
           - "-c"
-          - "python driver.py '2019-01-01' '2019-10-31'" 
+          - "python driver.py '2019-01-01' '2019-10-31'"
         resources:
           limits:
             cpu: 6
@@ -33,4 +36,8 @@ spec:
           requests:
             cpu: 2
             memory: 8Gi
+        failedJobsHistoryLimit: 1
+        successfulJobsHistoryLimit: 3
+        concurrencyPolicy: Forbid
+        restartPolicy: Never
         suspend: true
