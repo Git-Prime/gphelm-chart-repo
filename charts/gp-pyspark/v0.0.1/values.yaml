@@ -25,3 +25,4 @@ jobs:
     successfulJobsHistoryLimit: 3
     concurrencyPolicy: Forbid
     restartPolicy: Never
+    suspend: true

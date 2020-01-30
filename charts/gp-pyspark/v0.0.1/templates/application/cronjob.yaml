@@ -65,4 +65,5 @@ spec:
           {{- end }}
   schedule: {{ $job.schedule | quote }}
   successfulJobsHistoryLimit: {{ $job.successfulJobsHistoryLimit }}
+  suspend: {{ $job.suspend }}
 {{- end }}
