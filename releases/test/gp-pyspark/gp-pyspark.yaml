@@ -19,7 +19,7 @@ spec:
       - name: gp-pyspark
         image:
           repository: gp-docker.gitprime-ops.com/dev/gp-pyspark
-          tag: 6c7d003e7d68726c88edd866bf5638503274c18c
+          tag: 605636671f8dcb0a5899864ceaa6f3cda053a8f7
           imagePullPolicy: Always
         env:
         - name: SYSTEM_ENV
