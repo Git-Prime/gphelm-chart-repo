@@ -19,15 +19,16 @@ spec:
       - name: gp-pyspark
         image:
           repository: gp-docker.gitprime-ops.com/dev/gp-pyspark
-          tag: 7a77254881de294edbdd913ac81d33f6542d71bb
+          tag: e4dfb128fd897ce16827ba5894beabfed7086f81
           imagePullPolicy: Always
         env:
         - name: SYSTEM_ENV
           value: "sandbox-05"
         schedule: "0 3 * * *"
-        command: ["/bin/bash", "-c"]
-        args:
-          - "python driver.py '2019-01-01' '2019-10-31'"
+        command: 
+        - "/bin/bash"
+        - "-c"
+        - "python driver.py '2019-01-01' '2019-10-31'"
         resources:
           limits:
             cpu: 6
