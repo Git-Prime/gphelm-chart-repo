@@ -2,11 +2,16 @@ jobs:
   - name: gp-pyspark
     image:
       repository: gp-docker.gitprime-ops.com/cloud/gp-pyspark
+      tag: ""
       imagePullPolicy: Always
     env:
     - name: SYSTEM_ENV
       value: "sandbox-05"
     schedule: "0 3 * * *"
+    command: ["/bin/bash"]
+    args:
+      - "-c"
+      - "echo $(date) - hello from ubuntu"
     resources:
       limits:
         cpu: 10

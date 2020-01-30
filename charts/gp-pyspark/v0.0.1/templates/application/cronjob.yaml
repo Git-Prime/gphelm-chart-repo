@@ -2,7 +2,6 @@
 {{- $chart_name := .Chart.Name }}
 {{- $chart_version := .Chart.Version | replace "+" "_" }}
 {{- $release_name := .Release.Name }}
-{{- $image_tag := .Values.image.tag }}
 {{- $suspend := .Values.suspend }}
 
 {{- range $job := .Values.jobs }}
@@ -25,7 +24,7 @@ spec:
             cron: {{ $job.name }}
         spec:
           containers:
-          - image: "{{ $job.image.repository }}:{{ $image_tag }}"
+          - image: "{{ $job.image.repository }}:{{ $job.image.tag }}"
             imagePullPolicy: {{ $job.image.imagePullPolicy }}
             name: {{ $job.name }}
             {{- with $job.env }}
