@@ -1,0 +1,70 @@
+---
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: gp-pyspark
+  namespace: gp-pyspark
+  annotations:
+    fluxcd.io/automated: "true"
+spec:
+  releaseName: gp-pyspark
+  chart:
+    git: git@github.com:Git-Prime/gphelm-chart-repo.git
+    path: charts/gp-pyspark/v0.0.1/
+    version: 0.0.1
+    ref: master
+  values:
+    jobs:
+      # Override jobs[0] in values.yaml
+      - name: gp-pyspark-nightly
+        image:
+          repository: gp-docker.gitprime-ops.com/cloud/gp-pyspark
+          tag: bb266d42d063f2eb659aa8d72252e076f3a1b756
+          imagePullPolicy: Always
+        env:
+        - name: SYSTEM_ENV
+          value: "sandbox-05"
+        - name: JAVA_OPTS
+          value: "-d64 -Xms2g -Xmx8g"
+        - name: DATADOG_ENABLED
+          value: "yes"
+        schedule: "0 8 * * 1-6"
+        command: "python driver.py '2019-12-01' $(date \"+%Y-%m-%d\")"
+        resources:
+          limits:
+            cpu: 12
+            memory: 32Gi
+          requests:
+            cpu: 2
+            memory: 12Gi
+        failedJobsHistoryLimit: 1
+        successfulJobsHistoryLimit: 3
+        concurrencyPolicy: Forbid
+        restartPolicy: Never
+        suspend: false
+      - name: gp-pyspark-weekly
+        image:
+          repository: gp-docker.gitprime-ops.com/cloud/gp-pyspark
+          tag: bb266d42d063f2eb659aa8d72252e076f3a1b756
+          imagePullPolicy: Always
+        env:
+        - name: SYSTEM_ENV
+          value: "sandbox-05"
+        - name: JAVA_OPTS
+          value: "-d64 -Xms2g -Xmx8g"
+        - name: DATADOG_ENABLED
+          value: "yes"
+        schedule: "0 8 * * 0"
+        command: "python driver.py '2019-01-01' $(date \"+%Y-%m-%d\")"
+        resources:
+          limits:
+            cpu: 12 
+            memory: 32Gi
+          requests:
+            cpu: 2
+            memory: 12Gi
+        failedJobsHistoryLimit: 1
+        successfulJobsHistoryLimit: 3
+        concurrencyPolicy: Forbid
+        restartPolicy: Never
+        suspend: false
