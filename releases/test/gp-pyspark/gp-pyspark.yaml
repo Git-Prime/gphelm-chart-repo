@@ -24,11 +24,8 @@ spec:
         env:
         - name: SYSTEM_ENV
           value: "sandbox-05"
-        schedule: "0 3 * * *"
-        command: 
-        - "/bin/bash"
-        - "-c"
-        - "python driver.py '2019-01-01' '2019-10-31'"
+        schedule: "10 0 * * *"
+        command: ["/bin/bash", "-c", "python driver.py '2019-01-01' '2019-10-31'"]
         resources:
           limits:
             cpu: 6
@@ -40,4 +37,4 @@ spec:
         successfulJobsHistoryLimit: 3
         concurrencyPolicy: Forbid
         restartPolicy: Never
-        suspend: true
+        suspend: false
