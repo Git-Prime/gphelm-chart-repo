@@ -34,7 +34,7 @@ spec:
             command: 
             - {{ $job.command }} 
             {{- end }}
-            {{- if $job.args }}
+            {{- if $job.job_command }}
             args:
             - /bin/bash
             - -c
