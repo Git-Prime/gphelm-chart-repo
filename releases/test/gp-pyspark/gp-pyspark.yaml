@@ -37,4 +37,4 @@ spec:
         successfulJobsHistoryLimit: 3
         concurrencyPolicy: Forbid
         restartPolicy: Never
-        suspend: false
+        suspend: true

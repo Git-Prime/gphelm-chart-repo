@@ -24,12 +24,12 @@ spec:
         env:
         - name: SYSTEM_ENV
           value: "sandbox-05"
-        schedule: "10 0 * * *"
+        schedule: "00 03 * * *"
         job_command: "python driver.py '2019-01-01' '2019-10-31'"
         resources:
           limits:
-            cpu: 6
-            memory: 21Gi
+            cpu: 8 
+            memory: 32Gi
           requests:
             cpu: 2
             memory: 8Gi
