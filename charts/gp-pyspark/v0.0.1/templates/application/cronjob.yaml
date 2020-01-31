@@ -31,7 +31,10 @@ spec:
 {{ toYaml . | indent 12 }}
             {{- end }}
             {{- if $job.command }}
-            command: {{ $job.command }}
+            command: 
+            - /bin/bash
+            - -c
+            - {{ $job.command }} 
             {{- end }}
             {{- with $job.args }}
             args:
