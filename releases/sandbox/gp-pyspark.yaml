@@ -28,13 +28,6 @@ spec:
           value: "-d64 -Xms2g -Xmx8g"
         - name: DATADOG_ENABLED
           value: "yes"
-        - name: SYSTEM_POD_NAME
-          valueFrom:
-            fieldRef:
-              fieldPath: metadata.name
-        - name: DD_AGENT_HOST
-          valueFrom:
-            fieldRef: status.hostIP
         schedule: "0 8 * * 1-6"
         command: "python driver.py '2019-12-01' $(date \"+%Y-%m-%d\")"
         resources:
@@ -61,13 +54,6 @@ spec:
           value: "-d64 -Xms2g -Xmx8g"
         - name: DATADOG_ENABLED
           value: "yes"
-        - name: SYSTEM_POD_NAME
-          valueFrom:
-            fieldRef:
-              fieldPath: metadata.name
-        - name: DD_AGENT_HOST
-          valueFrom:
-            fieldRef: status.hostIP
         schedule: "0 8 * * 0"
         command: "python driver.py '2019-01-01' $(date \"+%Y-%m-%d\")"
         resources:
