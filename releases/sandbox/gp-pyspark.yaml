@@ -14,6 +14,27 @@ spec:
     version: 0.0.1
     ref: INFRA-915/add_pyspark_chart
   values:
-    image:
-      tag: a665c4da4dce2feec4ccc4e28226a32617867b45
-    suspend: false
+    jobs:
+      # Override jobs[0] in values.yaml
+      - name: gp-pyspark
+        image:
+          repository: gp-docker.gitprime-ops.com/cloud/gp-pyspark
+          tag: bb266d42d063f2eb659aa8d72252e076f3a1b756
+          imagePullPolicy: Always
+        env:
+        - name: SYSTEM_ENV
+          value: "sandbox-05"
+        schedule: "10 0 * * *"
+        command: "python driver.py '2019-01-01' '2019-10-31'"
+        resources:
+          limits:
+            cpu: 6
+            memory: 21Gi
+          requests:
+            cpu: 2
+            memory: 8Gi
+        failedJobsHistoryLimit: 1
+        successfulJobsHistoryLimit: 3
+        concurrencyPolicy: Forbid
+        restartPolicy: Never
+        suspend: false
