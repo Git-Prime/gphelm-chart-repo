@@ -15,7 +15,6 @@ spec:
     ref: master
   values:
     jobs:
-      # Override jobs[0] in values.yaml
       - name: gp-pyspark-nightly
         image:
           repository: gp-docker.gitprime-ops.com/cloud/gp-pyspark
@@ -28,8 +27,16 @@ spec:
           value: "-d64 -Xms2g -Xmx8g"
         - name: DATADOG_ENABLED
           value: "yes"
+        - name: SYSTEM_POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: DD_AGENT_HOST
+          valueFrom:
+            fieldRef:
+              fieldPath: status.hostIP
         schedule: "0 8 * * 1-6"
-        command: "python driver.py '2019-12-01' $(date \"+%Y-%m-%d\")"
+        job_command: "python driver.py '2019-12-01' $(date \"+%Y-%m-%d\")"
         resources:
           limits:
             cpu: 12
@@ -54,8 +61,16 @@ spec:
           value: "-d64 -Xms2g -Xmx8g"
         - name: DATADOG_ENABLED
           value: "yes"
+        - name: SYSTEM_POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: DD_AGENT_HOST
+          valueFrom:
+            fieldRef:
+              fieldPath: status.hostIP
         schedule: "0 8 * * 0"
-        command: "python driver.py '2019-01-01' $(date \"+%Y-%m-%d\")"
+        job_command: "python driver.py '2019-01-01' $(date \"+%Y-%m-%d\")"
         resources:
           limits:
             cpu: 12 
