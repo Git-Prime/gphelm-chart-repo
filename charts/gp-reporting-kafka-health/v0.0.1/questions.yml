@@ -99,7 +99,7 @@ questions:
     group: "Application / Reporting Kafka Health Service"
     label: Reporting Kafka Health Service Requested CPU
     description: The number of CPUs the services will request.
-    default: "2"
+    default: "100m"
 
   - variable: application.resources.requests.memory
     type: string
