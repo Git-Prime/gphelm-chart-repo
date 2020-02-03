@@ -21,6 +21,8 @@ spec:
           labels:
             app: {{ $release_name }}
             cron: {{ $job.name }}
+          annotations:
+            ad.datadoghq.com/{{ $job.name }}.logs: '[{"source":"kubernetes.{{ $job.name }}","service":"{{ $job.name }}"}]'
         spec:
           containers:
           - image: "{{ $job.image.repository }}:{{ $job.image.tag }}"
