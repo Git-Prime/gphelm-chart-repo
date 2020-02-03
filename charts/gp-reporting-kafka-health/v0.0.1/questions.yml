@@ -75,7 +75,7 @@ questions:
     group: "Application / Reporting Kafka Health Service"
     label: Application node port
     description: The port that is exposed on the node which routes to the app port binding
-    default: "30680"
+    default: "30780"
 
   - variable: application.replicaCount
     type: string
