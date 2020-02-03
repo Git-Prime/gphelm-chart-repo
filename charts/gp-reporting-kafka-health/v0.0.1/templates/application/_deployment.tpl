@@ -25,7 +25,7 @@ spec:
     spec:
       containers:
         - name: gitprime-reporting-kafka-health-{{- template "helpers.environment.fullName" .}}-{{ .templateData.operationMode }}
-          image: gp-docker.gitprime-ops.com/cloud/gitprime-reporting-kafka-health-service:{{ .Values.build.commitSHA }}
+          image: gp-docker.gitprime-ops.com/cloud/gitprime-reporting-kafka-health:{{ .Values.build.commitSHA }}
           imagePullPolicy: IfNotPresent
         {{- if .templateData.httpHost }}
           ports:
