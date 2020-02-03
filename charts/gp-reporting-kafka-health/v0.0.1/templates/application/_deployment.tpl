@@ -92,11 +92,6 @@ spec:
             {{- end }}
           {{- end }}
           {{- end }}
-          {{- if .Values.volumes.enableLocalMount }}
-          volumeMounts:
-            - mountPath: {{ quote .Values.volumes.podMountDirectory }}
-              name: repository-storage-volume
-          {{- end }}
           terminationMessagePath: /dev/termination-log
           terminationMessagePolicy: File
       dnsPolicy: ClusterFirst
@@ -108,13 +103,6 @@ spec:
       schedulerName: default-scheduler
       securityContext: {}
       terminationGracePeriodSeconds: 30
-      {{- if .Values.volumes.enableLocalMount }}
-      volumes:
-      - hostPath:
-          path: {{ quote .Values.volumes.nodeMountDirectory }}
-          type: DirectoryOrCreate
-        name: repository-storage-volume
-      {{- end }}
 ---
 apiVersion: v1
 kind: Service

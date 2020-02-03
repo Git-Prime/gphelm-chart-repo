@@ -45,28 +45,6 @@ questions:
     description: The commit SHA of the GitPrime Application build you want to deploy.
     default: latest
 
-  - variable: volumes.enableLocalMount
-    type: boolean
-    required: true
-    group: "Application"
-    label: "Use Local Mount"
-    description: "If enabled, use the node's local storage directory for repository storage"
-    default: false
-    show_subquestion_if: "true"
-    subquestions:
-      - variable: volumes.nodeMountDirectory
-        type: string
-        label: "Directory on Node"
-        description: "The directory on the node to use for repository storage"
-        required: true
-        default: "/mnt/repo-storage"
-      - variable: volumes.podMountDirectory
-        type: string
-        label: "Directory on Pod"
-        description: "The directory inside the pod to mount the volume."
-        required: true
-        default: "/var/data"
-
   - variable: datadog.enabled
     type: boolean
     required: true
