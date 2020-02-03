@@ -115,7 +115,7 @@ questions:
     group: "Application / Reporting Kafka Health Service"
     label: Reporting Kafka Health Service CPU Limit
     description: The maximum number of CPUs the services can use.
-    default: "4"
+    default: "1"
 
   - variable: application.resources.limits.memory
     type: string
