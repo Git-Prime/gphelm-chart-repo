@@ -17,7 +17,7 @@ spec:
     - name: gp-pyspark-nightly
       image:
         repository: gp-docker.gitprime-ops.com/cloud/gp-pyspark
-        tag: 76b6a81c275589daf5dad179e2f6773f23340a1c
+        tag: 874d7e7d03b3dccbbdf1849f5284a41683f63171
         imagePullPolicy: Always
       env:
       - name: SYSTEM_ENV
@@ -51,7 +51,7 @@ spec:
     - name: gp-pyspark-weekly
       image:
         repository: gp-docker.gitprime-ops.com/cloud/gp-pyspark
-        tag: 76b6a81c275589daf5dad179e2f6773f23340a1c
+        tag: 874d7e7d03b3dccbbdf1849f5284a41683f63171
         imagePullPolicy: Always
       env:
       - name: SYSTEM_ENV
