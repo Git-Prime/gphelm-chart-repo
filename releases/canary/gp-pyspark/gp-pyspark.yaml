@@ -14,14 +14,14 @@ spec:
     ref: master
   values:
     jobs:
-    - name: gp-pyspark-nightly
+    - name: gp-pyspark-canary-nightly
       image:
         repository: gp-docker.gitprime-ops.com/cloud/gp-pyspark
-        tag: b6396bb741f69095bd8db75a2de05b27ed0e3658
+        tag: 874d7e7d03b3dccbbdf1849f5284a41683f63171
         imagePullPolicy: Always
       env:
       - name: SYSTEM_ENV
-        value: "sandbox-05"
+        value: "canary"
       - name: JAVA_OPTS
         value: "-d64 -Xms2g -Xmx8g"
       - name: DATADOG_ENABLED
@@ -47,15 +47,15 @@ spec:
       successfulJobsHistoryLimit: 3
       concurrencyPolicy: Forbid
       restartPolicy: Never
-      suspend: false 
-    - name: gp-pyspark-weekly
+      suspend: false
+    - name: gp-pyspark-canary-weekly
       image:
         repository: gp-docker.gitprime-ops.com/cloud/gp-pyspark
-        tag: b6396bb741f69095bd8db75a2de05b27ed0e3658
+        tag: 874d7e7d03b3dccbbdf1849f5284a41683f63171
         imagePullPolicy: Always
       env:
       - name: SYSTEM_ENV
-        value: "sandbox-05"
+        value: "canary"
       - name: JAVA_OPTS
         value: "-d64 -Xms2g -Xmx8g"
       - name: DATADOG_ENABLED
