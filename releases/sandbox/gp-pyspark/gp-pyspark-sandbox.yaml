@@ -14,7 +14,7 @@ spec:
     ref: master
   values:
     jobs:
-    - name: gp-pyspark-nightly
+    - name: gp-pyspark-sandbox-nightly
       image:
         repository: gp-docker.gitprime-ops.com/cloud/gp-pyspark
         tag: b6396bb741f69095bd8db75a2de05b27ed0e3658
@@ -47,8 +47,8 @@ spec:
       successfulJobsHistoryLimit: 3
       concurrencyPolicy: Forbid
       restartPolicy: Never
-      suspend: true
-    - name: gp-pyspark-weekly
+      suspend: false 
+    - name: gp-pyspark-sandbox-weekly
       image:
         repository: gp-docker.gitprime-ops.com/cloud/gp-pyspark
         tag: b6396bb741f69095bd8db75a2de05b27ed0e3658
