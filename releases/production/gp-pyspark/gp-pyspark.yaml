@@ -1,0 +1,84 @@
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: gp-pyspark
+  namespace: gp-pyspark
+  annotations:
+    fluxcd.io/automated: "true"
+spec:
+  releaseName: gp-pyspark
+  chart:
+    git: git@github.com:Git-Prime/gphelm-chart-repo.git
+    path: charts/gp-pyspark/v0.0.1/
+    version: 0.0.1
+    ref: master
+  values:
+    jobs:
+    - name: gp-pyspark-production-full
+      image:
+        repository: gp-docker.gitprime-ops.com/cloud/gp-pyspark
+        tag: b6396bb741f69095bd8db75a2de05b27ed0e3658
+        imagePullPolicy: Always
+      env:
+      - name: SYSTEM_ENV
+        value: "production"
+      - name: JAVA_OPTS
+        value: "-d64 -Xms2g -Xmx8g"
+      - name: DATADOG_ENABLED
+        value: "yes"
+      - name: SYSTEM_POD_NAME
+        valueFrom:
+          fieldRef:
+            fieldPath: metadata.name
+      - name: DD_AGENT_HOST
+        valueFrom:
+          fieldRef:
+            fieldPath: status.hostIP
+      schedule: "0 8 * * *"
+      job_command: "python driver.py '2019-01-01' $(date \"+%Y-%m-%d\")"
+      resources:
+        limits:
+          cpu: 10
+          memory: 32Gi
+        requests:
+          cpu: 2
+          memory: 12Gi
+      failedJobsHistoryLimit: 1
+      successfulJobsHistoryLimit: 3
+      concurrencyPolicy: Forbid
+      restartPolicy: Never
+      suspend: false
+    - name: gp-pyspark-production-trailing
+      image:
+        repository: gp-docker.gitprime-ops.com/cloud/gp-pyspark
+        tag: b6396bb741f69095bd8db75a2de05b27ed0e3658
+        imagePullPolicy: Always
+      env:
+      - name: SYSTEM_ENV
+        value: "production"
+      - name: JAVA_OPTS
+        value: "-d64 -Xms2g -Xmx8g"
+      - name: DATADOG_ENABLED
+        value: "yes"
+      - name: SYSTEM_POD_NAME
+        valueFrom:
+          fieldRef:
+            fieldPath: metadata.name
+      - name: DD_AGENT_HOST
+        valueFrom:
+          fieldRef:
+            fieldPath: status.hostIP
+      schedule: "0 8 * * *"
+      job_command: "python driver.py '2019-12-01' $(date \"+%Y-%m-%d\")"
+      resources:
+        limits:
+          cpu: 10
+          memory: 32Gi
+        requests:
+          cpu: 2
+          memory: 12Gi
+      failedJobsHistoryLimit: 1
+      successfulJobsHistoryLimit: 3
+      concurrencyPolicy: Forbid
+      restartPolicy: Never
+      suspend: true
