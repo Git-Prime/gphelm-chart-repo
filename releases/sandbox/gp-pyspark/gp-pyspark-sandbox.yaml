@@ -1,12 +1,12 @@
 apiVersion: helm.fluxcd.io/v1
 kind: HelmRelease
 metadata:
-  name: gp-pyspark
+  name: gp-pyspark-sandbox
   namespace: gp-pyspark
   annotations:
     fluxcd.io/automated: "true"
 spec:
-  releaseName: gp-pyspark
+  releaseName: gp-pyspark-sandbox
   chart:
     git: git@github.com:Git-Prime/gphelm-chart-repo.git
     path: charts/gp-pyspark/v0.0.1/
