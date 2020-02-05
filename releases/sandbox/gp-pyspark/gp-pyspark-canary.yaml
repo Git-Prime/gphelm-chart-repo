@@ -17,7 +17,7 @@ spec:
     - name: gp-pyspark-canary-nightly
       image:
         repository: gp-docker.gitprime-ops.com/cloud/gp-pyspark
-        tag: 874d7e7d03b3dccbbdf1849f5284a41683f63171
+        tag: b6396bb741f69095bd8db75a2de05b27ed0e3658
         imagePullPolicy: Always
       env:
       - name: SYSTEM_ENV
@@ -51,7 +51,7 @@ spec:
     - name: gp-pyspark-canary-weekly
       image:
         repository: gp-docker.gitprime-ops.com/cloud/gp-pyspark
-        tag: 874d7e7d03b3dccbbdf1849f5284a41683f63171
+        tag: b6396bb741f69095bd8db75a2de05b27ed0e3658
         imagePullPolicy: Always
       env:
       - name: SYSTEM_ENV
