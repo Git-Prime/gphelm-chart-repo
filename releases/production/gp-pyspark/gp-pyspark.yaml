@@ -26,6 +26,8 @@ spec:
         value: "-d64 -Xms2g -Xmx8g"
       - name: DATADOG_ENABLED
         value: "yes"
+      - name: SYSTEM_CONFIG_SERVER_URL
+        value: "https://prod-config-server.gitprime-ops.com"
       - name: SYSTEM_POD_NAME
         valueFrom:
           fieldRef:
@@ -60,6 +62,8 @@ spec:
         value: "-d64 -Xms2g -Xmx8g"
       - name: DATADOG_ENABLED
         value: "yes"
+      - name: SYSTEM_CONFIG_SERVER_URL
+        value: "https://prod-config-server.gitprime-ops.com"
       - name: SYSTEM_POD_NAME
         valueFrom:
           fieldRef:
