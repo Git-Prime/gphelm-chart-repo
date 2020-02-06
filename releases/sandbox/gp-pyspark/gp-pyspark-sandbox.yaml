@@ -34,7 +34,7 @@ spec:
         valueFrom:
           fieldRef:
             fieldPath: status.hostIP
-      schedule: "0 8 * * *"
+      schedule: "0 6 * * *"
       job_command: "python driver.py '2019-01-01' $(date \"+%Y-%m-%d\")"
       resources:
         limits:
@@ -68,7 +68,7 @@ spec:
         valueFrom:
           fieldRef:
             fieldPath: status.hostIP
-      schedule: "0 8 * * *"
+      schedule: "0 4 * * *"
       job_command: "python driver.py '2019-12-01' $(date \"+%Y-%m-%d\")"
       resources:
         limits:
