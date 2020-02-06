@@ -47,7 +47,7 @@ spec:
       successfulJobsHistoryLimit: 3
       concurrencyPolicy: Forbid
       restartPolicy: Never
-      suspend: false
+      suspend: true
     - name: gp-pyspark-sandbox-trailing
       image:
         repository: gp-docker.gitprime-ops.com/cloud/gp-pyspark
