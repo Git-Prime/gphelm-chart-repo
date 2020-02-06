@@ -17,7 +17,7 @@ spec:
     - name: gp-pyspark-sandbox-full
       image:
         repository: gp-docker.gitprime-ops.com/cloud/gp-pyspark
-        tag: b6396bb741f69095bd8db75a2de05b27ed0e3658
+        tag: 6db8d0c5f3efe1005f55af9a58907d1b6c56ab4a
         imagePullPolicy: Always
       env:
       - name: SYSTEM_ENV
@@ -47,11 +47,11 @@ spec:
       successfulJobsHistoryLimit: 3
       concurrencyPolicy: Forbid
       restartPolicy: Never
-      suspend: false 
+      suspend: false
     - name: gp-pyspark-sandbox-trailing
       image:
         repository: gp-docker.gitprime-ops.com/cloud/gp-pyspark
-        tag: b6396bb741f69095bd8db75a2de05b27ed0e3658
+        tag: 6db8d0c5f3efe1005f55af9a58907d1b6c56ab4a
         imagePullPolicy: Always
       env:
       - name: SYSTEM_ENV
