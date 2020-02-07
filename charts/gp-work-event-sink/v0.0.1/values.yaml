@@ -22,5 +22,5 @@ application:
   javaOptions: ""
   webPort: "8080"
   nodePort: "30580"
-  activeProfiles: "work-event-sink"
+  activeProfiles: "commit-work-event-sink,pull-request-comment-work-event-sink,pull-request-event-work-event-sink,pull-request-work-event-sink,ticket-comment-work-event-sink,ticket-event-work-event-sink,ticket-work-event-sink"
 
