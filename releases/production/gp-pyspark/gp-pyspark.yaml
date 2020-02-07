@@ -40,7 +40,7 @@ spec:
       job_command: "python driver.py '2019-01-01' $(date \"+%Y-%m-%d\")"
       resources:
         limits:
-          cpu: 10
+          cpu: 12
           memory: 32Gi
         requests:
           cpu: 2
@@ -76,7 +76,7 @@ spec:
       job_command: "python driver.py '2019-12-01' $(date \"+%Y-%m-%d\")"
       resources:
         limits:
-          cpu: 10
+          cpu: 12
           memory: 32Gi
         requests:
           cpu: 2
