@@ -494,8 +494,15 @@ questions:
     default: "INFO"
 
 
-
   # Batch Worker Settings
+  - variable: dataPipeline.batchWorker.replicaCount
+    type: string
+    required: true
+    group: "Data Pipeline / Batch Workers"
+    label: Number of Pods for Batch Workers
+    description: The number of pods to deploy for batch workers.
+    default: 1
+
   - variable: dataPipeline.batchWorker.javaOptions
     type: string
     required: true
@@ -637,6 +644,25 @@ questions:
       - WARN
       - ERROR
     default: "INFO"
+
+
+  # Utility Worker Settings
+  - variable: dataPipeline.utility.replicaCount
+    type: string
+    required: true
+    group: "Data Pipeline / Utility Pods"
+    label: Number of Pods for Utility
+    description: The number of pods to deploy for utility.
+    default: 1
+
+  # Schedule Worker Settings
+  - variable: dataPipeline.scheduleWorker.replicaCount
+    type: string
+    required: true
+    group: "Data Pipeline / Schedule Worker Pods"
+    label: Number of Pods for Schedule workers
+    description: The number of pods to deploy for schedule workers.
+    default: 1
 
 ####
 #### Eventually we'll want to put the GitPrime Main application settings here
