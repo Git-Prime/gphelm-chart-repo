@@ -4,12 +4,27 @@
 replicaCount: 1
 image:
   repository_base_url: "gp-docker.gitprime-ops.com"
-  repository: "dev/flow-fundamentals-backend"
   pullPolicy: Always
   tag: ""
 
-container:
-  port: 8000
+
+# Set defaults for backend container
+backend:
+    container:
+        name: "flow-fundamentals-backend"
+        port: 8100
+    image:
+        repository: "dev/flow-fundamentals-backend"
+        tag: ""
+
+# Set defaults for frontend container
+frontend:
+    container:
+        name: "flow-fundamentals-frontend"
+        port: 80
+    image:
+        repository: "dev/flow-fundamentals-frontend"
+        tag: ""
 
 imagePullSecrets: []
 nameOverride: ""
@@ -53,3 +68,9 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+# Values for postgresql chart
+postgresql:
+    pgHbaConfiguration: |-
+        local all all trust
+        host all all localhost trust
