@@ -26,7 +26,7 @@ spec:
           env:
             {{- range $key, $value := .Values.env }}
             - name: {{ $key | quote }}
-              value: {{ $value }}
+              value: {{ $value | quote }}
             {{- end }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
