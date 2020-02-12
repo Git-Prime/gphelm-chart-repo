@@ -22,28 +22,50 @@ spec:
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
-        - name: {{ .Chart.Name }}
+        - name: {{ .Values.backend.container.name }}
           env:
-            {{- range $key, $value := .Values.env }}
+            {{- range $key, $value := .Values.backend.env }}
             - name: {{ $key | quote }}
               value: {{ $value | quote }}
             {{- end }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.image.repository_base_url }}/{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          image: "{{ .Values.image.repository_base_url }}/{{ .Values.backend.image.repository }}:{{ .Values.backend.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
-            - name: http
-              containerPort: {{ .Values.container.port }}
+            - name: backend
+              containerPort: {{ .Values.backend.container.port }}
               protocol: TCP
           livenessProbe:
             tcpSocket:
-              port: http
+              port: backend
           readinessProbe:
             tcpSocket:
-              port: http
+              port: backend
           resources:
-            {{- toYaml .Values.resources | nindent 12 }}
+            {{- toYaml .Values.backend.resources | nindent 12 }}
+        - name: {{ .Values.frontend.container.name }}
+          env:
+            {{- range $key, $value := .Values.frontend.env }}
+            - name: {{ $key | quote }}
+              value: {{ $value | quote }}
+            {{- end }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository_base_url }}/{{ .Values.frontend.image.repository }}:{{ .Values.frontend.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: frontend
+              containerPort: {{ .Values.frontend.container.port }}
+              protocol: TCP
+          livenessProbe:
+            tcpSocket:
+              port: frontend
+          readinessProbe:
+            tcpSocket:
+              port: frontend
+          resources:
+            {{- toYaml .Values.backend.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

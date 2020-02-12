@@ -8,8 +8,8 @@ spec:
   type: {{ .Values.service.type }}
   ports:
     - port: {{ .Values.service.port }}
-      targetPort: http
+      targetPort: frontend
       protocol: TCP
-      name: http
+      name: frontend
   selector:
     {{- include "flow-fundamentals.selectorLabels" . | nindent 4 }}
