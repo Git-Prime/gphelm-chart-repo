@@ -32,6 +32,8 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository_base_url }}/{{ .Values.backend.image.repository }}:{{ .Values.backend.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          args:
+              - "/app/run.sh"
           ports:
             - name: backend
               containerPort: {{ .Values.backend.container.port }}
