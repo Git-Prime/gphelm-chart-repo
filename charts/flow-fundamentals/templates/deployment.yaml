@@ -26,6 +26,18 @@ spec:
       containers:
         - name: {{ .Values.backend.container.name }}
           env:
+            - name: FLOW_FUNDAMENTALS_ALLOWED_CIDR_NETS
+              value: "10.0.0.0/8,172.32.0.0/16"
+            - name: FLOW_FUNDAMENTALS_ALLOWED_HOSTS
+              value: "localhost,flow-fundamentals-{{ .Values.environment }},{{ .Values.environment }}-flow-fundamentals.gitprime-ops.com"
+            - name: FLOW_FUNDAMENTALS_SECRET_KEY
+              value: "somebullshitsecretkeythatshouldbechanged"
+            - name: FLOW_FUNDAMENTALS_DEFAULT_DATABASE
+              value: "postgresql://postgres@flow-fundamentals-{{ .Values.environment }}-postgresql:5432/flow_fundamentals?application_name=ff_default"
+            - name: FLOW_FUNDAMENTALS_CORS_ORIGIN_HEADER
+              value: "http://flow-fundamentals-frontend"
+            - name: FLOW_FUNDAMENTALS_DEFAULT_ORG_NAME
+              value: "GitPrime"
             {{- range $key, $value := .Values.backend.env }}
             - name: {{ $key | quote }}
               value: {{ $value | quote }}
