@@ -12,10 +12,18 @@ metadata:
 spec:
   template:
     metadata:
-      name: {{ include "flow-fundamentals.fullname" . }}
+      name: {{ include "flow-fundamentals.fullname" . }}-migration
     spec:
       restartPolicy: Never
       containers:
       - name: backend-migration-job-{{ .Values.backend.image.tag }}
         image: "{{ .Values.image.repository_base_url }}/{{ .Values.backend.image.repository }}:{{ .Values.backend.image.tag }}"
+        env:
+          FLOW_FUNDAMENTALS_DEBUG: "false"
+          FLOW_FUNDAMENTALS_ALLOWED_CIDR_NETS: "10.0.0.0/8,172.32.0.0/16"
+          FLOW_FUNDAMENTALS_ALLOWED_HOSTS: "localhost,flow-fundamentals-test,test-flow-fundamentals.gitprime-ops.com"
+          FLOW_FUNDAMENTALS_SECRET_KEY: "somebullshitsecretkeythatshouldbechanged"
+          FLOW_FUNDAMENTALS_DEFAULT_DATABASE: "postgresql://postgres@flow-fundamentals-test-postgresql:5432/flow_fundamentals?application_name=ff_default"
+          FLOW_FUNDAMENTALS_CORS_ORIGIN_HEADER: "http://flow-fundamentals-frontend"
+          FLOW_FUNDAMENTALS_DEFAULT_ORG_NAME: "GitPrime"
         args: ["python","manage.py","migrate"]
