@@ -15,10 +15,10 @@ spec:
     metadata:
       name: {{ include "flow-fundamentals.fullname" . }}
       labels:
-        {{- include "flow-fundamentals.selectorLabels" . | nindent 8 }}
+        {{- include "flow-fundamentals.labels" . | nindent 4 }}
     spec:
       restartPolicy: Never
       containers:
       - name: backend-migration-job-{{ .Values.backend.image.tag }}
-        image: image: "{{ .Values.image.repository_base_url }}/{{ .Values.backend.image.repository }}:{{ .Values.backend.image.tag }}"
+        image: "{{ .Values.image.repository_base_url }}/{{ .Values.backend.image.repository }}:{{ .Values.backend.image.tag }}"
         args: ["python","manage.py","migrate"]
