@@ -13,8 +13,6 @@ spec:
   template:
     metadata:
       name: {{ include "flow-fundamentals.fullname" . }}
-      labels:
-        {{- include "flow-fundamentals.labels" . | nindent 4 }}
     spec:
       restartPolicy: Never
       containers:
