@@ -27,9 +27,14 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          args: [ "-url", "https://cd.gitprime-ops.com/", "-secret", "somesecret", "jenkins-k8s-agent" ]
           env:
             - name: JENKINS_URL
               value: "https://cd.gitprime-ops.com"
+            - name: JENKINS_AGENT_NAME
+              value: "jenkins-k8s-agent"
+            - name: JENKINS_SECRET
+              value: "somesecret"
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
