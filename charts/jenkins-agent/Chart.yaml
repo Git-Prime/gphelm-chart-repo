@@ -1,5 +1,5 @@
 apiVersion: v2
 name: jenkins-agent
 description: Chart for deploying Jenkins agents in kubernetes
-version: 0.1.0
+version: 0.1.1
 appVersion: 1.16.0
