@@ -34,8 +34,6 @@ spec:
               value: "somebullshitsecretkeythatshouldbechanged"
             - name: FLOW_FUNDAMENTALS_DEFAULT_DATABASE
               value: "postgresql://postgres@flow-fundamentals-{{ .Values.environment }}-postgresql:5432/flow_fundamentals?application_name=ff_default"
-            - name: FLOW_FUNDAMENTALS_CORS_ORIGIN_HEADER
-              value: "http://flow-fundamentals-frontend"
             - name: FLOW_FUNDAMENTALS_DEFAULT_ORG_NAME
               value: "GitPrime"
             {{- range $key, $value := .Values.backend.env }}
