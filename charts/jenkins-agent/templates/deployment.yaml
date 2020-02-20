@@ -34,6 +34,10 @@ spec:
               value: "jenkins-k8s-agent"
             - name: JENKINS_SECRET
               value: "somesecret"
+          ports:
+            - name: agent
+              containerPort: {{ .Values.service.port }}
+              protocol: TCP
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}

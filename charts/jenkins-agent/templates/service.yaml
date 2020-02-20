@@ -8,8 +8,8 @@ spec:
   type: {{ .Values.service.type }}
   ports:
     - port: {{ .Values.service.port }}
-      targetPort: http
+      targetPort: agent
       protocol: TCP
-      name: http
+      name: agent
   selector:
     {{- include "jenkins-agent.selectorLabels" . | nindent 4 }}
