@@ -33,4 +33,6 @@ spec:
             value: "http://flow-fundamentals-frontend"
           - name: FLOW_FUNDAMENTALS_DEFAULT_ORG_NAME
             value: "GitPrime"
+          - name: FLOW_FUNDAMENTALS_MIGRATION_USER
+            value: "flow_fundamentals_migration_user"
         args: ["python","manage.py","create_org"]
