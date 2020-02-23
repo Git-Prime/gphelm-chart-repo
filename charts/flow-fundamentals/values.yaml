@@ -28,6 +28,7 @@ frontend:
         repository: "dev/flow-fundamentals-frontend"
         tag: ""
 
+additional_annotations: []
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
