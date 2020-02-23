@@ -18,6 +18,7 @@ spec:
         vault.hashicorp.com/agent-inject: "true"
         vault.hashicorp.com/auth-path: "{{ .Values.environment }}-k8s-cluster"
         vault.hashicorp.com/agent-inject-secret-dbpass: "bounded-context/flow-fundamentals/test"
+        vault.hashicorp.com/role: "flow-fundamentals"
     spec:
     {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
