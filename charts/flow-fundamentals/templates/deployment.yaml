@@ -15,6 +15,9 @@ spec:
         {{- include "flow-fundamentals.selectorLabels" . | nindent 8 }}
       annotations:
         checksum/config: {{ include (print $.Template.BasePath "/nginx-configmap.yaml") . | sha256sum }}
+        vault.hashicorp.com/agent-inject: "true"
+        vault.hashicorp.com/auth-path: "{{ .Values.environment }}-k8s-cluster"
+        vault.hashicorp.com/agent-inject-secret-dbpass: "bounded-context/flow-fundamentals/test"
     spec:
     {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
