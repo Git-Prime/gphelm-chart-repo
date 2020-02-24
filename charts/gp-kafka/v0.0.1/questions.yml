@@ -175,7 +175,12 @@ questions:
       - org.apache.kafka.connect.json.JsonConverter
       - io.confluent.connect.avro.AvroConverter
     default: "org.apache.kafka.connect.json.JsonConverter"
-
+  - variable: cp-helm-charts.cp-kafka-connect.nodePort
+    type: string
+    required: true
+    group: "cp-helm-charts/cp-kafka-connect"
+    label: Node port
+    default: "31083"
 
   - variable: kafkaConnect.host
     type: string
