@@ -4,9 +4,10 @@ metadata:
   name: {{ include "flow-fundamentals.fullname" . }}
   labels:
     {{- include "flow-fundamentals.labels" . | nindent 4 }}
+  {{- with .Values.deploymentAnnotations }}
   annotations:
-    ad.datadoghq.com/flow-fundamentals-backend.logs: '[{"source":"kubernetes.flow-fundamentals-{{ .Values.environment }}","service":"flow-fundamentals-backend"]'
-    ad.datadoghq.com/flow-fundamentals-frontend.logs: '[{"source":"kubernetes.flow-fundamentals-{{ .Values.environment }}","service":"flow-fundamentals-frontend"]'
+  {{ toYaml . | indent 4 }}
+  {{- end }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
@@ -18,8 +19,8 @@ spec:
         {{- include "flow-fundamentals.selectorLabels" . | nindent 8 }}
       annotations:
         checksum/config: {{ include (print $.Template.BasePath "/nginx-configmap.yaml") . | sha256sum }}
-        {{- range $key, $value := .Values.additional_annotations }}
-        {{ $key }}: {{ $value | quote }}
+        {{- with .Values.podAnnotations }}
+        {{ toYaml . | indent 8 }}
         {{- end }}
     spec:
     {{- with .Values.imagePullSecrets }}
