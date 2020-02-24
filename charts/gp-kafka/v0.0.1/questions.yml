@@ -67,7 +67,7 @@ questions:
     type: string
     required: true
     group: "cp-helm-charts/cp-kafka"
-    label: Persistence size
+    label: Advertised listeners
     default: "EXTERNAL://${HOST_IP}:$((31090 + ${KAFKA_BROKER_ID}))"
 
   - variable: cp-helm-charts.cp-zookeeper.servers
