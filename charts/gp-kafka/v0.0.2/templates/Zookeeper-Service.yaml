@@ -1,7 +1,7 @@
 {{- $fullName := include "cp-zookeeper.fullname" . }}
 {{- $servers := .Values.zookeeper.servers | int }}
 {{- $clientPort := .Values.zookeeper.clientPort }}
-{{- firstClientNodePort := .Values.zookeeper.nodeport.firstClientNodePort }}
+{{- $firstClientNodePort := .Values.zookeeper.nodeport.firstClientNodePort }}
 {{- $root := . }}
 {{- range $i, $e := until $servers }}
 {{- $externalListenerPort := add $firstClientNodePort $i }}
