@@ -9,22 +9,6 @@ kafkaConnect:
   nodePort: 31083
   targetPort: 8083
 
-rawSourceDatabase:
-  host: host.docker.internal
-  port: 5432
-  name: gitprime
-  user: ""
-  pw: ""
-  incrementingPollIntervalMS: 10000
-
-sinkDatabase:
-  host: host.docker.internal
-  port: 5432
-  name: octocat
-  user: ""
-  pw: ""
-  incrementingPollIntervalMS: 10000
-
 # Values for cp-helm-charts to deploy Kafka and kafka-connect
 cp-helm-charts:
   cp-kafka:

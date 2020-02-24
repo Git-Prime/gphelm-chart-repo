@@ -17,17 +17,3 @@ spec:
   selector:
     app: cp-kafka-connect
     release: {{ .Release.Name }}
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: postgres-local-dev
-  namespace: kafka
-spec:
-  type: ExternalName
-  # https://docs.docker.com/docker-for-mac/networking/#use-cases-and-workarounds
-  externalName: host.docker.internal
-  ports:
-    - name: port
-      port: 5432
-
