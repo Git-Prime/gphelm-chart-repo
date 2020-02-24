@@ -11,7 +11,7 @@ kafkaConnect:
 
 zookeeper:
   nodeport.enabled: true
-  nodeport.firstClientPort: 30181
+  nodeport.firstClientNodePort: 30181
 
 # Values for cp-helm-charts to deploy Kafka and kafka-connect
 cp-helm-charts:

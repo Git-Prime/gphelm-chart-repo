@@ -1,9 +1,10 @@
 {{- $fullName := include "cp-zookeeper.fullname" . }}
-{{- $servers := index .Values "cp-kafka" "cp-zookeeper" "servers" | int }}
-{{- $clientPort := index .Values "cp-kafka" "cp-zookeeper" "clientPort" }}
+{{- $servers := .Values.zookeeper.servers | int }}
+{{- $clientPort := .Values.zookeeper.clientPort }}
+{{- firstClientNodePort := .Values.zookeeper.nodeport.firstClientNodePort }}
 {{- $root := . }}
 {{- range $i, $e := until $servers }}
-{{- $externalListenerPort := add $root.Values.zookeeper.nodeport.firstClientPort $i }}
+{{- $externalListenerPort := add $firstClientNodePort $i }}
 {{- $responsiblePod := printf "%s-%d" (printf "%s" $fullName) $i }}
 ---
 apiVersion: v1
