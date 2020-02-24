@@ -9,7 +9,7 @@ kafkaConnect:
   nodePort: 31083
   targetPort: 8083
 
-zookeeper
+zookeeper:
   nodeport.enabled: true
   nodeport.firstClientPort: 30181
 
