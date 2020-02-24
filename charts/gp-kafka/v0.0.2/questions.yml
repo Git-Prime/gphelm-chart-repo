@@ -63,13 +63,13 @@ questions:
     group: "cp-helm-charts/cp-kafka"
     label: Persistence size
     default: "10Gi"
-  - variable: cp-helm-charts.cp-kafka.configurationOverrides.advertised.listeners
-    type: multiline
+  - variable: cp-helm-charts.cp-kafka.nodeport.firstListenerPort
+    type: string
     required: true
     group: "cp-helm-charts/cp-kafka"
-    label: Nodeport definition to expose all advertised listeners
-    description: Nodeports will be created using this
-    default: "EXTERNAL://${HOST_IP}:$((31390 + ${KAFKA_BROKER_ID}))"
+    label: First listener port
+    description: Kafka nodeports will be created starting with this port
+    default: 31490
 
   - variable: cp-helm-charts.cp-zookeeper.servers
     type: string
