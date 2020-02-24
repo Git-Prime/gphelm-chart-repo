@@ -19,8 +19,8 @@ spec:
         {{- include "flow-fundamentals.selectorLabels" . | nindent 8 }}
       annotations:
         checksum/config: {{ include (print $.Template.BasePath "/nginx-configmap.yaml") . | sha256sum }}
-        {{- with .Values.podAnnotations }}
-        {{ toYaml . | indent 8 }}
+        {{- range $key, $value := .Values.podAnnotations }}
+        {{ $key }}: {{ $value | quote  }}
         {{- end }}
     spec:
     {{- with .Values.imagePullSecrets }}
