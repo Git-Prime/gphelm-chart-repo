@@ -23,6 +23,7 @@ cp-helm-charts:
         EXTERNAL://${HOST_IP}:$((31190 + ${KAFKA_BROKER_ID}))
     nodeport:
       enabled: true
+      firstListenerPort: 31290
   cp-kafka-rest:
     external.enabled: true
   cp-kafka-connect:

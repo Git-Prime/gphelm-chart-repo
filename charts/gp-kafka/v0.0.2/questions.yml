@@ -69,7 +69,7 @@ questions:
     group: "cp-helm-charts/cp-kafka"
     label: Nodeport definition to expose all advertised listeners
     description: Nodeports will be created using this
-    default: "EXTERNAL://${HOST_IP}:$((31090 + ${KAFKA_BROKER_ID}))"
+    default: "EXTERNAL://${HOST_IP}:$((31390 + ${KAFKA_BROKER_ID}))"
 
   - variable: cp-helm-charts.cp-zookeeper.servers
     type: string
