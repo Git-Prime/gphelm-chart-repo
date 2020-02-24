@@ -2,8 +2,3 @@ dependencies:
 - name: cp-helm-charts
   version: 0.1.0
   repository: https://confluentinc.github.io/cp-helm-charts/
-  import-values:
-    - child: cp-helm-charts.cp-zookeeper.servers
-      parent: zookeeper.servers
-    - child: cp-helm-charts.cp-zookeeper.clientPort
-      parent: zookeeper.clientPort

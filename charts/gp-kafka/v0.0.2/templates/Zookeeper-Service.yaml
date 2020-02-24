@@ -1,6 +1,6 @@
 {{- $fullName := include "cp-zookeeper.fullname" . }}
-{{- $servers := .Values.zookeeper.servers | int }}
-{{- $clientPort := .Values.zookeeper.clientPort }}
+{{- $servers := .Values.cp-helm-charts.cp-zookeeper.servers| int }}
+{{- $clientPort := .Values.cp-helm-charts.cp-zookeeper.clientPort }}
 {{- $firstClientNodePort := .Values.zookeeper.nodeport.firstClientNodePort }}
 {{- $root := . }}
 {{- range $i, $e := until $servers }}
