@@ -1,7 +1,7 @@
 {{- if .Values.zookeeper.nodeport.enabled }}
   {{- $fullName := include "cp-zookeeper.fullname" . }}
-  {{- $servers := $root.cp-zookeeper.servers | int }}
-  {{- $clientPort := $root.cp-zookeeper.clientPort }}
+  {{- $servers := cp-kafka.cp-zookeeper.servers | int }}
+  {{- $clientPort := cp-kafka.cp-zookeeper.clientPort }}
   {{- $root := . }}
   {{- range $i, $e := until $servers }}
   {{- $externalListenerPort := add $root.Values.zookeeper.nodeport.firstClientPort $i }}
