@@ -63,6 +63,12 @@ questions:
     group: "cp-helm-charts/cp-kafka"
     label: Persistence size
     default: "10Gi"
+  - variable: cp-helm-charts.cp-kafka.configurationOverrides.advertised.listeners
+    type: string
+    required: true
+    group: "cp-helm-charts/cp-kafka"
+    label: Persistence size
+    default: "EXTERNAL://${HOST_IP}:$((31090 + ${KAFKA_BROKER_ID}))"
 
   - variable: cp-helm-charts.cp-zookeeper.servers
     type: string
