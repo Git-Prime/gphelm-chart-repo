@@ -1,9 +1,10 @@
 {{- $fullName := include "cp-zookeeper.fullname" . }}
 {{- $servers := index .Values "cp-helm-charts" "cp-zookeeper" "servers"| int }}
 {{- $clientPort := index .Values "cp-helm-charts" "cp-zookeeper"  "clientPort" }}
+{{- $firstClientNodePort := .Values.zookeeper.nodeport.firstClientNodePort }}
 {{- $root := . }}
 {{- range $i, $e := until $servers }}
-  {{- $externalListenerPort := add 30181 $i }}
+  {{- $externalListenerPort := add $firstClientNodePort $i }}
   {{- $responsiblePod := printf "%s-%d" (printf "%s" $fullName) $i }}
 ---
 apiVersion: v1
