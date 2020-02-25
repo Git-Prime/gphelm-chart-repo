@@ -5,7 +5,7 @@
 {{- $root := . }}
 {{- range $i, $e := until $servers }}
   {{- $externalListenerPort := add $firstClientNodePort $i }}
-  {{- $responsiblePod := printf "%s-%d" (printf "%s" $fullName) $i }}
+  {{- $responsiblePod := printf "%s-%s-%d" (printf "%s" $fullName) "cp-zookeeper" $i }}
 ---
 apiVersion: v1
 kind: Service
