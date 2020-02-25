@@ -94,6 +94,13 @@ questions:
     group: "cp-helm-charts/cp-kafka/cp-zookeeper"
     label: Persistence storage class for data log dir. Valid options are nil, "-", or storage class name.
     default: "ebs-gp2"
+  - variable: zookeeper.nodeport.firstClientNodePort
+    type: string
+    required: true
+    group: "cp-helm-charts/cp-kafka/cp-zookeeper"
+    label: First client nodeport
+    description: "Client nodeports will be created starting with this port"
+    default: 30181
 
   - variable: cp-helm-charts.cp-kafka-connect.image
     type: string
