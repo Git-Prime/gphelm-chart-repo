@@ -1,3 +1,3 @@
 # Gitprime configured Kafka, Zookeper, and Kafka Connect
 
-These are the readme contents.
+THIS VERSION IS NOT READY TO BE DEPLOYED YET
