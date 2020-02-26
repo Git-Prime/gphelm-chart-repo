@@ -1,6 +1,6 @@
-{{- /* This represents a deployment for the reporing data sink  */}}
+{{- /* This represents a deployment for the reporting data sink  */}}
 {{- define "datasink.deploymentTemplate" }}
-{{- $globalEnvironment := .Values.environment }}
+{{- $globalEnvironment := .Values.global.environment }}
 {{- $environment := .templateData.environment }}
 apiVersion: apps/v1
 kind: Deployment
@@ -34,15 +34,15 @@ spec:
             - name: ACTIVE_PROFILES
               value: {{ quote .templateData.activeProfiles}}
             - name: SYSTEM_ENV_PARENT
-              value: {{ quote .Values.environment.parentName }}
+              value: {{ quote .Values.global.environment.parentName }}
             - name: SYSTEM_ENV_MODIFIER
-              value: {{ quote .Values.environment.modifierValue }}
+              value: {{ quote .Values.global.environment.modifierValue }}
             - name: SYSTEM_ENV
               value: {{ include "helpers.environment.fullName" . | quote }}
             - name: DATADOG_ENABLED
-              value: {{ quote .Values.datadog.enabled }}
+              value: {{ quote .Values.global.datadog.enabled }}
             - name: DNS_CONFIG_NDOTS
-              value: {{ quote .Values.dns.ndots }}
+              value: {{ quote .Values.global.dns.ndots }}
             - name: SYSTEM_POD_NAME
               valueFrom:
                 fieldRef:
@@ -60,6 +60,14 @@ spec:
           {{- if .templateData.javaOptions }}
             - name: JAVA_OPTS
               value: {{ quote .templateData.javaOptions }}
+          {{- end }}
+          {{- range $globalEnvironment }}
+            - name: {{ .name }}
+              value: {{ .value | quote }}
+          {{- end }}
+          {{- range $environment }}
+            - name: {{ .name }}
+              value: {{ .value | quote }}
           {{- end }}
           resources:
           {{- if .templateData.resources }}
@@ -82,9 +90,9 @@ spec:
             {{- end }}
           {{- end }}
           {{- end }}
-          {{- if .Values.volumes.enableLocalMount }}
+          {{- if .Values.global.volumes.enableLocalMount }}
           volumeMounts:
-            - mountPath: {{ quote .Values.volumes.podMountDirectory }}
+            - mountPath: {{ quote .Values.global.volumes.podMountDirectory }}
               name: repository-storage-volume
           {{- end }}
           terminationMessagePath: /dev/termination-log
@@ -98,10 +106,10 @@ spec:
       schedulerName: default-scheduler
       securityContext: {}
       terminationGracePeriodSeconds: 30
-      {{- if .Values.volumes.enableLocalMount }}
+      {{- if .Values.global.volumes.enableLocalMount }}
       volumes:
       - hostPath:
-          path: {{ quote .Values.volumes.nodeMountDirectory }}
+          path: {{ quote .Values.global.volumes.nodeMountDirectory }}
           type: DirectoryOrCreate
         name: repository-storage-volume
       {{- end }}

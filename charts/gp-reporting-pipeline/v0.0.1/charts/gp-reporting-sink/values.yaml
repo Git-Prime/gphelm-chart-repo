@@ -1,22 +1,3 @@
-# We'll start with values for the environment we'll be living in
-environment:
-  parentName: sandbox
-  modifierValue: ""
-
-build:
-  commitSHA: "latest"
-
-datadog:
-  enabled: false
-
-dns:
-  ndots: 2
-
-volumes:
-  enableLocalMount: false
-  nodeMountDirectory: /mnt/working-storage
-  podMountDirectory: /var/working-storage
-
 datasink:
   dockerImage: "gp-docker.gitprime-ops.com/cloud/gitprime-reporting-sink"
   replicaCount: 1

@@ -1,6 +1,6 @@
 {{- $templateData := dict "operationMode" "factdata" }}
-{{- $_ := set $templateData "commitSHA" .Values.build.commitSHA }}
-{{- $_ := set $templateData "environment" .Values.environment }}
+{{- $_ := set $templateData "commitSHA" .Values.global.build.commitSHA }}
+{{- $_ := set $templateData "environment" .Values.global.environment }}
 {{- $_ := set $templateData "dockerImage" .Values.datasink.dockerImage }}
 {{- $_ := set $templateData "activeProfiles" .Values.datasink.factdata.activeProfiles }}
 {{- $_ := set $templateData "replicaCount" .Values.datasink.factdata.replicaCount }}

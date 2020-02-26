@@ -1,24 +1,19 @@
-environment:
-  parentName: &parent_name sandbox
-  modifierValue: &modifier_value "01"
-
-build:
-  commitSHA: ""
-
-datadog:
-  enabled: true
-
-dns:
-  ndots: 2
-
-volumes:
-  enableLocalMount: false
-  nodeMountDirectory: /mnt/working-storage
-  podMountDirectory: /var/working-storage
+global:
+  environment:
+    parentName: sandbox
+    modifierValue: ""
+  build:
+    commitSHA: ""
+  datadog:
+    enabled: true
+  dns:
+    ndots: 2
+  volumes:
+    enableLocalMount: false
+    nodeMountDirectory: /mnt/working-storage
+    podMountDirectory: /var/working-storage
 
 gp-reporting-sink:
   enabled: true
-  environment:
-    parentName: *parent_name
-    modifierValue: *modifier_value
+
 

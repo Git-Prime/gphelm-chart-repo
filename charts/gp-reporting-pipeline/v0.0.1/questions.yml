@@ -1,6 +1,6 @@
 questions:
   # General environment settings
-  - variable: environment.parentName
+  - variable: global.environment.parentName
     type: enum
     required: true
     group: "Environment"
@@ -12,7 +12,7 @@ questions:
       - production
     default: sandbox
 
-  - variable: environment.modifierValue
+  - variable: global.environment.modifierValue
     type: enum
     required: false
     group: "Environment"
@@ -37,7 +37,7 @@ questions:
   ####
   #### Common application settings
   ####
-  - variable: build.commitSHA
+  - variable: global.build.commitSHA
     type: string
     required: true
     group: "Common Build"
@@ -50,7 +50,7 @@ questions:
   ####
 
   # Common settings for all deployments
-  - variable: volumes.enableLocalMount
+  - variable: global.volumes.enableLocalMount
     type: boolean
     required: true
     group: "Common settings"
@@ -59,27 +59,27 @@ questions:
     default: false
     show_subquestion_if: "true"
     subquestions:
-      - variable: volumes.nodeMountDirectory
+      - variable: global.volumes.nodeMountDirectory
         type: string
         label: "Directory on Node"
         description: "The directory on the node to use for repository storage"
         required: true
         default: "/mnt/repo-storage"
-      - variable: volumes.podMountDirectory
+      - variable: global.volumes.podMountDirectory
         type: string
         label: "Directory on Pod"
         description: "The directory inside the pod to mount the volume."
         required: true
         default: "/var/data"
 
-  - variable: datadog.enabled
+  - variable: global.datadog.enabled
     type: boolean
     required: true
     group: "Common settings"
     label: "Enable DataDog"
     description: "Turn DataDog APM on for the pipeline"
 
-  - variable: dns.ndots
+  - variable: global.dns.ndots
     type: string
     required: false
     group: "Common settings"
@@ -87,7 +87,7 @@ questions:
     description: "Modifies the number of ndots in /etc/resolv.conf"
     default: 2
 
-  - variable: datasink.dockerImage
+  - variable: gp-reporting-sink.datasink.dockerImage
     type: string
     required: true
     group: "Reporting sink common"
@@ -96,7 +96,7 @@ questions:
     default: "gp-docker.gitprime-ops.com/cloud/gitprime-reporting-sink"
 
   # Workevents Data Sink Group Settings
-  - variable: datasink.workevents.enabled
+  - variable: gp-reporting-sink.datasink.workevents.enabled
     type: boolean
     required: true
     group: "Reporting sink: Workevents"
@@ -105,56 +105,56 @@ questions:
     default: true
     show_subquestion_if: "true"
     subquestions:
-      - variable: datasink.workevents.activeProfiles
+      - variable: gp-reporting-sink.datasink.workevents.activeProfiles
         type: string
         required: true
         group: "Reporting sink: Workevents"
         label: Active Spring profiles
         description: The names of the @Profile configurations to apply. These determine this sink's behavior
         default: "commit-work-event-sink,pull-request-comment-work-event-sink,pull-request-event-work-event-sink,pull-request-work-event-sink,ticket-comment-work-event-sink,ticket-event-work-event-sink,ticket-work-event-sink"
-      - variable: datasink.workevents.replicaCount
+      - variable: gp-reporting-sink.datasink.workevents.replicaCount
         type: string
         required: true
         group: "Reporting sink: Workevents"
         label: Number of Pods for services
         description: The number of pods to deploy
         default: 1
-      - variable: datasink.workevents.javaOptions
+      - variable: gp-reporting-sink.datasink.workevents.javaOptions
         type: string
         required: true
         group: "Reporting sink: Workevents"
         label: JVM Options
         description: The Java options for the services.
         default: "-d64 -Xms2g -Xmx4g"
-      - variable: datasink.workevents.resources.requests.cpu
+      - variable: gp-reporting-sink.datasink.workevents.resources.requests.cpu
         type: string
         required: true
         group: "Reporting sink: Workevents"
         label: Requested CPU
         description: The number of CPUs the services will request
         default: "2"
-      - variable: datasink.workevents.resources.requests.memory
+      - variable: gp-reporting-sink.datasink.workevents.resources.requests.memory
         type: string
         required: true
         group: "Reporting sink: Workevents"
         label: Requested Memory
         description: The maximum amount of memory the service will request
         default: "4Gi"
-      - variable: datasink.workevents.resources.limits.cpu
+      - variable: gp-reporting-sink.datasink.workevents.resources.limits.cpu
         type: string
         required: true
         group: "Reporting sink: Workevents"
         label: Reporting Sink Service CPU Limit
         description: The maximum number of CPUs the services can use
         default: "4"
-      - variable: datasink.workevents.resources.limits.memory
+      - variable: gp-reporting-sink.datasink.workevents.resources.limits.memory
         type: string
         required: true
         group: "Reporting sink: Workevents"
         label: Reporting Sink Service Memory Limit
         description: The maximum amount of memory the service can use.
         default: "8Gi"
-      - variable: datasink.workevents.logLevel
+      - variable: gp-reporting-sink.datasink.workevents.logLevel
         type: enum
         required: true
         group: "Reporting sink: Workevents"
@@ -169,7 +169,7 @@ questions:
         default: "INFO"
 
   # Fact Data Data Sink Group Settings
-  - variable: datasink.factdata.enabled
+  - variable: gp-reporting-sink.datasink.factdata.enabled
     type: boolean
     required: true
     group: "Reporting sink: Fact Data"
@@ -178,56 +178,56 @@ questions:
     default: true
     show_subquestion_if: "true"
     subquestions:
-      - variable: datasink.factdata.activeProfiles
+      - variable: gp-reporting-sink.datasink.factdata.activeProfiles
         type: string
         required: true
         group: "Reporting sink: Fact Data"
         label: Active Spring profiles
         description: The names of the @Profile configurations to apply. These determine this sink's behavior
         default: "alias-sink,apex-sink,apex-user-group-sink,group-sink,member-role-view-rights-sink,member-sink,org-reportpreferences-sink,org-virtualteam-sink,organization-sink,project-sink,team-membership-sink,team-sink,vendor-sink"
-      - variable: datasink.factdata.replicaCount
+      - variable: gp-reporting-sink.datasink.factdata.replicaCount
         type: string
         required: true
         group: "Reporting sink: Fact Data"
         label: Number of Pods for services
         description: The number of pods to deploy
         default: 1
-      - variable: datasink.factdata.javaOptions
+      - variable: gp-reporting-sink.datasink.factdata.javaOptions
         type: string
         required: true
         group: "Reporting sink: Fact Data"
         label: JVM Options
         description: The Java options for the services.
         default: "-d64 -Xms2g -Xmx4g"
-      - variable: datasink.factdata.resources.requests.cpu
+      - variable: gp-reporting-sink.datasink.factdata.resources.requests.cpu
         type: string
         required: true
         group: "Reporting sink: Fact Data"
         label: Requested CPU
         description: The number of CPUs the services will request
         default: "2"
-      - variable: datasink.factdata.resources.requests.memory
+      - variable: gp-reporting-sink.datasink.factdata.resources.requests.memory
         type: string
         required: true
         group: "Reporting sink: Fact Data"
         label: Requested Memory
         description: The maximum amount of memory the service will request
         default: "4Gi"
-      - variable: datasink.factdata.resources.limits.cpu
+      - variable: gp-reporting-sink.datasink.factdata.resources.limits.cpu
         type: string
         required: true
         group: "Reporting sink: Fact Data"
         label: Reporting Sink Service CPU Limit
         description: The maximum number of CPUs the services can use
         default: "4"
-      - variable: datasink.factdata.resources.limits.memory
+      - variable: gp-reporting-sink.datasink.factdata.resources.limits.memory
         type: string
         required: true
         group: "Reporting sink: Fact Data"
         label: Reporting Sink Service Memory Limit
         description: The maximum amount of memory the service can use.
         default: "8Gi"
-      - variable: datasink.factdata.logLevel
+      - variable: gp-reporting-sink.datasink.factdata.logLevel
         type: enum
         required: true
         group: "Reporting sink: Fact Data"
