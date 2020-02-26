@@ -1,0 +1,6 @@
+dependencies:
+- name: gp-reporting-sink
+  version: v0.0.1
+  repository: file://./charts/gp-reporting-sink
+  condition: gp-reporting-sink.enabled
+

@@ -15,3 +15,6 @@ volumes:
   enableLocalMount: false
   nodeMountDirectory: /mnt/working-storage
   podMountDirectory: /var/working-storage
+
+gp-reporting-sink:
+  enabled: true
