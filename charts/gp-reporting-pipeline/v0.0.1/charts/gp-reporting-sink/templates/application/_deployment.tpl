@@ -25,7 +25,7 @@ spec:
       containers:
         - name: gitprime-reporting-sink-{{- template "helpers.environment.fullName" .}}-{{ .templateData.operationMode }}
       {{- if .templateData.dockerImage }}
-          image: gp-docker.gitprime-ops.com/cloud/{{ .templateData.dockerImage }}:{{ .templateData.commitSHA }}
+          image: {{ .templateData.dockerImage }}:{{ .templateData.commitSHA }}
       {{- else }}
           image: gp-docker.gitprime-ops.com/cloud/gitprime-reporting-sink:{{ .templateData.commitSHA }}
       {{- end }}
@@ -60,6 +60,10 @@ spec:
           {{- if .templateData.javaOptions }}
             - name: JAVA_OPTS
               value: {{ quote .templateData.javaOptions }}
+          {{- end }}
+          {{- range $globalEnvironment }}
+            - name: {{ .name }}
+              value: {{ .value | quote }}
           {{- end }}
           resources:
           {{- if .templateData.resources }}
