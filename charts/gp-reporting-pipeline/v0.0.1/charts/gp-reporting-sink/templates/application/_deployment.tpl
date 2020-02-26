@@ -65,10 +65,6 @@ spec:
             - name: {{ .name }}
               value: {{ .value | quote }}
           {{- end }}
-          {{- range $environment }}
-            - name: {{ .name }}
-              value: {{ .value | quote }}
-          {{- end }}
           resources:
           {{- if .templateData.resources }}
           {{- if or (.templateData.resources.requests.cpu) (.templateData.resources.requests.memory) }}
