@@ -1,9 +1,9 @@
 {{- $templateData := dict "operationMode" "factdata" }}
 {{- $_ := set $templateData "commitSHA" .Values.build.commitSHA }}
+{{- $_ := set $templateData "environment" .Values.environment }}
 {{- $_ := set $templateData "dockerImage" .Values.datasink.dockerImage }}
 {{- $_ := set $templateData "activeProfiles" .Values.datasink.factdata.activeProfiles }}
 {{- $_ := set $templateData "replicaCount" .Values.datasink.factdata.replicaCount }}
-{{- $_ := set $templateData "environment" .Values.datasink.factdata.environment }}
 {{- $_ := set $templateData "javaOptions" .Values.datasink.factdata.javaOptions }}
 {{- $_ := set $templateData "resources" .Values.datasink.factdata.resources }}
 {{- $_ := set $templateData "logLevel" .Values.datasink.factdata.logLevel }}
