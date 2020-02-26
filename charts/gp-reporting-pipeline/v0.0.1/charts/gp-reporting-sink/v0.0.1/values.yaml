@@ -1,0 +1,49 @@
+# We'll start with values for the environment we'll be living in
+environment:
+  parentName: sandbox
+  modifierValue: ""
+
+build:
+  commitSHA: "latest"
+
+datadog:
+  enabled: false
+
+dns:
+  ndots: 2
+
+volumes:
+  enableLocalMount: false
+  nodeMountDirectory: /mnt/working-storage
+  podMountDirectory: /var/working-storage
+
+datasink:
+  dockerImage: "gp-docker.gitprime-ops.com/cloud/gitprime-reporting-sink"
+  replicaCount: 1
+  activeProfiles: "alias-sink,apex-sink,apex-user-group-sink,apex-user-team-affiliation-changed-sink,commit-work-event-sink,group-sink,materialized-view-rights-sink,member-rights-changed-sink,member-role-view-rights-sink,member-sink,org-reportpreferences-sink,org-virtualteam-sink,organization-sink,project-sink,pull-request-comment-work-event-sink,pull-request-event-work-event-sink,pull-request-work-event-sink,team-membership-sink,team-sink,ticket-comment-work-event-sink,ticket-event-work-event-sink,ticket-work-event-sink,user-changed-sink,vendor-sink"
+
+  workevents:
+    enabled: true
+    activeProfiles: "commit-work-event-sink,pull-request-comment-work-event-sink,pull-request-event-work-event-sink,pull-request-work-event-sink,ticket-comment-work-event-sink,ticket-event-work-event-sink,ticket-work-event-sink"
+    logLevel: "INFO"
+    javaOptions: "-d64 -Xms2g -Xmx4g"
+    resources:
+      requests:
+        cpu: "2"
+        memory: "4Gi"
+      limits:
+        cpu: "4"
+        memory: "8Gi"
+
+  factdata:
+    enabled: true
+    activeProfiles: "alias-sink,apex-sink,apex-user-group-sink,group-sink,member-role-view-rights-sink,member-sink,org-reportpreferences-sink,org-virtualteam-sink,organization-sink,project-sink,team-membership-sink,team-sink,vendor-sink"
+    logLevel: "INFO"
+    javaOptions: "-d64 -Xms2g -Xmx4g"
+    resources:
+      requests:
+        cpu: "2"
+        memory: "4Gi"
+      limits:
+        cpu: "4"
+        memory: "8Gi"

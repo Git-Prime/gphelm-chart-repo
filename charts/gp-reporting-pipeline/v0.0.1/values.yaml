@@ -1,0 +1,17 @@
+environment:
+  parentName: sandbox
+  modifierValue: ""
+
+build:
+  commitSHA: ""
+
+datadog:
+  enabled: true
+
+dns:
+  ndots: 2
+
+volumes:
+  enableLocalMount: false
+  nodeMountDirectory: /mnt/working-storage
+  podMountDirectory: /var/working-storage

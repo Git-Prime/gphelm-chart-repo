@@ -1,0 +1,11 @@
+{{- $templateData := dict "operationMode" "workevents" }}
+{{- $_ := set $templateData "commitSHA" .Values.build.commitSHA }}
+{{- $_ := set $templateData "dockerImage" .Values.datasink.dockerImage }}
+{{- $_ := set $templateData "activeProfiles" .Values.datasink.workevents.activeProfiles }}
+{{- $_ := set $templateData "replicaCount" .Values.datasink.workevents.replicaCount }}
+{{- $_ := set $templateData "environment" .Values.datasink.workevents.environment }}
+{{- $_ := set $templateData "javaOptions" .Values.datasink.workevents.javaOptions }}
+{{- $_ := set $templateData "resources" .Values.datasink.workevents.resources }}
+{{- $_ := set $templateData "logLevel" .Values.datasink.workevents.logLevel }}
+{{- $templateData := dict "Values" .Values "templateData" $templateData }}
+{{- include "application.deploymentTemplate" $templateData }}
