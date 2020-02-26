@@ -1,6 +1,6 @@
 environment:
-  parentName: sandbox
-  modifierValue: ""
+  parentName: &parent_name sandbox
+  modifierValue: &modifier_value ""
 
 build:
   commitSHA: ""
@@ -18,3 +18,7 @@ volumes:
 
 gp-reporting-sink:
   enabled: true
+  environment:
+    parentName: *parent_name
+    modifierValue: *modifier_value
+
