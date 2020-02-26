@@ -61,14 +61,6 @@ spec:
             - name: JAVA_OPTS
               value: {{ quote .templateData.javaOptions }}
           {{- end }}
-          {{- range $globalEnvironment }}
-            - name: {{ .name }}
-              value: {{ .value | quote }}
-          {{- end }}
-          {{- range $environment }}
-            - name: {{ .name }}
-              value: {{ .value | quote }}
-          {{- end }}
           resources:
           {{- if .templateData.resources }}
           {{- if or (.templateData.resources.requests.cpu) (.templateData.resources.requests.memory) }}
