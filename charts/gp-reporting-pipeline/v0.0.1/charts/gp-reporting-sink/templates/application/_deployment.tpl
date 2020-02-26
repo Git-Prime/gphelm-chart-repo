@@ -1,5 +1,4 @@
-{{- /* This represents a deployment that runs the main Reporting Pipeline component and moves into different modes based on */}}
-{{- /* environment variables and the like. */}}
+{{- /* This represents a deployment for the reporing data sink  */}}
 {{- define "datasink.deploymentTemplate" }}
 {{- $globalEnvironment := .Values.environment }}
 {{- $environment := .templateData.environment }}
@@ -114,3 +113,4 @@ spec:
           type: DirectoryOrCreate
         name: repository-storage-volume
       {{- end }}
+{{- end }}
