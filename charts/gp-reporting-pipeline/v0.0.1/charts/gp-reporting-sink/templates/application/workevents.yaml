@@ -8,4 +8,4 @@
 {{- $_ := set $templateData "resources" .Values.datasink.workevents.resources }}
 {{- $_ := set $templateData "logLevel" .Values.datasink.workevents.logLevel }}
 {{- $templateData := dict "Values" .Values "templateData" $templateData }}
-{{- include "application.deploymentTemplate" $templateData }}
+{{- include "datasink.deploymentTemplate" $templateData }}
