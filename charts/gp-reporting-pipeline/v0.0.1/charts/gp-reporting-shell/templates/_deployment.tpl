@@ -6,14 +6,14 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: flow-reporting-reporting-shell-{{- template "helpers.environment.fullName" .}}-{{ .templateData.operationMode }}
+  name: flow-reporting-shell-{{- template "helpers.environment.fullName" .}}-{{ .templateData.operationMode }}
   labels:
-    app: flow-reporting-reporting-shell-{{- template "helpers.environment.fullName" .}}-{{ .templateData.operationMode }}
+    app: flow-reporting-shell-{{- template "helpers.environment.fullName" .}}-{{ .templateData.operationMode }}
 spec:
   replicas: {{ .templateData.replicaCount }}
   selector:
     matchLabels:
-      app: flow-reporting-reporting-shell-{{- template "helpers.environment.fullName" .}}-{{ .templateData.operationMode }}
+      app: flow-reporting-shell-{{- template "helpers.environment.fullName" .}}-{{ .templateData.operationMode }}
   strategy:
     rollingUpdate:
       maxSurge: 25%
@@ -21,10 +21,10 @@ spec:
   template:
     metadata:
       labels:
-        app: flow-reporting-reporting-shell-{{- template "helpers.environment.fullName" .}}-{{ .templateData.operationMode }}
+        app: flow-reporting-shell-{{- template "helpers.environment.fullName" .}}-{{ .templateData.operationMode }}
     spec:
       containers:
-        - name: flow-reporting-reporting-shell-{{- template "helpers.environment.fullName" .}}-{{ .templateData.operationMode }}
+        - name: flow-reporting-shell-{{- template "helpers.environment.fullName" .}}-{{ .templateData.operationMode }}
       {{- if .templateData.dockerImage }}
           image: {{ .templateData.dockerImage }}:{{ .templateData.commitSHA }}
       {{- else }}
