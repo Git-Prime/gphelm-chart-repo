@@ -2,6 +2,7 @@
 {{- define "datasink.deploymentTemplate" }}
 {{- $globalEnvironment := .Values.global.environment }}
 {{- $environment := .templateData.environment }}
+{{- if .templateData.deployEnabled }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -105,4 +106,5 @@ spec:
           type: DirectoryOrCreate
         name: repository-storage-volume
       {{- end }}
+  {{- end }}
 {{- end }}
