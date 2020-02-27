@@ -132,7 +132,7 @@ questions:
         group: "Reporting sink: Workevents"
         label: Requested CPU
         description: The number of CPUs the services will request
-        default: "0.5"
+        default: "1"
       - variable: gp-reporting-sink.datasink.workevents.resources.requests.memory
         type: string
         required: true
@@ -205,7 +205,7 @@ questions:
         group: "Reporting sink: Fact Data"
         label: Requested CPU
         description: The number of CPUs the services will request
-        default: "0.5"
+        default: "1"
       - variable: gp-reporting-sink.datasink.factdata.resources.requests.memory
         type: string
         required: true
@@ -278,7 +278,7 @@ questions:
         group: "Reporting sink: Materialization Events :: MemberApexUserVisibility"
         label: Requested CPU
         description: The number of CPUs the services will request
-        default: "0.5"
+        default: "1"
       - variable: gp-reporting-sink.datasink.materializationEventsMemberApexUserVisibility.resources.requests.memory
         type: string
         required: true
@@ -351,7 +351,7 @@ questions:
         group: "Reporting sink: Materialization Events :: ApexUserTeamAffiliation"
         label: Requested CPU
         description: The number of CPUs the services will request
-        default: "0.5"
+        default: "1"
       - variable: gp-reporting-sink.datasink.materializationEventsApexUserTeamAffiliation.resources.requests.memory
         type: string
         required: true
@@ -424,7 +424,7 @@ questions:
         group: "Reporting sink: Apex User Changed Event"
         label: Requested CPU
         description: The number of CPUs the services will request
-        default: "0.5"
+        default: "1"
       - variable: gp-reporting-sink.datasink.apexUserChangedEvent.resources.requests.memory
         type: string
         required: true
@@ -497,7 +497,7 @@ questions:
         group: "Reporting sink: View Rights Changed Event"
         label: Requested CPU
         description: The number of CPUs the services will request
-        default: "0.5"
+        default: "1"
       - variable: gp-reporting-sink.datasink.viewRightsChangedEvent.resources.requests.memory
         type: string
         required: true

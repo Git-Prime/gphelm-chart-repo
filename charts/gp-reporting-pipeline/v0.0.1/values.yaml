@@ -1,7 +1,7 @@
 global:
   environment:
     parentName: sandbox
-    modifierValue: "01"
+    modifierValue: ""
   build:
     commitSHA: "latest"
   datadog:
