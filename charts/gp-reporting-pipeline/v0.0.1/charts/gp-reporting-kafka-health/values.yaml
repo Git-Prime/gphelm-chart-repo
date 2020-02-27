@@ -1,0 +1,14 @@
+kafkahealth:
+  deployEnabled: true
+  dockerImage: "gp-docker.gitprime-ops.com/cloud/gitprime-reporting-kafka-health"
+  replicaCount: 1
+  logLevel: "INFO"
+  javaOptions: "-d64 -Xms2g -Xmx4g"
+  resources:
+    requests:
+      cpu: "0.5"
+      memory: "2Gi"
+    limits:
+      cpu: "1"
+      memory: "4Gi"
+

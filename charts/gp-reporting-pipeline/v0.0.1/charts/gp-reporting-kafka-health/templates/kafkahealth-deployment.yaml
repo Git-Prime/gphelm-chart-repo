@@ -1,0 +1,11 @@
+{{- $templateData := dict "operationMode" "reporting" }}
+{{- $_ := set $templateData "commitSHA" .Values.global.build.commitSHA }}
+{{- $_ := set $templateData "environment" .Values.global.environment }}
+{{- $_ := set $templateData "dockerImage" .Values.kafkahealth.dockerImage }}
+{{- $_ := set $templateData "javaOptions" .Values.kafkahealth.deployEnabled }}
+{{- $_ := set $templateData "javaOptions" .Values.kafkahealth.javaOptions }}
+{{- $_ := set $templateData "replicaCount" .Values.kafkahealth.replicaCount }}
+{{- $_ := set $templateData "resources" .Values.kafkahealth.resources }}
+{{- $_ := set $templateData "logLevel" .Values.kafkahealth.logLevel }}
+{{- $templateData := dict "Values" .Values "templateData" $templateData }}
+{{- include "kafkahealth.deploymentTemplate" $templateData }}

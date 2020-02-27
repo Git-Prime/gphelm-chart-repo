@@ -15,5 +15,6 @@ global:
 
 gp-reporting-sink:
   enabled: true
-
+gp-reporting-kafka-health:
+  enabled: true
 

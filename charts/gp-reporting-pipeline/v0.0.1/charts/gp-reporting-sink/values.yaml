@@ -1,6 +1,5 @@
 datasink:
   dockerImage: "gp-docker.gitprime-ops.com/cloud/gitprime-reporting-sink"
-  activeProfiles: "alias-sink,apex-sink,apex-user-group-sink,apex-user-team-affiliation-changed-sink,commit-work-event-sink,group-sink,materialized-view-rights-sink,member-rights-changed-sink,member-role-view-rights-sink,member-sink,org-reportpreferences-sink,org-virtualteam-sink,organization-sink,project-sink,pull-request-comment-work-event-sink,pull-request-event-work-event-sink,pull-request-work-event-sink,team-membership-sink,team-sink,ticket-comment-work-event-sink,ticket-event-work-event-sink,ticket-work-event-sink,user-changed-sink,vendor-sink"
 
   workevents:
     deployEnabled: true
