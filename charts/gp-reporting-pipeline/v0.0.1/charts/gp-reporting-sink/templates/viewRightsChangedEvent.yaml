@@ -1,0 +1,12 @@
+{{- $templateData := dict "operationMode" "viewRightsChangedEvent" }}
+{{- $_ := set $templateData "commitSHA" .Values.global.build.commitSHA }}
+{{- $_ := set $templateData "environment" .Values.global.environment }}
+{{- $_ := set $templateData "dockerImage" .Values.datasink.dockerImage }}
+{{- $_ := set $templateData "deployEnabled" .Values.datasink.viewRightsChangedEvent.deployEnabled }}
+{{- $_ := set $templateData "activeProfiles" .Values.datasink.viewRightsChangedEvent.activeProfiles }}
+{{- $_ := set $templateData "replicaCount" .Values.datasink.viewRightsChangedEvent.replicaCount }}
+{{- $_ := set $templateData "javaOptions" .Values.datasink.viewRightsChangedEvent.javaOptions }}
+{{- $_ := set $templateData "resources" .Values.datasink.viewRightsChangedEvent.resources }}
+{{- $_ := set $templateData "logLevel" .Values.datasink.viewRightsChangedEvent.logLevel }}
+{{- $templateData := dict "Values" .Values "templateData" $templateData }}
+{{- include "datasink.deploymentTemplate" $templateData }}

@@ -1,0 +1,12 @@
+{{- $templateData := dict "operationMode" "materializationEventsApexUserTeamAffiliation" }}
+{{- $_ := set $templateData "commitSHA" .Values.global.build.commitSHA }}
+{{- $_ := set $templateData "environment" .Values.global.environment }}
+{{- $_ := set $templateData "dockerImage" .Values.datasink.dockerImage }}
+{{- $_ := set $templateData "deployEnabled" .Values.datasink.materializationEventsApexUserTeamAffiliation.deployEnabled }}
+{{- $_ := set $templateData "activeProfiles" .Values.datasink.materializationEventsApexUserTeamAffiliation.activeProfiles }}
+{{- $_ := set $templateData "replicaCount" .Values.datasink.materializationEventsApexUserTeamAffiliation.replicaCount }}
+{{- $_ := set $templateData "javaOptions" .Values.datasink.materializationEventsApexUserTeamAffiliation.javaOptions }}
+{{- $_ := set $templateData "resources" .Values.datasink.materializationEventsApexUserTeamAffiliation.resources }}
+{{- $_ := set $templateData "logLevel" .Values.datasink.materializationEventsApexUserTeamAffiliation.logLevel }}
+{{- $templateData := dict "Values" .Values "templateData" $templateData }}
+{{- include "datasink.deploymentTemplate" $templateData }}

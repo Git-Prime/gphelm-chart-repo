@@ -2,6 +2,7 @@
 {{- $_ := set $templateData "commitSHA" .Values.global.build.commitSHA }}
 {{- $_ := set $templateData "environment" .Values.global.environment }}
 {{- $_ := set $templateData "dockerImage" .Values.datasink.dockerImage }}
+{{- $_ := set $templateData "deployEnabled" .Values.datasink.workevents.deployEnabled }}
 {{- $_ := set $templateData "activeProfiles" .Values.datasink.workevents.activeProfiles }}
 {{- $_ := set $templateData "replicaCount" .Values.datasink.workevents.replicaCount }}
 {{- $_ := set $templateData "javaOptions" .Values.datasink.workevents.javaOptions }}
