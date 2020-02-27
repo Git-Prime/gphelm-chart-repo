@@ -593,7 +593,7 @@ questions:
   - variable: gp-reporting-kafka-health.kafkahealth.logLevel
     type: enum
     required: true
-    group: "Application"
+    group: "Application / Reporting Kafka Health Service""
     label: Log Level
     description: The level of logging for this deployment.
     options:
