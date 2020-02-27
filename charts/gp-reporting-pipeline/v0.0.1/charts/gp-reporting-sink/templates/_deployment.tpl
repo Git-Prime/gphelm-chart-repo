@@ -5,14 +5,14 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: gitprime-reporting-sink-{{- template "helpers.environment.fullName" .}}-{{ .templateData.operationMode }}
+  name: flow-reporting-sink-{{- template "helpers.environment.fullName" .}}-{{ .templateData.operationMode }}
   labels:
-    app: gitprime-reporting-sink-{{- template "helpers.environment.fullName" .}}-{{ .templateData.operationMode }}
+    app: flow-reporting-sink-{{- template "helpers.environment.fullName" .}}-{{ .templateData.operationMode }}
 spec:
   replicas: {{ .templateData.replicaCount }}
   selector:
     matchLabels:
-      app: gitprime-reporting-sink-{{- template "helpers.environment.fullName" .}}-{{ .templateData.operationMode }}
+      app: flow-reporting-sink-{{- template "helpers.environment.fullName" .}}-{{ .templateData.operationMode }}
   strategy:
     rollingUpdate:
       maxSurge: 25%
@@ -20,10 +20,10 @@ spec:
   template:
     metadata:
       labels:
-        app: gitprime-reporting-sink-{{- template "helpers.environment.fullName" .}}-{{ .templateData.operationMode }}
+        app: flow-reporting-sink-{{- template "helpers.environment.fullName" .}}-{{ .templateData.operationMode }}
     spec:
       containers:
-        - name: gitprime-reporting-sink-{{- template "helpers.environment.fullName" .}}-{{ .templateData.operationMode }}
+        - name: flow-reporting-sink-{{- template "helpers.environment.fullName" .}}-{{ .templateData.operationMode }}
       {{- if .templateData.dockerImage }}
           image: {{ .templateData.dockerImage }}:{{ .templateData.commitSHA }}
       {{- else }}
