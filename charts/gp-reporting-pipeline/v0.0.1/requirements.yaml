@@ -7,4 +7,3 @@ dependencies:
   version: v0.0.1
   repository: file://./charts/gp-reporting-kafka-health
   condition: gp-reporting-kafka-health.enabled
-  
