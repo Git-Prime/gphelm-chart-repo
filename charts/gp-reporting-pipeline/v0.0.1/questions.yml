@@ -313,3 +313,150 @@ questions:
           - WARN
           - ERROR
         default: "INFO"
+
+  # Materialization Events :: ApexUserTeamAffiliation Sink Group Settings
+  - variable: gp-reporting-sink.datasink.materializationEventsApexUserTeamAffiliation.deployEnabled
+    type: boolean
+    required: true
+    group: "Reporting sink: Materialization Events :: ApexUserTeamAffiliation"
+    label: "Enable Materialization Events :: ApexUserTeamAffiliation Data Sink"
+    description: "Deploy this profile if enabled"
+    default: true
+    show_subquestion_if: "true"
+    subquestions:
+      - variable: gp-reporting-sink.datasink.materializationEventsApexUserTeamAffiliation.activeProfiles
+        type: string
+        required: true
+        group: "Reporting sink: Materialization Events :: ApexUserTeamAffiliation"
+        label: Active Spring profiles
+        description: The names of the @Profile configurations to apply. These determine this sink's behavior
+        default: "apex-user-team-affiliation-changed-sink"
+      - variable: gp-reporting-sink.datasink.materializationEventsApexUserTeamAffiliation.replicaCount
+        type: string
+        required: true
+        group: "Reporting sink: Materialization Events :: ApexUserTeamAffiliation"
+        label: Number of Pods for services
+        description: The number of pods to deploy
+        default: 1
+      - variable: gp-reporting-sink.datasink.materializationEventsApexUserTeamAffiliation.javaOptions
+        type: string
+        required: true
+        group: "Reporting sink: Materialization Events :: ApexUserTeamAffiliation"
+        label: JVM Options
+        description: The Java options for the services.
+        default: "-d64 -Xms2g -Xmx4g"
+      - variable: gp-reporting-sink.datasink.materializationEventsApexUserTeamAffiliation.resources.requests.cpu
+        type: string
+        required: true
+        group: "Reporting sink: Materialization Events :: ApexUserTeamAffiliation"
+        label: Requested CPU
+        description: The number of CPUs the services will request
+        default: "0.5"
+      - variable: gp-reporting-sink.datasink.materializationEventsApexUserTeamAffiliation.resources.requests.memory
+        type: string
+        required: true
+        group: "Reporting sink: Materialization Events :: ApexUserTeamAffiliation"
+        label: Requested Memory
+        description: The maximum amount of memory the service will request
+        default: "4Gi"
+      - variable: gp-reporting-sink.datasink.materializationEventsApexUserTeamAffiliation.resources.limits.cpu
+        type: string
+        required: true
+        group: "Reporting sink: Materialization Events :: ApexUserTeamAffiliation"
+        label: Reporting Sink Service CPU Limit
+        description: The maximum number of CPUs the services can use
+        default: "4"
+      - variable: gp-reporting-sink.datasink.materializationEventsApexUserTeamAffiliation.resources.limits.memory
+        type: string
+        required: true
+        group: "Reporting sink: Materialization Events :: ApexUserTeamAffiliation"
+        label: Reporting Sink Service Memory Limit
+        description: The maximum amount of memory the service can use.
+        default: "8Gi"
+      - variable: gp-reporting-sink.datasink.materializationEventsApexUserTeamAffiliation.logLevel
+        type: enum
+        required: true
+        group: "Reporting sink: Materialization Events :: ApexUserTeamAffiliation"
+        label: Log Level
+        description: The level of logging for the service
+        options:
+          - TRACE
+          - DEBUG
+          - INFO
+          - WARN
+          - ERROR
+        default: "INFO"
+
+  # ApexUserChangedEvent Sink Group Settings
+  - variable: gp-reporting-sink.datasink.apexUserChangedEvent.deployEnabled
+    type: boolean
+    required: true
+    group: "Reporting sink: Apex User Changed Event"
+    label: "Enable Apex User Changed Event Data Sink"
+    description: "Deploy this profile if enabled"
+    default: true
+    show_subquestion_if: "true"
+    subquestions:
+      - variable: gp-reporting-sink.datasink.apexUserChangedEvent.activeProfiles
+        type: string
+        required: true
+        group: "Reporting sink: Apex User Changed Event"
+        label: Active Spring profiles
+        description: The names of the @Profile configurations to apply. These determine this sink's behavior
+        default: "user-changed-sink"
+      - variable: gp-reporting-sink.datasink.apexUserChangedEvent.replicaCount
+        type: string
+        required: true
+        group: "Reporting sink: Apex User Changed Event"
+        label: Number of Pods for services
+        description: The number of pods to deploy
+        default: 1
+      - variable: gp-reporting-sink.datasink.apexUserChangedEvent.javaOptions
+        type: string
+        required: true
+        group: "Reporting sink: Apex User Changed Event"
+        label: JVM Options
+        description: The Java options for the services.
+        default: "-d64 -Xms2g -Xmx4g"
+      - variable: gp-reporting-sink.datasink.apexUserChangedEvent.resources.requests.cpu
+        type: string
+        required: true
+        group: "Reporting sink: Apex User Changed Event"
+        label: Requested CPU
+        description: The number of CPUs the services will request
+        default: "0.5"
+      - variable: gp-reporting-sink.datasink.apexUserChangedEvent.resources.requests.memory
+        type: string
+        required: true
+        group: "Reporting sink: Apex User Changed Event"
+        label: Requested Memory
+        description: The maximum amount of memory the service will request
+        default: "4Gi"
+      - variable: gp-reporting-sink.datasink.apexUserChangedEvent.resources.limits.cpu
+        type: string
+        required: true
+        group: "Reporting sink: Apex User Changed Event"
+        label: Reporting Sink Service CPU Limit
+        description: The maximum number of CPUs the services can use
+        default: "4"
+      - variable: gp-reporting-sink.datasink.apexUserChangedEvent.resources.limits.memory
+        type: string
+        required: true
+        group: "Reporting sink: Apex User Changed Event"
+        label: Reporting Sink Service Memory Limit
+        description: The maximum amount of memory the service can use.
+        default: "8Gi"
+      - variable: gp-reporting-sink.datasink.apexUserChangedEvent.logLevel
+        type: enum
+        required: true
+        group: "Reporting sink: Apex User Changed Event"
+        label: Log Level
+        description: The level of logging for the service
+        options:
+          - TRACE
+          - DEBUG
+          - INFO
+          - WARN
+          - ERROR
+        default: "INFO"
+        
