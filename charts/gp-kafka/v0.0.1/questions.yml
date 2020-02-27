@@ -62,7 +62,7 @@ questions:
     required: true
     group: "cp-helm-charts/cp-kafka"
     label: Persistence size
-    default: "10Gi"
+    default: "500Gi"
 
   - variable: cp-helm-charts.cp-zookeeper.servers
     type: string
@@ -75,7 +75,7 @@ questions:
     required: true
     group: "cp-helm-charts/cp-kafka/cp-zookeeper"
     label: Data dir size
-    default: "5Gi"
+    default: "10Gi"
   - variable: cp-helm-charts.cp-zookeeper.persistence.dataLogDirSize
     type: string
     required: true
