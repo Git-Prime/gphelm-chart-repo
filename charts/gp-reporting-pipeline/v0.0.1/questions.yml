@@ -622,7 +622,7 @@ questions:
         group: "Application / Reporting Shell Service"
         label: Docker image
         description: The Docker image to deploy
-        default: "gp-docker.gitprime-ops.com/cloud/gitprime-reporting-kafka-health"
+        default: "gp-docker.gitprime-ops.com/cloud/gitprime-reporting-shell"
       - variable: gp-reporting-shell.reportingshell.replicaCount
         type: string
         required: true
