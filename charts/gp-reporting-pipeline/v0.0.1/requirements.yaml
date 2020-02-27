@@ -7,3 +7,7 @@ dependencies:
   version: v0.0.1
   repository: file://./charts/gp-reporting-kafka-health
   condition: gp-reporting-kafka-health.enabled
+- name: gp-reporting-shell
+  version: v0.0.1
+  repository: file://./charts/gp-reporting-shell
+  condition: gp-reporting-shell.enabled

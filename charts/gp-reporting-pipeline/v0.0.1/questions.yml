@@ -534,72 +534,147 @@ questions:
         default: "INFO"
 
   # Reporting Kafka Health Service Settings
-  - variable: gp-reporting-kafka-health.kafkahealth.dockerImage
-    type: string
+  - variable: gp-reporting-kafka-health.kafkahealth.deployEnabled
+    type: boolean
     required: true
     group: "Application / Reporting Kafka Health Service"
-    label: Docker image
-    description: The Docker image to deploy
-    default: "gp-docker.gitprime-ops.com/cloud/gitprime-reporting-kafka-health"
-
-  - variable: gp-reporting-kafka-health.kafkahealth.replicaCount
-    type: string
+    label: "Enable Kafka Health Service"
+    description: "Deploy this service if enabled"
+    default: true
+    show_subquestion_if: "true"
+    subquestions:
+      - variable: gp-reporting-kafka-health.kafkahealth.dockerImage
+        type: string
+        required: true
+        group: "Application / Reporting Kafka Health Service"
+        label: Docker image
+        description: The Docker image to deploy
+        default: "gp-docker.gitprime-ops.com/cloud/gitprime-reporting-kafka-health"
+      - variable: gp-reporting-kafka-health.kafkahealth.replicaCount
+        type: string
+        required: true
+        group: "Application / Reporting Kafka Health Service"
+        label: Number of Pods for services
+        description: The number of pods to deploy for the services that handle new repositories.
+        default: 1
+      - variable: gp-reporting-kafka-health.kafkahealth.javaOptions
+        type: string
+        required: true
+        group: "Application / Reporting Kafka Health Service"
+        label: Reporting Kafka Health Service Java Options
+        description: The Java options for the services.
+        default: "-d64 -Xms2g -Xmx4g"
+      - variable: gp-reporting-kafka-health.kafkahealth.resources.requests.cpu
+        type: string
+        required: true
+        group: "Application / Reporting Kafka Health Service"
+        label: Reporting Kafka Health Service Requested CPU
+        description: The number of CPUs the services will request.
+        default: "100m"
+      - variable: gp-reporting-kafka-health.kafkahealth.resources.requests.memory
+        type: string
+        required: true
+        group: "Application / Reporting Kafka Health Service"
+        label: Reporting Kafka Health Service Requested Memory
+        description: The maximum amount of memory a worker will request.
+        default: "4Gi"
+      - variable: gp-reporting-kafka-health.kafkahealth.resources.limits.cpu
+        type: string
+        required: true
+        group: "Application / Reporting Kafka Health Service"
+        label: Reporting Kafka Health Service CPU Limit
+        description: The maximum number of CPUs the services can use.
+        default: "1"
+      - variable: gp-reporting-kafka-health.kafkahealth.resources.limits.memory
+        type: string
+        required: true
+        group: "Application / Reporting Kafka Health Service"
+        label: Reporting Kafka Health Service Memory Limit
+        description: The maximum amount of memory a service can use.
+        default: "8Gi"
+      - variable: gp-reporting-kafka-health.kafkahealth.logLevel
+        type: enum
+        required: true
+        group: "Application / Reporting Kafka Health Service"
+        label: Log Level
+        description: The level of logging for this deployment.
+        options:
+          - TRACE
+          - DEBUG
+          - INFO
+          - WARN
+          - ERROR
+        default: "INFO"
+    
+  # Reporting Shell Service Settings
+  - variable: gp-reporting-shell.reportingshell.deployEnabled
+    type: boolean
     required: true
-    group: "Application / Reporting Kafka Health Service"
-    label: Number of Pods for services
-    description: The number of pods to deploy for the services that handle new repositories.
-    default: 1
-
-  - variable: gp-reporting-kafka-health.kafkahealth.javaOptions
-    type: string
-    required: true
-    group: "Application / Reporting Kafka Health Service"
-    label: Reporting Kafka Health Service Java Options
-    description: The Java options for the services.
-    default: "-d64 -Xms2g -Xmx4g"
-
-  - variable: gp-reporting-kafka-health.kafkahealth.resources.requests.cpu
-    type: string
-    required: true
-    group: "Application / Reporting Kafka Health Service"
-    label: Reporting Kafka Health Service Requested CPU
-    description: The number of CPUs the services will request.
-    default: "100m"
-
-  - variable: gp-reporting-kafka-health.kafkahealth.resources.requests.memory
-    type: string
-    required: true
-    group: "Application / Reporting Kafka Health Service"
-    label: Reporting Kafka Health Service Requested Memory
-    description: The maximum amount of memory a worker will request.
-    default: "4Gi"
-
-  - variable: gp-reporting-kafka-health.kafkahealth.resources.limits.cpu
-    type: string
-    required: true
-    group: "Application / Reporting Kafka Health Service"
-    label: Reporting Kafka Health Service CPU Limit
-    description: The maximum number of CPUs the services can use.
-    default: "1"
-
-  - variable: gp-reporting-kafka-health.kafkahealth.resources.limits.memory
-    type: string
-    required: true
-    group: "Application / Reporting Kafka Health Service"
-    label: Reporting Kafka Health Service Memory Limit
-    description: The maximum amount of memory a service can use.
-    default: "8Gi"
-
-  - variable: gp-reporting-kafka-health.kafkahealth.logLevel
-    type: enum
-    required: true
-    group: "Application / Reporting Kafka Health Service"
-    label: Log Level
-    description: The level of logging for this deployment.
-    options:
-      - TRACE
-      - DEBUG
-      - INFO
-      - WARN
-      - ERROR
-    default: "INFO"
+    group: "Application / Reporting Shell Service"
+    label: "Enable Reporting Shell Service"
+    description: "Deploy this service if enabled"
+    default: true
+    show_subquestion_if: "true"
+    subquestions:
+      - variable: gp-reporting-shell.reportingshell.dockerImage
+        type: string
+        required: true
+        group: "Application / Reporting Shell Service"
+        label: Docker image
+        description: The Docker image to deploy
+        default: "gp-docker.gitprime-ops.com/cloud/gitprime-reporting-kafka-health"
+      - variable: gp-reporting-shell.reportingshell.replicaCount
+        type: string
+        required: true
+        group: "Application / Reporting Shell Service"
+        label: Number of Pods for services
+        description: The number of pods to deploy for the services that handle new repositories.
+        default: 1
+      - variable: gp-reporting-shell.reportingshell.javaOptions
+        type: string
+        required: true
+        group: "Application / Reporting Shell Service"
+        label: Reporting Kafka Health Service Java Options
+        description: The Java options for the services.
+        default: "-d64 -Xms2g -Xmx4g"
+      - variable: gp-reporting-shell.reportingshell.resources.requests.cpu
+        type: string
+        required: true
+        group: "Application / Reporting Shell Service"
+        label: Reporting Kafka Health Service Requested CPU
+        description: The number of CPUs the services will request.
+        default: "100m"
+      - variable: gp-reporting-shell.reportingshell.resources.requests.memory
+        type: string
+        required: true
+        group: "Application / Reporting Shell Service"
+        label: Reporting Kafka Health Service Requested Memory
+        description: The maximum amount of memory a worker will request.
+        default: "4Gi"
+      - variable: gp-reporting-shell.reportingshell.resources.limits.cpu
+        type: string
+        required: true
+        group: "Application / Reporting Shell Service"
+        label: Reporting Kafka Health Service CPU Limit
+        description: The maximum number of CPUs the services can use.
+        default: "1"
+      - variable: gp-reporting-shell.reportingshell.resources.limits.memory
+        type: string
+        required: true
+        group: "Application / Reporting Shell Service"
+        label: Reporting Kafka Health Service Memory Limit
+        description: The maximum amount of memory a service can use.
+        default: "8Gi"
+      - variable: gp-reporting-shell.reportingshell.logLevel
+        type: enum
+        required: true
+        group: "Application / Reporting Shell Service"
+        label: Log Level
+        description: The level of logging for this deployment.
+        options:
+          - TRACE
+          - DEBUG
+          - INFO
+          - WARN
+          - ERROR
+        default: "INFO"

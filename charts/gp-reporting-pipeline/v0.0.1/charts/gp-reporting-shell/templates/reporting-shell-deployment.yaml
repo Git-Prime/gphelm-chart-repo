@@ -1,0 +1,11 @@
+{{- $templateData := dict "operationMode" "reportingshell" }}
+{{- $_ := set $templateData "commitSHA" .Values.global.build.commitSHA }}
+{{- $_ := set $templateData "environment" .Values.global.environment }}
+{{- $_ := set $templateData "dockerImage" .Values.reportingshell.dockerImage }}
+{{- $_ := set $templateData "javaOptions" .Values.reportingshell.deployEnabled }}
+{{- $_ := set $templateData "javaOptions" .Values.reportingshell.javaOptions }}
+{{- $_ := set $templateData "replicaCount" .Values.reportingshell.replicaCount }}
+{{- $_ := set $templateData "resources" .Values.reportingshell.resources }}
+{{- $_ := set $templateData "logLevel" .Values.reportingshell.logLevel }}
+{{- $templateData := dict "Values" .Values "templateData" $templateData }}
+{{- include "reportingshell.deploymentTemplate" $templateData }}
