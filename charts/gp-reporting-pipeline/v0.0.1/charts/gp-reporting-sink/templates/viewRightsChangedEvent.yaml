@@ -1,4 +1,4 @@
-{{- $templateData := dict "operationMode" "viewrightschangedevent" }}
+{{- $templateData := dict "operationMode" "view-rights-changed-event" }}
 {{- $_ := set $templateData "commitSHA" .Values.global.build.commitSHA }}
 {{- $_ := set $templateData "environment" .Values.global.environment }}
 {{- $_ := set $templateData "dockerImage" .Values.datasink.dockerImage }}
