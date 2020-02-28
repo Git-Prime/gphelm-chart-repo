@@ -1,3 +1,7 @@
+serviceAccount:
+  create: true
+  name: "gp-pyspark"
+
 jobs:
   - name: gp-pyspark
     image:
