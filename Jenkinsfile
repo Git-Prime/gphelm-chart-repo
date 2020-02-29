@@ -11,7 +11,7 @@ def isEnterpriseBranch() {
 // Check if component was modified
 def is_modified(String component){
     def modified = sh(
-        script: "ci/bin/git_diff.sh ${component}",
+        script: "test/bin/git_diff.sh ${component}",
         returnStdout: true
     ).trim()
 
