@@ -6,7 +6,7 @@ metadata:
 spec:
   containers:
   - name: charts-ci
-    image: quay.io/helmpack/chart-testing:latest 
+    image: quay.io/helmpack/chart-testing:v3.0.0-beta.2
     env:
     - name: DOCKER_HOST
       value: tcp://localhost:2375
