@@ -78,6 +78,7 @@ questions:
     group: "Common settings"
     label: "Enable DataDog"
     description: "Turn DataDog APM on for the pipeline"
+    default: true
 
   - variable: global.dns.ndots
     type: string
