@@ -51,6 +51,13 @@ questions:
     group: "cp-helm-charts/cp-kafka"
     label: Replication factor for topics
     default: 1
+  - variable: cp-helm-charts.cp-kafka.configurationOverrides.log.retention.hours
+    type: int
+    required: true
+    group: "cp-helm-charts/cp-kafka"
+    label: Log retention hours
+    description: "The number of hours to keep a log file before deleting it (in hours)"
+    default: 720
   - variable: cp-helm-charts.cp-kafka.persistence.storageClass
     type: string
     required: true
