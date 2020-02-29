@@ -15,7 +15,7 @@ cp-helm-charts:
     brokers: 2
     configurationOverrides:
       # 30 days
-      log.retention:ms: 2592000000
+      log.retention.ms: 2592000000
       offsets.topic.replication.factor: "2"
       "advertised.listeners": |-
         EXTERNAL://${HOST_IP}:$((31190 + ${KAFKA_BROKER_ID}))
