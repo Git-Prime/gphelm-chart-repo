@@ -107,7 +107,7 @@ questions:
     group: "cp-helm-charts/cp-kafka/cp-zookeeper"
     label: First client nodeport
     description: "Client nodeports will be created starting with this port"
-    default: 30181
+    default: 30281
 
   - variable: cp-helm-charts.cp-kafka-connect.image
     type: string
