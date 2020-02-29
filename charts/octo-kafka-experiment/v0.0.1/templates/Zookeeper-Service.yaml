@@ -1,0 +1,33 @@
+{{- $fullName := include "cp-zookeeper.fullname" . }}
+{{- $servers := index .Values "cp-helm-charts" "cp-zookeeper" "servers"| int }}
+{{- $clientPort := index .Values "cp-helm-charts" "cp-zookeeper"  "clientPort" }}
+{{- $firstClientNodePort := .Values.zookeeper.nodeport.firstClientNodePort | int }}
+{{- $root := . }}
+{{- range $i, $e := until $servers }}
+  {{- $externalListenerPort := add $firstClientNodePort $i }}
+  {{- $responsiblePod := printf "%s-%s-%d" (printf "%s" $fullName) "cp-zookeeper" $i }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "cp-zookeeper.fullname" $root }}-zookeeper-{{ $i }}-nodeport
+  labels:
+    app: "cp-zookeeper"
+    chart: {{ template "cp-zookeeper.chart" $root }}
+    release: {{ $root.Release.Name }}
+    heritage: {{ $root.Release.Service }}
+    pod: {{ $responsiblePod }}
+spec:
+  type: NodePort
+  ports:
+    - name: external-zookeeper
+      port: {{ $clientPort }}
+      targetPort: {{ $externalListenerPort }}
+      nodePort: {{ $externalListenerPort }}
+      protocol: TCP
+  selector:
+    app: "cp-zookeeper"
+    release: {{ $root.Release.Name }}
+    statefulset.kubernetes.io/pod-name: {{ $responsiblePod | quote }}
+{{- end }}
+

@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "cp-kafka-connect.fullname" . }}-connect-nodeport
+  labels:
+    app: {{ template "cp-kafka-connect.name" . }}
+    chart: {{ template "cp-kafka-connect.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  type: NodePort
+  ports:
+    - name: kafka-connect-nodeport
+      port: {{ .Values.kafkaConnect.port }}
+      nodePort: {{ .Values.kafkaConnect.nodePort }}
+      targetPort: {{ .Values.kafkaConnect.targetPort }}
+  selector:
+    app: cp-kafka-connect
+    release: {{ .Release.Name }}
