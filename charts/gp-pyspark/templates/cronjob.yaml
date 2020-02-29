@@ -2,7 +2,7 @@
 {{- $chart_name := .Chart.Name }}
 {{- $chart_version := .Chart.Version | replace "+" "_" }}
 {{- $release_name := .Release.Name }}
-
+{{- $service_account := .Values.serviceAccount.name }}
 {{- range $job := .Values.jobs }}
 ---
 apiVersion: batch/v1beta1
@@ -24,6 +24,7 @@ spec:
           annotations:
             ad.datadoghq.com/{{ $job.name }}.logs: '[{"source":"kubernetes.{{ $job.name }}","service":"{{ $job.name }}"}]'
         spec:
+          serviceAccountName: "{{ $service_account }}"
           containers:
           - image: "{{ $job.image.repository }}:{{ $job.image.tag }}"
             imagePullPolicy: {{ $job.image.imagePullPolicy }}

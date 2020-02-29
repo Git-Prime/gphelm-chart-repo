@@ -19,8 +19,6 @@ spec:
       - name: backend-seed-job-{{ .Values.backend.image.tag }}
         image: "{{ .Values.image.repository_base_url }}/{{ .Values.backend.image.repository }}:{{ .Values.backend.image.tag }}"
         env:
-          - name: FLOW_FUNDAMENTALS_DEBUG
-            value: "false"
           - name: FLOW_FUNDAMENTALS_ALLOWED_CIDR_NETS
             value: "10.0.0.0/8,172.32.0.0/16"
           - name: FLOW_FUNDAMENTALS_ALLOWED_HOSTS
@@ -29,10 +27,10 @@ spec:
             value: "somebullshitsecretkeythatshouldbechanged"
           - name: FLOW_FUNDAMENTALS_DEFAULT_DATABASE
             value: "postgresql://postgres@flow-fundamentals-{{ .Values.environment }}-postgresql:5432/flow_fundamentals?application_name=ff_default"
-          - name: FLOW_FUNDAMENTALS_CORS_ORIGIN_HEADER
-            value: "http://flow-fundamentals-frontend"
           - name: FLOW_FUNDAMENTALS_DEFAULT_ORG_NAME
             value: "GitPrime"
-          - name: FLOW_FUNDAMENTALS_MIGRATION_USER
-            value: "flow_fundamentals_migration_user"
+          {{- range $key, $value := .Values.backend.env }}
+          - name: {{ $key | quote }}
+            value: {{ $value | quote }}
+          {{- end }}
         args: ["python","manage.py","load_data"]
