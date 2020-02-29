@@ -35,6 +35,14 @@ def get_build_type(){
     return build_type
 }
 
+def should_run(){
+    if ( env.JENKINSFILE_MODIFIED == "true" || env.TEST_MODIFIED == "true" || env.CHARTS_MODIFIED == "true"){
+        return true
+    }
+    else {
+        return false
+    }
+}
 //Pipeline
 pipeline {
     options {
@@ -57,7 +65,7 @@ pipeline {
                         branches: [[name: "*/${BRANCH_NAME}"], [name: "master"]],
                         doGenerateSubmoduleConfigurations: false,
                         gitTool: 'autogit',
-                        userRemoteConfigs: [[credentialsId: 'flow-viz-ci-01-github', refspec: '+refs/heads/master:refs/remotes/origin/master +refs/heads/*:refs/remotes/origin/*', url: 'https://github.com/Git-Prime/gphelm-chart-repo']]])
+                        userRemoteConfigs: [[credentialsId: 'gitprime-infra-ops', refspec: '+refs/heads/master:refs/remotes/origin/master +refs/heads/*:refs/remotes/origin/*', url: 'https://github.com/Git-Prime/gphelm-chart-repo']]])
                     env.GIT_COMMIT="${scmVars.GIT_COMMIT}"
                     env.GIT_BRANCH = "${scmVars.GIT_BRANCH}"
                     env.GIT_PREVIOUS_COMMIT = "${scmVars.GIT_PREVIOUS_COMMIT}"
@@ -71,6 +79,11 @@ pipeline {
         }
         stage('Run tests'){
             stage('Shellcheck'){
+                when {
+                    allOf {
+                        expression { should_run() }
+                    }
+                }
                 steps {
                     container('shellcheck'){
                         sh 'shellcheck -x test/e2e-kind.sh'
@@ -79,10 +92,8 @@ pipeline {
             }
             stage('Lint charts'){
                 when {
-                    anyOf {
-                        expression { env.CHARTS_MODIFIED == "true" }
-                        expression { env.JENKINSFILE_MODIFIED == "true" }
-                        expression { env.TEST_MODIFIED == "true" }
+                    allOf {
+                        expression { should_run() }
                     }
                 }
                 steps {
@@ -93,12 +104,12 @@ pipeline {
             }
             stage('Charts e2e'){
                 when {
-                    anyOf {
-                        expression { env.JENKINSFILE_MODIFIED == "true" }
+                    allOf {
+                        expression { should_run() }
                     }
                 }
                 steps {
-                    container('frontend-builder'){
+                    container('charts-ci'){
                         sh 'test/e2e_kind.sh'
                     }
                 }
