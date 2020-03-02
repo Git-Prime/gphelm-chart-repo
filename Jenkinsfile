@@ -1,5 +1,7 @@
 #!/usr/bin/env groovy
 
+#!/usr/bin/env groovy
+
 // Match environment branch name against enterprise name regex
 def isEnterpriseBranch() {
     if ("${BRANCH_NAME}" ==~ /enterprise-[\d.]+/) {
@@ -35,6 +37,7 @@ def get_build_type(){
     return build_type
 }
 
+// Which modified files/directories should trigger a build?
 def should_run(){
     if ( env.JENKINSFILE_MODIFIED == "true" || env.TEST_MODIFIED == "true" || env.CHARTS_MODIFIED == "true"){
         return true
@@ -43,7 +46,7 @@ def should_run(){
         return false
     }
 }
-//Pipeline
+
 pipeline {
     options {
         skipDefaultCheckout true
@@ -53,7 +56,6 @@ pipeline {
         kubernetes {
             customWorkspace 'build'
             yamlFile 'test/build_pod.yaml'
-            workingDir '/home/flowci/'
         }
     }
 
@@ -65,7 +67,7 @@ pipeline {
                         branches: [[name: "*/${BRANCH_NAME}"], [name: "master"]],
                         doGenerateSubmoduleConfigurations: false,
                         gitTool: 'autogit',
-                        userRemoteConfigs: [[credentialsId: 'gitprime-infra-ops', refspec: '+refs/heads/master:refs/remotes/origin/master +refs/heads/*:refs/remotes/origin/*', url: 'https://github.com/Git-Prime/gphelm-chart-repo']]])
+                        userRemoteConfigs: [[credentialsId: 'gitprime-infra-ops', refspec: '+refs/heads/master:refs/remotes/origin/master +refs/heads/*:refs/remotes/origin/*', url: 'https://github.com/Git-Prime/gphelm-chart-repo.git']]])
                     env.GIT_COMMIT="${scmVars.GIT_COMMIT}"
                     env.GIT_BRANCH = "${scmVars.GIT_BRANCH}"
                     env.GIT_PREVIOUS_COMMIT = "${scmVars.GIT_PREVIOUS_COMMIT}"
@@ -78,42 +80,46 @@ pipeline {
             }
         }
         stage('Run tests'){
-            stage('Shellcheck'){
-                when {
-                    allOf {
-                        expression { should_run() }
+            stages {
+                stage('Shellcheck'){
+                    when {
+                        allOf {
+                            expression { should_run() }
+                        }
+                    }
+                    steps {
+                        container('shellcheck'){
+                            sh "#!/bin/sh \n"+
+                               "shellcheck -x test/*.sh"
+                        }
                     }
                 }
-                steps {
-                    container('shellcheck'){
-                        sh 'shellcheck -x test/e2e-kind.sh'
+                stage('Lint charts'){
+                    when {
+                        allOf {
+                            expression { should_run() }
+                        }
+                    }
+                    steps {
+                        container('charts-ci'){
+                            sh "#!/bin/sh \n"+
+                               "ct lint --config test/ct.yaml"
+                        }
+                   }
+                }
+                stage('Charts e2e'){
+                    when {
+                        allOf {
+                            expression { should_run() }
+                        }
+                    }
+                    steps {
+                        container('kind'){
+                            sh 'test/e2e-kind.sh'
+                        }
                     }
                 }
-            }
-            stage('Lint charts'){
-                when {
-                    allOf {
-                        expression { should_run() }
-                    }
-                }
-                steps {
-                    container('charts-ci'){
-                        sh 'ct lint --config test/ct.yaml'
-                    }     
-               }
-            }
-            stage('Charts e2e'){
-                when {
-                    allOf {
-                        expression { should_run() }
-                    }
-                }
-                steps {
-                    container('charts-ci'){
-                        sh 'test/e2e_kind.sh'
-                    }
-                }
-            }
-        }
-    }
+            }//stages
+        }//Run tests
+    }//stages
 }//pipeline
