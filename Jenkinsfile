@@ -116,7 +116,7 @@ pipeline {
                         }
                     }
                     steps {
-                        container('kind'){
+                        container('dind'){
                             sh 'test/e2e-kind.sh'
                         }
                     }
