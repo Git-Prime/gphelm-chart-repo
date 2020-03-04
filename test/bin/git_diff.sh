@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# Runs a git diff against master for a specified file/folder
 
 COMPONENT="${1}"
 COMMIT="${GIT_COMMIT}"
