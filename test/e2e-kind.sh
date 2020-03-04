@@ -16,7 +16,7 @@ run_ct_container() {
         --volume "$(pwd)/test/ct.yaml:/etc/ct/ct.yaml" \
         --volume "$(pwd):/workdir" \
         --workdir /workdir \
-        "quay.io/helmpack/chart-testing:$CT_VERSION" \
+        "gp-docker.gitprime-ops.com/flow-ci/helmpack:latest" \
         cat
     echo
 }
@@ -39,7 +39,7 @@ create_kind_cluster() {
     chmod +x kind
     sudo mv kind /usr/local/bin/kind
 
-    kind create cluster --name "$CLUSTER_NAME" --config test/kind-config.yaml --image "kindest/node:$K8S_VERSION" --wait 60s
+    kind create cluster -v 2 --name "$CLUSTER_NAME" --config test/kind-config.yaml --image "kindest/node:$K8S_VERSION" --wait 60s
 
     echo 'Copying kubeconfig to container...'
     docker cp /root/.kube/config ct:/root/.kube/config
