@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
 
-MODIFIED=$(test/bin/git_diff.sh)
+CHARTS=$(test/bin/git_diff.sh | tr ' ' ',')
+
 echo "****************************"
-echo "Modified charts: ${MODIFIED}"
+echo "Modified charts: ${CHARTS}"
 echo "****************************"
 
-for c in "${MODIFIED[@]}"; do
-  ct lint --config test/ct.yaml --charts "charts/${c}"
-done
+ct lint --config test/ct.yaml --charts "${CHARTS}"
