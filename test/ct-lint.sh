@@ -3,5 +3,5 @@
 MODIFIED=$(test/bin/git_diff.sh)
 
 for c in "${MODIFIED[@]}"; do
-  ct lint --config ct.yaml --charts charts/"${c}"
+  ct lint --config test/ct.yaml --charts charts/"${c}"
 done
