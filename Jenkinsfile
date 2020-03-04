@@ -11,11 +11,16 @@ def isEnterpriseBranch() {
 // Check if component was modified
 def is_modified(String component){
     def modified = sh(
-        script: "test/bin/git_diff.sh ${component}",
+        script: "test/bin/git_diff.sh",
         returnStdout: true
     ).trim()
 
-    return modified.toBoolean()
+    def charts = modified.tokenize(' ')
+    if (charts){
+        return true
+    } else {
+        return false
+    }
 }
 
 // Set build type based on branch
