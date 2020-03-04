@@ -19,6 +19,6 @@ if [ "${BRANCH_NAME}" == "master" ]; then
     get_master_lookup_commit
 fi
 
-MODIFIED=$(git diff --name-only ${COMMIT} origin/master | cut -d'/' -f1 | grep -q ${COMPONENT} && echo 'true' || echo 'false')
+MODIFIED=$(git diff --name-only ${COMMIT} origin/master | grep 'charts/' | cut -d'/' -f2 | uniq | tr '\n' ' ')
 
 echo ${MODIFIED}

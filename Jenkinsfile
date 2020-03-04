@@ -100,7 +100,7 @@ pipeline {
                     }
                     steps {
                         container('charts-ci'){
-                            sh 'ct lint --debug --config test/ct.yaml'
+                            sh 'test/ct-lint.sh'
                         }
                    }
                 }
