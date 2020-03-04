@@ -1,7 +1,5 @@
 #!/usr/bin/env groovy
 
-#!/usr/bin/env groovy
-
 // Match environment branch name against enterprise name regex
 def isEnterpriseBranch() {
     if ("${BRANCH_NAME}" ==~ /enterprise-[\d.]+/) {
