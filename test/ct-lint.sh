@@ -6,5 +6,5 @@ echo "****************************"
 echo "Modified charts: ${CHARTS}"
 echo "****************************"
 
-cd charts
+cd charts || exit
 ct lint --config test/ct.yaml --charts "${CHARTS}"
