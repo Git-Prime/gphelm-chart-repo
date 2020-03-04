@@ -3,3 +3,4 @@ validate-maintainers: false
 validate-chart-schema: false
 chart-repos:
 - stable=https://kubernetes-charts.storage.googleapis.com/
+chart-dirs: []
