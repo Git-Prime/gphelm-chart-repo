@@ -3,3 +3,5 @@ validate-maintainers: false
 validate-chart-schema: false
 chart-repos:
 - stable=https://kubernetes-charts.storage.googleapis.com/
+excluded-charts:
+- gp-kafka
