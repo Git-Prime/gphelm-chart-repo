@@ -64,15 +64,12 @@ ingress:
   #      - chart-example.local
 
 resources: {}
-
 nodeSelector: {}
-
 tolerations: []
-
 affinity: {}
 
 # Values for postgresql chart
 postgresql:
-    pgHbaConfiguration: |-
-        local all all trust
-        host all all localhost trust
+  pgHbaConfiguration: |-
+    local all all trust
+    host all all localhost trust

@@ -4,6 +4,7 @@ description: Bounded Context for Fundamental Report and Friends
 type: application
 version: 0.5.3
 appVersion: 0.1.1
+home: https://github.com/ps-dev/flow-fundamentals
 dependencies:
 - name: postgresql
   version: 8.3.3
