@@ -42,11 +42,16 @@ def get_build_type(){
 
 // Which modified files/directories should trigger a build?
 def should_run(){
-    if ( env.JENKINSFILE_MODIFIED == "true" || env.TEST_MODIFIED == "true" || env.CHARTS_MODIFIED == "true"){
+    if (env.JENKINSFILE_MODIFIED == "false" || env.TEST_MODIFIED == "false" || env.CHARTS_MODIFIED == "false"){
         return true
-    }
+    } 
     else {
-        return false
+        if ( env.JENKINSFILE_MODIFIED == "true" || env.TEST_MODIFIED == "true" || env.CHARTS_MODIFIED == "true"){
+            return true
+        }
+        else {
+            return false
+        }
     }
 }
 
