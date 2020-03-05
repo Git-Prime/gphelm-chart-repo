@@ -44,4 +44,4 @@ if [ "${SYNC}" != "" ]; then
     aws s3 cp dist/index.yaml s3://gitprime-helm-charts/index.yaml --acl public-read
 fi
 
-exit exit_code
+exit $exit_code
