@@ -128,5 +128,17 @@ pipeline {
                 }
             }//stages
         }//Run tests
+        stage('Package and release'){
+            when {
+                allOf {
+                    branch 'master'
+                }
+            }
+            steps {
+                container('dind'){
+                    sh 'test/e2e-kind.sh do-release'
+                }
+            }
+        }
     }//stages
 }//pipeline

@@ -5,6 +5,7 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
+DO_RELEASE="${1}"
 readonly KIND_VERSION=v0.7.0
 readonly CLUSTER_NAME=chart-testing
 readonly K8S_VERSION=v1.17.0
@@ -58,12 +59,20 @@ install_charts() {
     echo
 }
 
+package_sync_charts() {
+    charts_modified=$(git diff --name-only $(git rev-parse HEAD) origin/master | grep 'charts/' | cut -d'/' -f2 | uniq)
+    docker_exec ct /workdir/test/package-sync-charts.sh sync "${charts_modified}"
+}
+
 main() {
     run_ct_container
     trap cleanup EXIT
 
     create_kind_cluster
     install_charts
+    if [ "${DO_RELEASE}" == "do-release" ]; then
+        package_sync_charts
+    fi
     exit 0
 }
 
