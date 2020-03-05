@@ -5,7 +5,7 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
-DO_RELEASE="${1}"
+DO_RELEASE="${1:-default}"
 readonly KIND_VERSION=v0.7.0
 readonly CLUSTER_NAME=chart-testing
 readonly K8S_VERSION=v1.17.0
