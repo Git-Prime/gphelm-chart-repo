@@ -28,8 +28,10 @@ frontend:
     REACT_APP_FLOW_FUNDAMENTALS_API_URL: http://localhost:8100/api/code
 backend:
   env:
+    FLOW_FUNDAMENTALS_DEVELOP: "false"
     FLOW_FUNDAMENTALS_DEBUG: "true"
     FLOW_FUNDAMENTALS_GUNICORN_LOG_LEVEL: "INFO"
     FLOW_FUNDAMENTALS_CORS_ORIGIN_HEADER: "https://sandbox-01.gitprime-ops.com"
+    FLOW_FUNDAMENTALS_MIGRATION_USER: "flow_fundamentals_migration_user"
   image:
     tag: df8ab5bee24c6cdc46f29e895b1ad9c2c24ec3c7
