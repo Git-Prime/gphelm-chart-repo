@@ -1,3 +1,4 @@
+{{- if .Values.runSeedHook -}}
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -8,7 +9,7 @@ metadata:
     # This is what defines this resource as a hook. Without this line, the
     # job is considered part of the release.
     "helm.sh/hook": "post-install,post-upgrade"
-    "helm.sh/hook-delete-policy": hook-succeeded
+    "helm.sh/hook-delete-policy": "before-hook-creation,hook-succeeded"
 spec:
   template:
     metadata:
@@ -34,3 +35,4 @@ spec:
             value: {{ $value | quote }}
           {{- end }}
         args: ["python","manage.py","load_data"]
+{{- end }}

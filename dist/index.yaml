@@ -3,7 +3,77 @@ entries:
   flow-fundamentals:
   - apiVersion: v2
     appVersion: 0.1.1
-    created: "2020-03-05T11:52:07.42333-07:00"
+    created: "2020-03-05T14:51:32.728469-07:00"
+    dependencies:
+    - name: postgresql
+      repository: https://kubernetes-charts.storage.googleapis.com/
+      version: 8.3.3
+    description: Bounded Context for Fundamental Report and Friends
+    digest: d6858e3508da0c0a3fe061177fdeb3f390ec9fb8c5c6c5bf03acc9ec59b203f4
+    name: flow-fundamentals
+    type: application
+    urls:
+    - https://gitprime-helm-charts.s3-us-west-2.amazonaws.com/flow-fundamentals-0.5.0.tgz
+    version: 0.5.0
+  - apiVersion: v2
+    appVersion: 0.1.1
+    created: "2020-03-05T14:51:32.725541-07:00"
+    dependencies:
+    - name: postgresql
+      repository: https://kubernetes-charts.storage.googleapis.com/
+      version: 8.3.3
+    description: Bounded Context for Fundamental Report and Friends
+    digest: b0ac12fa2478488b272e4a5d512b7904874aaab07ff3f5a49a2510f95175d999
+    name: flow-fundamentals
+    type: application
+    urls:
+    - https://gitprime-helm-charts.s3-us-west-2.amazonaws.com/flow-fundamentals-0.4.21.tgz
+    version: 0.4.21
+  - apiVersion: v2
+    appVersion: 0.1.1
+    created: "2020-03-05T14:51:32.720668-07:00"
+    dependencies:
+    - name: postgresql
+      repository: https://kubernetes-charts.storage.googleapis.com/
+      version: 8.3.3
+    description: Bounded Context for Fundamental Report and Friends
+    digest: 4fddfb44ba64b01024d3b6febce9ee3063353536961f883658dc66e084376be3
+    name: flow-fundamentals
+    type: application
+    urls:
+    - https://gitprime-helm-charts.s3-us-west-2.amazonaws.com/flow-fundamentals-0.4.20.tgz
+    version: 0.4.20
+  - apiVersion: v2
+    appVersion: 0.1.1
+    created: "2020-03-05T14:51:32.716829-07:00"
+    dependencies:
+    - name: postgresql
+      repository: https://kubernetes-charts.storage.googleapis.com/
+      version: 8.3.3
+    description: Bounded Context for Fundamental Report and Friends
+    digest: 21a7511639abfc99a29da7ca379957e5341a3066f44ce067c4d86c574c9cb801
+    name: flow-fundamentals
+    type: application
+    urls:
+    - https://gitprime-helm-charts.s3-us-west-2.amazonaws.com/flow-fundamentals-0.4.19.tgz
+    version: 0.4.19
+  - apiVersion: v2
+    appVersion: 0.1.1
+    created: "2020-03-05T14:51:32.711664-07:00"
+    dependencies:
+    - name: postgresql
+      repository: https://kubernetes-charts.storage.googleapis.com/
+      version: 8.3.3
+    description: Bounded Context for Fundamental Report and Friends
+    digest: f0e267626cd7fe397508eb7897da768428359491b264ce71d4e269b3d3caf239
+    name: flow-fundamentals
+    type: application
+    urls:
+    - https://gitprime-helm-charts.s3-us-west-2.amazonaws.com/flow-fundamentals-0.4.18.tgz
+    version: 0.4.18
+  - apiVersion: v2
+    appVersion: 0.1.1
+    created: "2020-03-05T14:51:32.707339-07:00"
     dependencies:
     - name: postgresql
       repository: https://kubernetes-charts.storage.googleapis.com/
@@ -13,49 +83,49 @@ entries:
     name: flow-fundamentals
     type: application
     urls:
-    - flow-fundamentals-0.4.17.tgz
+    - https://gitprime-helm-charts.s3-us-west-2.amazonaws.com/flow-fundamentals-0.4.17.tgz
     version: 0.4.17
   fluentd-daemonset:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2020-03-05T11:52:07.423921-07:00"
+    created: "2020-03-05T14:51:32.729169-07:00"
     description: Deploys a fluentd daemonset configured to ship logs to datadog
     digest: 5068f35070e8ff1490995693d47793ddfba9ddd2cfa3e61db1a2dfebdcc53239
     name: fluentd-daemonset
     type: application
     urls:
-    - fluentd-daemonset-0.1.0.tgz
+    - https://gitprime-helm-charts.s3-us-west-2.amazonaws.com/fluentd-daemonset-0.1.0.tgz
     version: 0.1.0
   gp-pyspark:
   - apiVersion: v1
     appVersion: 0.0.1
-    created: "2020-03-05T11:52:07.424395-07:00"
+    created: "2020-03-05T14:51:32.72971-07:00"
     description: Standalone Python processes for data aggregation
     digest: cd927b75eec081b3f31a983de564dda68181dcca985e916321b1ce7eecef71ad
     icon: https://s3-us-west-2.amazonaws.com/gitprime-email-images/gitprime-logo-icon.png
     name: gp-pyspark
     urls:
-    - gp-pyspark-0.1.0.tgz
+    - https://gitprime-helm-charts.s3-us-west-2.amazonaws.com/gp-pyspark-0.1.0.tgz
     version: 0.1.0
   kafka-connect:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2020-03-05T11:52:07.425059-07:00"
+    created: "2020-03-05T14:51:32.730606-07:00"
     description: A Helm chart for Kubernetes
     digest: 24abeb1667423ad7bf5e3319ba48f8e7254815e33bf26a0c5844390c103d7b44
     name: kafka-connect
     urls:
-    - kafka-connect-0.1.0.tgz
+    - https://gitprime-helm-charts.s3-us-west-2.amazonaws.com/kafka-connect-0.1.0.tgz
     version: 0.1.0
   vault-agent:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2020-03-05T11:52:07.425573-07:00"
+    created: "2020-03-05T14:51:32.73118-07:00"
     description: A Helm chart for Kubernetes
     digest: a427fe17945a44d71f47888e60e5378f51c6c4473308bcfb9887baf844e923e9
     name: vault-agent
     type: application
     urls:
-    - vault-agent-0.1.0.tgz
+    - https://gitprime-helm-charts.s3-us-west-2.amazonaws.com/vault-agent-0.1.0.tgz
     version: 0.1.0
-generated: "2020-03-05T11:52:07.418875-07:00"
+generated: "2020-03-05T14:51:32.702663-07:00"

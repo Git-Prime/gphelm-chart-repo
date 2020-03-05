@@ -1,11 +1,12 @@
 environment: "ci"
 postgresql:
+  fullNameOverride: "flow-fundamentals-ci-postgresql"
   persistence:
     enabled: false
   pgHbaConfiguration: |-
     local all all trust
     host all all localhost trust
-    host all all 10.42.0.0/16 trust
+    host all all 10.0.0.0/8 trust
   initdbScripts:
     00_fundamentals_db.sql: |
       CREATE USER flow_fundamentals_superuser WITH SUPERUSER;
@@ -34,4 +35,4 @@ backend:
     FLOW_FUNDAMENTALS_CORS_ORIGIN_HEADER: "https://sandbox-01.gitprime-ops.com"
     FLOW_FUNDAMENTALS_MIGRATION_USER: "flow_fundamentals_migration_user"
   image:
-    tag: df8ab5bee24c6cdc46f29e895b1ad9c2c24ec3c7
+    tag: 950eca257806bfdee06aa7bc3f5337b36e2560d1
