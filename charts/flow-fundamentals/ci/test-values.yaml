@@ -1,0 +1,35 @@
+environment: "ci"
+postgresql:
+  persistence:
+    enabled: false
+  pgHbaConfiguration: |-
+    local all all trust
+    host all all localhost trust
+    host all all 10.42.0.0/16 trust
+  initdbScripts:
+    00_fundamentals_db.sql: |
+      CREATE USER flow_fundamentals_superuser WITH SUPERUSER;
+      CREATE USER flow_fundamentals_user WITH CREATEDB;
+      CREATE USER flow_fundamentals_user WITH CREATEDB;
+      CREATE USER flow_fundamentals_migration_user WITH CREATEDB;
+      CREATE DATABASE flow_fundamentals;
+      GRANT ALL PRIVILEGES ON DATABASE flow_fundamentals TO flow_fundamentals_user;
+      GRANT ALL PRIVILEGES ON DATABASE flow_fundamentals TO flow_fundamentals_migration_user;
+    01_create_extension.sh: |
+      #!/bin/bash
+      psql -U flow_fundamentals_superuser -d flow_fundamentals -c "CREATE EXTENSION IF NOT EXISTS ltree;" -c "\q"
+service:
+  type: NodePort
+  port: 80
+frontend:
+  image:
+    tag: 4f0c91588c8fe2c1364f205a00dd6c9bf5c0e345
+  env:
+    REACT_APP_FLOW_FUNDAMENTALS_API_URL: http://localhost:8100/api/code
+backend:
+  env:
+    FLOW_FUNDAMENTALS_DEBUG: "true"
+    FLOW_FUNDAMENTALS_GUNICORN_LOG_LEVEL: "INFO"
+    FLOW_FUNDAMENTALS_CORS_ORIGIN_HEADER: "https://sandbox-01.gitprime-ops.com"
+  image:
+    tag: df8ab5bee24c6cdc46f29e895b1ad9c2c24ec3c7
