@@ -60,7 +60,7 @@ install_charts() {
 }
 
 package_sync_charts() {
-    charts_modified=$(git diff --name-only $(git rev-parse HEAD) origin/master | grep 'charts/' | cut -d'/' -f2 | uniq)
+    charts_modified=$(git diff --name-only "$(git rev-parse HEAD)" origin/master | grep 'charts/' | cut -d'/' -f2 | uniq)
     docker_exec ct /workdir/test/package-sync-charts.sh sync "${charts_modified}"
 }
 

@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 
 SYNC="${1}"
-CHART="${2}"
+# Can be one or more space separated charts
+CHARTS="${2}"
+exit_code=0
 
 log_error() {
     printf '\e[31mERROR: %s\n\e[39m' "$1" >&2
@@ -19,9 +21,9 @@ package() {
 }
 
 # Package all charts if chart is not specified
-if [ "${CHART}" == "" ]; then
-    for dir in charts/*; do
-        package $dir
+if [ "${CHARTS}" == "" ]; then
+    for c in charts/*; do
+        package "${c}"
     done
 else
     # Package more than one chart
@@ -31,7 +33,7 @@ else
         done
     # Package a single chart
     else
-        package charts/${CHART}
+        package charts/"${CHARTS}"
     fi
 fi
 
@@ -41,3 +43,5 @@ if [ "${SYNC}" != "" ]; then
     aws s3 sync dist/ s3://gitprime-helm-charts/ --content-type "application/x-gzip" --acl public-read --exclude '*' --include '*.tgz'
     aws s3 cp dist/index.yaml s3://gitprime-helm-charts/index.yaml --acl public-read
 fi
+
+exit exit_code
