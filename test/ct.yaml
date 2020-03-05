@@ -1,4 +1,4 @@
-helm-extra-args: --timeout 800s
+helm-extra-args: --timeout 400s
 validate-maintainers: false
 validate-chart-schema: false
 chart-repos:
