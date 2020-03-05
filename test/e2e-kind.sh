@@ -23,7 +23,7 @@ run_ct_container() {
 cleanup() {
     echo 'Removing ct container...'
     docker kill ct > /dev/null 2>&1
-    kind cluster delete --name "${CLUSTER_NAME}"
+    kind delete cluster --name "${CLUSTER_NAME}"
     echo 'Done!'
 }
 
@@ -55,8 +55,6 @@ create_kind_cluster() {
 
 install_charts() {
     docker_exec ct install
-    echo
-    docker_exec kubectl get all --all-namespaces
     echo
 }
 
