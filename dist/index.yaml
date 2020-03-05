@@ -1,0 +1,61 @@
+apiVersion: v1
+entries:
+  flow-fundamentals:
+  - apiVersion: v2
+    appVersion: 0.1.1
+    created: "2020-03-05T11:39:14.010197-07:00"
+    dependencies:
+    - name: postgresql
+      repository: https://kubernetes-charts.storage.googleapis.com/
+      version: 8.3.3
+    description: Bounded Context for Fundamental Report and Friends
+    digest: 826e67cf8fa3c8d399a2a7b3acdcd44d259244eb9ba051efcd97eb3705d6fc34
+    name: flow-fundamentals
+    type: application
+    urls:
+    - flow-fundamentals-0.4.17.tgz
+    version: 0.4.17
+  fluentd-daemonset:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2020-03-05T11:39:14.010793-07:00"
+    description: Deploys a fluentd daemonset configured to ship logs to datadog
+    digest: 5068f35070e8ff1490995693d47793ddfba9ddd2cfa3e61db1a2dfebdcc53239
+    name: fluentd-daemonset
+    type: application
+    urls:
+    - fluentd-daemonset-0.1.0.tgz
+    version: 0.1.0
+  gp-pyspark:
+  - apiVersion: v1
+    appVersion: 0.0.1
+    created: "2020-03-05T11:39:14.011277-07:00"
+    description: Standalone Python processes for data aggregation
+    digest: cd927b75eec081b3f31a983de564dda68181dcca985e916321b1ce7eecef71ad
+    icon: https://s3-us-west-2.amazonaws.com/gitprime-email-images/gitprime-logo-icon.png
+    name: gp-pyspark
+    urls:
+    - gp-pyspark-0.1.0.tgz
+    version: 0.1.0
+  kafka-connect:
+  - apiVersion: v1
+    appVersion: "1.0"
+    created: "2020-03-05T11:39:14.011994-07:00"
+    description: A Helm chart for Kubernetes
+    digest: 24abeb1667423ad7bf5e3319ba48f8e7254815e33bf26a0c5844390c103d7b44
+    name: kafka-connect
+    urls:
+    - kafka-connect-0.1.0.tgz
+    version: 0.1.0
+  vault-agent:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2020-03-05T11:39:14.01253-07:00"
+    description: A Helm chart for Kubernetes
+    digest: a427fe17945a44d71f47888e60e5378f51c6c4473308bcfb9887baf844e923e9
+    name: vault-agent
+    type: application
+    urls:
+    - vault-agent-0.1.0.tgz
+    version: 0.1.0
+generated: "2020-03-05T11:39:14.00459-07:00"
