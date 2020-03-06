@@ -1,5 +1,4 @@
 image:
-  repository_base_url: "gp-docker.gitprime-ops.com"
 environment: "ci"
 postgresql:
   fullNameOverride: "flow-fundamentals-ci-postgresql"
@@ -26,6 +25,7 @@ service:
   port: 80
 frontend:
   image:
+    repository: "gp-docker.gitprime-ops.com/dev/flow-fundamentals-frontend"
     tag: "latest"
   env:
     REACT_APP_FLOW_FUNDAMENTALS_API_URL: http://localhost:8100/api/code
@@ -37,4 +37,5 @@ backend:
     FLOW_FUNDAMENTALS_CORS_ORIGIN_HEADER: "https://sandbox-01.gitprime-ops.com"
     FLOW_FUNDAMENTALS_MIGRATION_USER: "flow_fundamentals_migration_user"
   image:
+    repository: "gp-docker.gitprime-ops.com/dev/flow-fundamentals-backend"
     tag: "latest"

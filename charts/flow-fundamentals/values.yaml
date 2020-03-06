@@ -5,29 +5,26 @@
 runSeedJob: false
 environment: "test"
 replicaCount: 1
-image:
-  repository_base_url: "gp-docker.gitprime-ops.com"
-  pullPolicy: Always
-  tag: ""
-
 
 # Set defaults for backend container
 backend:
-    container:
-        name: "flow-fundamentals-backend"
-        port: 8100
-    image:
-        repository: "dev/flow-fundamentals-backend"
-        tag: ""
+  container:
+    name: "flow-fundamentals-backend"
+    port: 8100
+  image:
+    repository: "gp-docker.gitprime-ops.com/dev/flow-fundamentals-backend"
+    tag: "latest"
+    pullPolicy: Always
 
 # Set defaults for frontend container
 frontend:
-    container:
-        name: "flow-fundamentals-frontend"
-        port: 80
-    image:
-        repository: "dev/flow-fundamentals-frontend"
-        tag: ""
+  container:
+    name: "flow-fundamentals-frontend"
+    port: 80
+  image:
+    repository: "gp-docker.gitprime-ops.com/dev/flow-fundamentals-frontend"
+    tag: "latest"
+    pullPolicy: Always
 
 deploymentAnnotations: {}
 podAnnotations: {}
