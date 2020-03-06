@@ -61,7 +61,7 @@ install_charts() {
 
 package_sync_charts() {
     charts_modified=$(bin/git_diff.sh)
-    docker_exec ct /workdir/test/package-sync-charts.sh sync "${charts_modified}"
+    docker_exec /workdir/test/package-sync-charts.sh sync "${charts_modified}"
 }
 
 main() {
