@@ -14,3 +14,7 @@
 # Maven
 log/
 target/
+
+#Helm
+*.yaml-e
+dist/
