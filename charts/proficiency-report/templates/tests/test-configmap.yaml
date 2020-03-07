@@ -23,7 +23,7 @@ data:
         echo "*** appliation = ${application}"
         echo "*** executors = ${executors}"
         echo "*** driver active = ${driver_active}"
-        echo "*** executor logs = ${executor_active}"
+        echo "*** executor active = ${executor_active}"
 
         [[ ${driver_active} == true ]]
         [[ ${executor_active} == true ]]
