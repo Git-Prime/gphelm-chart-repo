@@ -1,0 +1,38 @@
+{{ $fullname := include "flow-tickets-delivery.fullname" . }}
+
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: backend-migration-job-{{ .Values.backend.image.tag }}
+  labels:
+    {{- include "flow-tickets-delivery.labels" . | nindent 4 }}
+  annotations:
+    # This is what defines this resource as a hook. Without this line, the
+    # job is considered part of the release.
+    "helm.sh/hook": "post-install,pre-upgrade"
+    "helm.sh/hook-delete-policy": hook-succeeded
+spec:
+  template:
+    metadata:
+      name: backend-migration-job-{{ .Values.backend.image.tag }}
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: backend-migration-job-{{ .Values.backend.image.tag }}
+        image: "{{ .Values.backend.image.repository }}:{{ .Values.backend.image.tag }}"
+        env:
+          - name: FLOW_FUNDAMENTALS_ALLOWED_CIDR_NETS
+            value: "10.0.0.0/8,172.32.0.0/16"
+          - name: FLOW_FUNDAMENTALS_ALLOWED_HOSTS
+            value: "localhost,flow-tickets-delivery-{{ .Values.environment }},{{ .Values.environment }}-flow-tickets-delivery.gitprime-ops.com"
+          - name: FLOW_FUNDAMENTALS_SECRET_KEY
+            value: "somebullshitsecretkeythatshouldbechanged"
+          - name: FLOW_FUNDAMENTALS_DEFAULT_DATABASE
+            value: "postgresql://postgres@{{ $fullname }}-postgresql:5432/flow_fundamentals?application_name=ff_default"
+          - name: FLOW_FUNDAMENTALS_DEFAULT_ORG_NAME
+            value: "GitPrime"
+          {{- range $key, $value := .Values.backend.env }}
+          - name: {{ $key | quote }}
+            value: {{ $value | quote }}
+          {{- end }}
+        args: ["python","manage.py","create_org"]

@@ -1,0 +1,41 @@
+image:
+environment: "ci"
+postgresql:
+  fullNameOverride: "flow-tickets-delivery-ci-postgresql"
+  persistence:
+    enabled: false
+  pgHbaConfiguration: |-
+    local all all trust
+    host all all localhost trust
+    host all all 10.0.0.0/8 trust
+  initdbScripts:
+    00_fundamentals_db.sql: |
+      CREATE USER flow_fundamentals_superuser WITH SUPERUSER;
+      CREATE USER flow_fundamentals_user WITH CREATEDB;
+      CREATE USER flow_fundamentals_user WITH CREATEDB;
+      CREATE USER flow_fundamentals_migration_user WITH CREATEDB;
+      CREATE DATABASE flow_fundamentals;
+      GRANT ALL PRIVILEGES ON DATABASE flow_fundamentals TO flow_fundamentals_user;
+      GRANT ALL PRIVILEGES ON DATABASE flow_fundamentals TO flow_fundamentals_migration_user;
+    01_create_extension.sh: |
+      #!/bin/bash
+      psql -U flow_fundamentals_superuser -d flow_fundamentals -c "CREATE EXTENSION IF NOT EXISTS ltree;" -c "\q"
+service:
+  type: NodePort
+  port: 80
+frontend:
+  image:
+    repository: "gp-docker.gitprime-ops.com/dev/flow-tickets-delivery-frontend"
+    tag: "latest"
+  env:
+    REACT_APP_FLOW_FUNDAMENTALS_API_URL: http://localhost:8100/api/code
+backend:
+  env:
+    FLOW_FUNDAMENTALS_DEVELOP: "false"
+    FLOW_FUNDAMENTALS_DEBUG: "true"
+    FLOW_FUNDAMENTALS_GUNICORN_LOG_LEVEL: "INFO"
+    FLOW_FUNDAMENTALS_CORS_ORIGIN_HEADER: "https://sandbox-01.gitprime-ops.com"
+    FLOW_FUNDAMENTALS_MIGRATION_USER: "flow_fundamentals_migration_user"
+  image:
+    repository: "gp-docker.gitprime-ops.com/dev/flow-tickets-delivery-backend"
+    tag: "latest"

@@ -1,0 +1,108 @@
+{{ $fullname := include "flow-tickets-delivery.fullname" . }}
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "flow-tickets-delivery.fullname" . }}
+  labels:
+    {{- include "flow-tickets-delivery.labels" . | nindent 4 }}
+  {{- with .Values.deploymentAnnotations }}
+  annotations:
+  {{ toYaml . | indent 4 }}
+  {{- end }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "flow-tickets-delivery.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "flow-tickets-delivery.selectorLabels" . | nindent 8 }}
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/nginx-configmap.yaml") . | sha256sum }}
+        {{- range $key, $value := .Values.podAnnotations }}
+        {{ $key }}: {{ $value | quote  }}
+        {{- end }}
+    spec:
+    {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      serviceAccountName: {{ include "flow-tickets-delivery.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Values.backend.container.name }}
+          env:
+            - name: FLOW_FUNDAMENTALS_ALLOWED_CIDR_NETS
+              value: "10.0.0.0/8,172.32.0.0/16"
+            - name: FLOW_FUNDAMENTALS_ALLOWED_HOSTS
+              value: "localhost,flow-tickets-delivery-{{ .Values.environment }},{{ .Values.environment }}-flow-tickets-delivery.gitprime-ops.com"
+            - name: FLOW_FUNDAMENTALS_SECRET_KEY
+              value: "somebullshitsecretkeythatshouldbechanged"
+            - name: FLOW_FUNDAMENTALS_DEFAULT_DATABASE
+              value: "postgresql://postgres@{{ $fullname }}-postgresql:5432/flow_fundamentals?application_name=ff_default"
+            - name: FLOW_FUNDAMENTALS_DEFAULT_ORG_NAME
+              value: "GitPrime"
+            {{- range $key, $value := .Values.backend.env }}
+            - name: {{ $key | quote }}
+              value: {{ $value | quote }}
+            {{- end }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.backend.image.repository }}:{{ .Values.backend.image.tag }}"
+          imagePullPolicy: {{ .Values.backend.image.pullPolicy }}
+          ports:
+            - name: backend
+              containerPort: {{ .Values.backend.container.port }}
+              protocol: TCP
+          livenessProbe:
+            tcpSocket:
+              port: backend
+          readinessProbe:
+            tcpSocket:
+              port: backend
+          resources:
+            {{- toYaml .Values.backend.resources | nindent 12 }}
+        - name: {{ .Values.frontend.container.name }}
+          env:
+            {{- range $key, $value := .Values.frontend.env }}
+            - name: {{ $key | quote }}
+              value: {{ $value | quote }}
+            {{- end }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.frontend.image.repository }}:{{ .Values.frontend.image.tag }}"
+          imagePullPolicy: {{ .Values.frontend.image.pullPolicy }}
+          ports:
+            - name: frontend
+              containerPort: {{ .Values.frontend.container.port }}
+              protocol: TCP
+          livenessProbe:
+            tcpSocket:
+              port: frontend
+          readinessProbe:
+            tcpSocket:
+              port: frontend
+          resources:
+            {{- toYaml .Values.backend.resources | nindent 12 }}
+          volumeMounts:
+            - name: nginx-config
+              mountPath: /etc/nginx/conf.d/
+      volumes:
+        - name: nginx-config
+          configMap:
+            name: flow-tickets-delivery-frontend-nginx-conf
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}

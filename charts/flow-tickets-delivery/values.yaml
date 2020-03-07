@@ -1,0 +1,78 @@
+# Default values for flow-tickets-delivery.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+runSeedJob: false
+environment: "test"
+replicaCount: 1
+
+# Set defaults for backend container
+backend:
+  container:
+    name: "flow-tickets-delivery-backend"
+    port: 8100
+  image:
+    repository: "gp-docker.gitprime-ops.com/dev/flow-tickets-delivery-backend"
+    tag: "latest"
+    pullPolicy: Always
+
+# Set defaults for frontend container
+frontend:
+  container:
+    name: "flow-tickets-delivery-frontend"
+    port: 80
+  image:
+    repository: "gp-docker.gitprime-ops.com/dev/flow-tickets-delivery-frontend"
+    tag: "latest"
+    pullPolicy: Always
+
+deploymentAnnotations: {}
+podAnnotations: {}
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name:
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: false
+  annotations: {}
+  hosts: []
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+resources: {}
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+# Values for postgresql chart
+postgresql:
+    pgHbaConfiguration: |-
+        local all all trust
+        host all all localhost trust
