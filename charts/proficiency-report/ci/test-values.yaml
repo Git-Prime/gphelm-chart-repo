@@ -1,0 +1,46 @@
+application:
+  name: "proficiency-report"
+  namespace: "gp-pyspark"
+  # Can be "scheduled" (ScheduledSparkApplication) or "adhoc" (SparkApplication)
+  # Leave blank and the chart will not create anything
+  type: "adhoc"
+  # Only used on "scheduled" application type
+  schedule: ""
+  file: "local:///opt/spark/examples/src/main/python/pi.py"
+  sparkVersion: "2.4.5"
+  # Arguments for your application file - optional
+  arguments: ""
+
+serviceAccount:
+  create: true
+  name: "proficiency-report"
+
+# These actually do all the work
+executor:
+  cores: "100m"
+  instances: 2
+  memory: "256Mi"
+  image:
+    repository: "gcr.io/spark/spark"
+    tag: "v2.4.5"
+    pullPolicy: "Always"
+  env: []
+  database:
+    password:
+      ref_master: "some-secret-key-ref"
+      ref_slave: "some-secret-key-ref"
+
+# Should not need to have more than one instance
+driver:
+  cores: "100m"
+  instances: 1
+  memory: "256Mi"
+  image:
+    repository: "gcr.io/spark/spark"
+    tag: "v2.4.5"
+    pullPolicy: "Always"
+  env: []
+  database:
+    password:
+      ref_master: "some-secret-key-ref"
+      ref_slave: "some-secret-key-ref"
