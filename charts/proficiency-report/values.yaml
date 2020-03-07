@@ -18,7 +18,7 @@ serviceAccount:
 executor:
   cores: 1
   instances: 1
-  memory: "512Mi"
+  memory: "512m"
   image:
     repository: "gp-docker.gitprime-ops.com/cloud/proficiency-spark"
     tag: "latest"
@@ -33,7 +33,7 @@ executor:
 driver:
   cores: 1
   instances: 1
-  memory: "1024Mi"
+  memory: "1024m"
   image:
     repository: "gp-docker.gitprime-ops.com/cloud/proficiency-spark"
     tag: "latest"

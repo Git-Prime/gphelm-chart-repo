@@ -1,6 +1,6 @@
 application:
   name: "proficiency-report"
-  namespace: "gp-pyspark"
+  namespace: "default"
   # Can be "scheduled" (ScheduledSparkApplication) or "adhoc" (SparkApplication)
   # Leave blank and the chart will not create anything
   type: "adhoc"
@@ -17,11 +17,11 @@ serviceAccount:
 
 # These actually do all the work
 executor:
-  cores: "100m"
+  cores: 1
   instances: 2
-  memory: "256Mi"
+  memory: "512m"
   image:
-    repository: "gcr.io/spark/spark"
+    repository: "gcr.io/spark-operator/spark-py"
     tag: "v2.4.5"
     pullPolicy: "Always"
   env: []
@@ -32,11 +32,11 @@ executor:
 
 # Should not need to have more than one instance
 driver:
-  cores: "100m"
+  cores: 1
   instances: 1
-  memory: "256Mi"
+  memory: "512m"
   image:
-    repository: "gcr.io/spark/spark"
+    repository: "gcr.io/spark-operator/spark-py"
     tag: "v2.4.5"
     pullPolicy: "Always"
   env: []

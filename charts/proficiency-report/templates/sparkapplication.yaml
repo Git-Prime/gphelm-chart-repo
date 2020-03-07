@@ -21,7 +21,7 @@ spec:
   driver:
     cores: {{ .Values.driver.cores }}
     instances: {{ .Values.driver.instances }}
-    memory: {{ .Values.driver.memory }}
+    memory: {{ .Values.driver.memory | quote }}
     serviceAccount: {{ .Values.serviceAccount.name }}
     image: {{ .Values.driver.image.repository }}:{{ .Values.driver.image.tag }}
     imagePullPolicy: {{ .Values.driver.image.pullPolicy }}
@@ -45,7 +45,7 @@ spec:
   executor:
     cores: {{ .Values.executor.cores }}
     instances: {{ .Values.executor.instances }}
-    memory: {{ .Values.executor.memory }}
+    memory: {{ .Values.executor.memory | quote }}
     serviceAccount: {{ .Values.serviceAccount.name }}
     image: {{ .Values.executor.image.repository }}:{{ .Values.executor.image.tag }}
     imagePullPolicy: {{ .Values.executor.image.pullPolicy }}

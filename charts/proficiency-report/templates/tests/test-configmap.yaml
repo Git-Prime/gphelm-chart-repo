@@ -1,0 +1,31 @@
+  
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "proficiency-report.fullname" . }}-test
+  labels:
+    app: {{ include "proficiency-report.fullname" . }}
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    heritage: "{{ .Release.Service }}"
+    release: "{{ .Release.Name }}"
+data:
+  run.sh: |-
+    @test "Test that SparkApplication completed successfully" {
+        url="http://proficiency-report-ui-svc.default:4040/api/v1/applications"
+        curlopts="--retry 60 --retry-delay 1 --retry-connrefused"
+        application=$(curl ${curlopts} ${url} | jq '.[].id' | tr -d '"')
+        sleep 10
+        executors=$(curl ${curlopts} ${url}/${application}/executors)
+        driver_logs=$(curl ${curlopts} ${url}/${application}/executors/driver/threads)
+        executor_logs=$(curl ${curlopts} ${url}/${application}/executors/1/threads)
+        driver_active=$(echo ${executors} | jq '.[0].isActive')
+        executor_active=$(echo ${executors} | jq '.[1].isActive')
+        echo "*** appliation = ${application}"
+        echo "*** executors = ${executors}"
+        echo "*** driver active = ${driver_active}"
+        echo "*** executor logs = ${executor_active}"
+
+        [[ ${driver_active} == true ]]
+        [[ ${executor_active} == true ]]
+
+    }

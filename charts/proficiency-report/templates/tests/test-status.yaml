@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "proficiency-report.fullname" . }}-test-status"
+  labels:
+{{ include "proficiency-report.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test-success
+spec:
+  containers:
+    - name: {{ .Release.Name }}-test
+      image: "gp-docker.gitprime-ops.com/flow-ci/bats:latest"
+      args: [ "/tests/run.sh" ]
+      volumeMounts:
+      - mountPath: /tests
+        name: tests
+        readOnly: true
+  volumes:
+  - name: tests
+    configMap:
+      name: {{ include "proficiency-report.fullname" . }}-test
+  restartPolicy: Never
