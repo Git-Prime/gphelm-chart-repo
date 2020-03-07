@@ -1,0 +1,69 @@
+{{- if eq .Values.applicationType "adhoc" }}
+apiVersion: "sparkoperator.k8s.io/v1beta2"
+kind: SparkApplication
+metadata:
+  name: {{ .Values.name }}
+  namespace: {{ .Values.namespace }}
+spec:
+  type: Python
+  pythonVersion: "3"
+  mode: cluster
+  mainApplicationFile: {{ .Values.main.applicationFile }}
+  sparkVersion: {{ .Values.main.sparkVersion }}
+  arguments:
+    - '{{ .Values.main.arguments }}'
+  restartPolicy:
+    type: OnFailure
+    onFailureRetries: 3
+    onFailureRetryInterval: 10
+    onSubmissionFailureRetries: 5
+    onSubmissionFailureRetryInterval: 20
+  driver:
+    cores: {{ .Values.driver.cores }}
+    instances: {{ .Values.driver.instances }}
+    memory: {{ .Values.driver.memory }}
+    serviceAccount: {{ .Values.serviceAccount.name }}
+    image: {{ .Values.driver.image.repository }}:{{ .Values.driver.image.tag }}
+    imagePullPolicy: {{ .Values.driver.image.pullPolicy }}
+    labels:
+      version: 2.4.5
+    env:
+    {{- range $key, $value := .Values.driver.env }}
+    - name: {{ $key | quote }}
+      value: {{ $value | quote }}
+    {{- end }}
+    - name: DATABASE_PASSWORD_MASTER
+      valueFrom:
+        secretKeyRef:
+          name: {{ .Values.driver.database.password.ref_master }}
+          key: password
+    - name: DATABASE_PASSWORD_SLAVE
+      valueFrom:
+        secretKeyRef:
+          name: {{ .Values.driver.database.password.ref_slave }}
+          key: password
+  executor:
+    cores: {{ .Values.executor.cores }}
+    instances: {{ .Values.executor.instances }}
+    memory: {{ .Values.executor.memory }}
+    serviceAccount: {{ .Values.serviceAccount.name }}
+    image: {{ .Values.executor.image.repository }}:{{ .Values.executor.image.tag }}
+    imagePullPolicy: {{ .Values.executor.image.pullPolicy }}
+    labels:
+      version: 2.4.5
+    env:
+    {{- range $key, $value := .Values.executor.env }}
+    - name: {{ $key | quote }}
+      value: {{ $value | quote }}
+    {{- end }}
+    - name: DATABASE_PASSWORD_MASTER
+      valueFrom:
+        secretKeyRef:
+          name: {{ .Values.executor.database.password.ref_master }}
+          key: password
+    - name: DATABASE_PASSWORD_SLAVE
+      valueFrom:
+        secretKeyRef:
+          name: {{ .Values.executor.database.password.ref_slave }}
+          key: password
+{{- end }}

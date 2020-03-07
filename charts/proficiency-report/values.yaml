@@ -1,0 +1,45 @@
+name: proficiency-report
+namespace: gp-pyspark
+
+# Can be "scheduled" (ScheduledSparkApplication) or "adhoc" (SparkApplication)
+# Leave blank and the chart will not create anything
+applicationType: ""
+
+serviceAccount:
+  create: true
+  name: "proficiency-report"
+
+# These actually do all the work
+executor:
+  cores: 1
+  instances: 1
+  memory: "512Mi"
+  image:
+    repository: "gp-docker.gitprime-ops.com/cloud/proficiency-spark"
+    tag: "latest"
+    pullPolicy: Always
+  env: []
+  database:
+    password:
+      ref_master: "some-secret-key-ref"
+      ref_slave: "some-secret-key-ref"
+
+# Should not need to have more than one instance
+driver:
+  cores: 1
+  instances: 1
+  memory: "1024Mi"
+  image:
+    repository: "gp-docker.gitprime-ops.com/cloud/proficiency-spark"
+    tag: "latest"
+    pullPolicy: Always
+  env: []
+  database:
+    password:
+      ref_master: "some-secret-key-ref"
+      ref_slave: "some-secret-key-ref"
+
+main:
+  applicationFile: "local://"
+  sparkVersion: "2.4.5"
+  arguments: "--your --script arguments"

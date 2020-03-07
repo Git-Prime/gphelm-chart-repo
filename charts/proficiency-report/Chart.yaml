@@ -1,0 +1,6 @@
+apiVersion: v2
+appVersion: "0.1.0"
+description: Spark application for data aggregation for proficiency report
+name: proficiency-report
+version: 1.0.0
+icon: https://s3-us-west-2.amazonaws.com/gitprime-email-images/gitprime-logo-icon.png
