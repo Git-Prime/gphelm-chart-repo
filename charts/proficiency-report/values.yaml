@@ -1,9 +1,14 @@
-name: proficiency-report
-namespace: gp-pyspark
-
-# Can be "scheduled" (ScheduledSparkApplication) or "adhoc" (SparkApplication)
-# Leave blank and the chart will not create anything
-applicationType: ""
+application:
+  name: "proficiency-report"
+  namespace: "gp-pyspark"
+  # Can be "scheduled" (ScheduledSparkApplication) or "adhoc" (SparkApplication)
+  # Leave blank and the chart will not create anything
+  type: ""
+  # Only used on "scheduled" application type
+  schedule: ""
+  file: "local://"
+  sparkVersion: "2.4.5"
+  arguments: "--your --script arguments"
 
 serviceAccount:
   create: true
@@ -17,7 +22,7 @@ executor:
   image:
     repository: "gp-docker.gitprime-ops.com/cloud/proficiency-spark"
     tag: "latest"
-    pullPolicy: Always
+    pullPolicy: "Always"
   env: []
   database:
     password:
@@ -32,14 +37,9 @@ driver:
   image:
     repository: "gp-docker.gitprime-ops.com/cloud/proficiency-spark"
     tag: "latest"
-    pullPolicy: Always
+    pullPolicy: "Always"
   env: []
   database:
     password:
       ref_master: "some-secret-key-ref"
       ref_slave: "some-secret-key-ref"
-
-main:
-  applicationFile: "local://"
-  sparkVersion: "2.4.5"
-  arguments: "--your --script arguments"
