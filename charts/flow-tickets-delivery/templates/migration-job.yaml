@@ -21,15 +21,15 @@ spec:
       - name: backend-migration-job-{{ .Values.backend.image.tag }}
         image: "{{ .Values.backend.image.repository }}:{{ .Values.backend.image.tag }}"
         env:
-          - name: FLOW_FUNDAMENTALS_ALLOWED_CIDR_NETS
+          - name: FLOW_TICKETS_DELIVERY_ALLOWED_CIDR_NETS
             value: "10.0.0.0/8,172.32.0.0/16"
-          - name: FLOW_FUNDAMENTALS_ALLOWED_HOSTS
+          - name: FLOW_TICKETS_DELIVERY_ALLOWED_HOSTS
             value: "localhost,flow-tickets-delivery-{{ .Values.environment }},{{ .Values.environment }}-flow-tickets-delivery.gitprime-ops.com"
-          - name: FLOW_FUNDAMENTALS_SECRET_KEY
+          - name: FLOW_TICKETS_DELIVERY_SECRET_KEY
             value: "somebullshitsecretkeythatshouldbechanged"
-          - name: FLOW_FUNDAMENTALS_DEFAULT_DATABASE
-            value: "postgresql://postgres@{{ $fullname }}-postgresql:5432/flow_fundamentals?application_name=ff_default"
-          - name: FLOW_FUNDAMENTALS_DEFAULT_ORG_NAME
+          - name: FLOW_TICKETS_DELIVERY_DEFAULT_DATABASE
+            value: "postgresql://postgres@{{ $fullname }}-postgresql:5432/flow_tickets_delivery?application_name=ff_default"
+          - name: FLOW_TICKETS_DELIVERY_DEFAULT_ORG_NAME
             value: "GitPrime"
           {{- range $key, $value := .Values.backend.env }}
           - name: {{ $key | quote }}
