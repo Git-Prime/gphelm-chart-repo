@@ -1,11 +1,28 @@
-## Overview
-The CLI tool [ct](https://github.com/helm/chart-testing) and [kind](https://github.com/kubernetes-sigs/kind) make up the foundation of continuous integration and delivery for helm charts. `ct` automatically detects changed charts so when its called to `lint` or `install`, it will only do so with changes on your branch.
+# gp-helm-chart-repo
+
+<!-- vscode-markdown-toc -->
+1. [Overview](#Overview)
+2. [Chart structure](#Chartstructure)
+3. [Integration Testing](#IntegrationTesting)
+4. [Local Development](#LocalDevelopment)
+5. [Packaging and Releasing](#PackagingandReleasing)
+6. [Integration with your application](#Integrationwithyourapplication)
+7. [Changes to current workflow](#Changestocurrentworkflow)
+8. [Possible Issues](#PossibleIssues)
+
+<!-- vscode-markdown-toc-config
+	numbering=true
+	autoSave=true
+	/vscode-markdown-toc-config -->
+<!-- /vscode-markdown-toc -->
+##  1. <a name='Overview'></a>Overview
+The CLI tool [ct](https://github.com/helm/chart-testing) and [kind](https://github.com/kubernetes-sigs/kind) make up the foundation of continuous integration and delivery for helm charts. `ct` automatically detects changed charts so when its called to `lint` or `install`, it will only do so with changes on your branch. This toolset has become an industry standard for testing helm charts.
 
 There are additional pieces (bash scripts...) in place to handle things like setting up your test environment, should your chart have any dependencies that can't be specified in the chart itself.
 
 We will now package (`helm package`) and release (`aws s3 sync`) charts properly. This means that a PR merged to master will package your chart and push to our S3 Helm Repo at `https://gitprime-helm-charts.s3-us-west-2.amazonaws.com/`. This bucket is currently public but we can add basic auth to it.
 
-## Chart structure
+##  2. <a name='Chartstructure'></a>Chart structure
 
 The basic structure of your chart should look something like this:
 ```
@@ -29,7 +46,7 @@ The basic structure of your chart should look something like this:
 - `templates/tests/test-configmap.yaml` - Is just a configmap that in this case is being used to drop in `bats` tests for the `test-status.yaml` pod.
 - `templates/tests/test-status.yaml` (recommended)- Is a pod that uses the `"helm.sh/hook": test-success` annotation which means this pod will be created after your chart is installed to test whatever you want it to test (HTTP connection, database setup, etc).
 
-## Integration Testing
+##  3. <a name='IntegrationTesting'></a>Integration Testing
 Integration tests are run at the docker-in-docker container level:
 
     > sandbox-k8s-cluster
@@ -50,27 +67,27 @@ Integration tests are run at the docker-in-docker container level:
     - Runs `ct install` on your chart. This will automatically use whatever tests you've defined within your chart and also use whatever values for CI you have defined. Getting this ironed out can take a fair amount of work depending on how your chart is currently written.
 - If the branch is master, a package and sync script will be called to package the modified chart(s), run `helm index` and upload `index.yaml` and the chart(s) to our helm repo in S3.
 
-## Local Development
+##  4. <a name='LocalDevelopment'></a>Local Development
 Local development can be done easily by calling the `test/e2e-kind.sh` script locally - it will work on your laptop as long as you have `kind` and `docker` installed. It will automatically detect your local changes and run the end-to-end tests against them.
 
-## Packaging and Releasing
+##  5. <a name='PackagingandReleasing'></a>Packaging and Releasing
 Packaging and releasing is done using `test/package-and-sync.sh`, which does a few things:
 - Runs `helm dependency build <your chart>`
 - Runs `helm package <your-chart>`
 - Runs `helm repo index` with a merge strategy to update `index.yaml`
 - Runs `aws s3 sync` to upload `index.yaml` and `<your-chart>.tgz`
 
-## Integration with your application
+##  6. <a name='Integrationwithyourapplication'></a>Integration with your application
 
 The benefit we will have from using CI/CD with our helm charts is it will make integration testing with your application possible. `gphelm-chart-repo` is not a real helm repository so we can't `helm repo add` it for testing (or anything else). End-to-end integration testing has been proved out in the `flow-fundamentals` project using the proof-of-concept outlined in this proposal.
 
-## Changes to current workflow
+##  7. <a name='Changestocurrentworkflow'></a>Changes to current workflow
 - We would not be versioning within the chart directory - this will break chart testing.
 - Use a PR driven workflow. Version bumps will be made using Chart.yaml and merging a PR branch into master, which will package and release your chart to our actual S3-based helm repository.
 - Your chart should adhere to valid schema and pass `ct lint` as well as `ct install`
 - Master branch will be protected and status checks enforced to ensure parity with the chart code in the GitHub repository and the packaged chart in the helm repo.
 
-## Possible Issues
+##  8. <a name='PossibleIssues'></a>Possible Issues
 
 - I am not sure how well this will integrate into the current Rancher-based release workflow. I am biased to recommend flux/helm-operator for continuous delivery.
 - This is going to cause a bit of pain to implement and may have a steep learning curve, but there are a lot of examples of this working within GitPrime and also Pluralsight.
