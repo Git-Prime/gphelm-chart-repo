@@ -16,7 +16,7 @@
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 ##  1. <a name='Overview'></a>Overview
-The CLI tool [ct](https://github.com/helm/chart-testing) and [kind](https://github.com/kubernetes-sigs/kind) make up the foundation of continuous integration and delivery for helm charts. `ct` automatically detects changed charts so when its called to `lint` or `install`, it will only do so with changes on your branch. This toolset has become an industry standard for testing helm charts.
+The CLI tool [ct](https://github.com/helm/chart-testing) and [kind](https://github.com/kubernetes-sigs/kind) make up the foundation of continuous integration and delivery for helm charts. `ct` automatically detects changed charts so when its called to `lint` or `install`, it will only do so with changes on your branch. This toolset has become an industry standard for testing helm charts and much of the structure and code is borrowed from repos such as `helm/helm`, `helm/chart-testing` and `kubernetes-sigs/kind`
 
 There are additional pieces (bash scripts...) in place to handle things like setting up your test environment, should your chart have any dependencies that can't be specified in the chart itself.
 
@@ -43,7 +43,7 @@ The basic structure of your chart should look something like this:
 
 - `ci/test-values.yaml` (required) - `ct` will uses these values when it tests. You can specify multiple test values and it will test all of them. It looks for files named `*-values.yaml`.
 - `ci/pre-test.sh` (optional) - Put anything in here (for example `kubectl` or `helm` commands) that you want to be installed or added to the cluster before your chart is created.
-- `templates/tests/test-configmap.yaml` - Is just a configmap that in this case is being used to drop in `bats` tests for the `test-status.yaml` pod.
+- `templates/tests/test-configmap.yaml` (recommended) - Is just a configmap that in this case is being used to drop in `bats` tests for the `test-status.yaml` pod. This can allow you to run an entire test suite against your chart.
 - `templates/tests/test-status.yaml` (recommended)- Is a pod that uses the `"helm.sh/hook": test-success` annotation which means this pod will be created after your chart is installed to test whatever you want it to test (HTTP connection, database setup, etc).
 
 ##  3. <a name='IntegrationTesting'></a>Integration Testing
