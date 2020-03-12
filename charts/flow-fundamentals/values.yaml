@@ -2,7 +2,7 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-runSeedJob: false
+runSeedJob: true
 environment: "test"
 replicaCount: 1
 
