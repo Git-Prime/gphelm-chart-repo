@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "cp-schema-registry.fullname" . }}-connect-nodeport
+  labels:
+    app: {{ template "cp-schema-registry.name" . }}
+    chart: {{ template "cp-schema-registry.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  type: NodePort
+  ports:
+    - name: schema-registry-nodeport
+      port: {{ .Values.schemaRegistry.port }}
+      nodePort: {{ .Values.schemaRegistry.nodePort }}
+      targetPort: {{ .Values.schemaRegistry.targetPort }}
+  selector:
+    app: cp-schema-registry
+    release: {{ .Release.Name }}
