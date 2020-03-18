@@ -39,7 +39,7 @@ cp-helm-charts:
       "config.storage.replication.factor": "2"
       "offset.storage.replication.factor": "2"
       "status.storage.replication.factor": "2"
-      "log4j.root.loglevel": INFO
+      "log4j.root.loglevel": DEBUG
 
 # Control whether other cp-helm-charts are part of this deployment.
 # See https://github.com/confluentinc/cp-helm-charts/issues/224 for discussion about why
