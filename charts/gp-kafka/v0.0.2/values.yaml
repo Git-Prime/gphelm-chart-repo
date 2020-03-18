@@ -39,6 +39,8 @@ cp-helm-charts:
       "config.storage.replication.factor": "2"
       "offset.storage.replication.factor": "2"
       "status.storage.replication.factor": "2"
+      cp-schema-registry:
+        service-name: "gp-kafka-cp-kafka-rest"
 
 # Control whether other cp-helm-charts are part of this deployment.
 # See https://github.com/confluentinc/cp-helm-charts/issues/224 for discussion about why
