@@ -70,6 +70,21 @@ questions:
     group: "cp-helm-charts/cp-kafka"
     label: Persistence size
     default: "500Gi"
+  - variable: cp-helm-charts.cp-kafka.configurationOverrides.log4j.root.loglevel
+    type: enum
+    required: true
+    group: "cp-helm-charts/cp-kafka"
+    label: Log level
+    options:
+      - ALL
+      - DEBUG
+      - INFO
+      - WARN
+      - ERROR
+      - FATAL
+      - OFF
+      - TRACE
+    default: DEBUG
 
   - variable: cp-helm-charts.cp-zookeeper.servers
     type: string
@@ -182,6 +197,21 @@ questions:
       - org.apache.kafka.connect.json.JsonConverter
       - io.confluent.connect.avro.AvroConverter
     default: "org.apache.kafka.connect.json.JsonConverter"
+  - variable: cp-helm-charts.cp-kafka-connect.configurationOverrides.log4j.root.loglevel
+    type: enum
+    required: true
+    group: "cp-helm-charts/cp-kafka-connect"
+    label: Log level
+    options:
+      - ALL
+      - DEBUG
+      - INFO
+      - WARN
+      - ERROR
+      - FATAL
+      - OFF
+      - TRACE
+    default: INFO
 
   - variable: kafkaConnect.nodePort
     type: string
@@ -234,3 +264,18 @@ questions:
     group: "schema-registry"
     label: Schema regisrty HTTP host name for REST registration service request
     default: ""
+  - variable: cp-helm-charts.cp-schema-registry.configurationOverrides.log4j.root.loglevel
+    type: enum
+    required: true
+    group: "schema-registry"
+    label: Log level
+    options:
+      - ALL
+      - DEBUG
+      - INFO
+      - WARN
+      - ERROR
+      - FATAL
+      - OFF
+      - TRACE
+    default: INFO
