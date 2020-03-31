@@ -1,0 +1,13 @@
+{{- $templateData := dict "operationMode" "reprocess-worker" }}
+{{- $_ := set $templateData "replicaCount" .Values.dataPipeline.reprocessWorker.replicaCount }}
+{{- $_ := set $templateData "environment" .Values.dataPipeline.reprocessWorker.environment }}
+{{- $_ := set $templateData "javaOptions" .Values.dataPipeline.reprocessWorker.javaOptions }}
+{{- $_ := set $templateData "processorThreadCount" .Values.dataPipeline.reprocessWorker.processorThreadCount }}
+{{- $_ := set $templateData "maxConcurrentJobs" .Values.dataPipeline.reprocessWorker.maxConcurrentJobs }}
+{{- $_ := set $templateData "reprocessMaxCommitCount" .Values.dataPipeline.reprocessWorker.reprocessMaxCommitCount }}
+{{- $_ := set $templateData "resources" .Values.dataPipeline.reprocessWorker.resources }}
+{{- $_ := set $templateData "logLevel" .Values.dataPipeline.reprocessWorker.logLevel }}
+{{- $_ := set $templateData "reprocessListeners" .Values.dataPipeline.reprocessWorker.reprocessListeners }}
+{{- $_ := set $templateData "reprocessThreadsPerListener" .Values.dataPipeline.reprocessWorker.reprocessThreadsPerListener }}
+{{- $templateData := dict "Values" .Values "templateData" $templateData }}
+{{- include "dataPipeline.deploymentTemplate" $templateData }}
