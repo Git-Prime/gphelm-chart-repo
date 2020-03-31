@@ -284,7 +284,7 @@ dataPipeline:
         value: 0
       - name: GP_BP_LISTENERS
         value: 1
-      - name: GP_BP_WEBHOOK_WORKERS_PER_LISTENER
+      - name: GP_BP_WORKERS_PER_LISTENER
         value: 1
       - name: GP_MAX_REPO_PROCESSING_SECONDS
         value: 2700
