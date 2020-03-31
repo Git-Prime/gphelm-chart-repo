@@ -149,10 +149,6 @@ spec:
             - name: GP_BP_LISTENERS
               value: {{ quote .templateData.bpListeners }}
           {{- end}}
-          {{- if .templateData.bpThreadsPerListener }}
-            - name: GP_BP_WORKERS_PER_LISTENER
-              value: {{ quote .templateData.bpThreadsPerListener }}
-          {{- end}}
           {{- if .templateData.maxConcurrentProjectsPerOrg }}
             - name: GP_MAX_CONCURRENT_PROJECTS_PER_ORG
               value: {{ quote .templateData.maxConcurrentProjectsPerOrg }}

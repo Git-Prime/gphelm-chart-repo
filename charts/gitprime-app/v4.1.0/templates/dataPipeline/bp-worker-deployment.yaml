@@ -8,6 +8,5 @@
 {{- $_ := set $templateData "resources" .Values.dataPipeline.bpWorker.resources }}
 {{- $_ := set $templateData "logLevel" .Values.dataPipeline.bpWorker.logLevel }}
 {{- $_ := set $templateData "bpListeners" .Values.dataPipeline.bpWorker.bpListeners }}
-{{- $_ := set $templateData "bpThreadsPerListener" .Values.dataPipeline.bpWorker.bpThreadsPerListener }}
 {{- $templateData := dict "Values" .Values "templateData" $templateData }}
 {{- include "dataPipeline.deploymentTemplate" $templateData }}

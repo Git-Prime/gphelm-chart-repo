@@ -670,14 +670,6 @@ questions:
     description: The number of concurrent jobs for the BP workers.
     default: 1
 
-  - variable: dataPipeline.bpWorker.bpThreadsPerListener
-    type: string
-    required: true
-    group: "Data Pipeline / BP Workers"
-    label: BP Worker Thread Count
-    description: The number of threads per job to use for the BP workers.
-    default: 1
-
   - variable: dataPipeline.bpWorker.resources.requests.cpu
     type: string
     required: true

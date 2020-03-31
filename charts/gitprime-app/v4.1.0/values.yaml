@@ -284,10 +284,6 @@ dataPipeline:
         value: 0
       - name: GP_BP_LISTENERS
         value: 1
-      - name: GP_BP_WORKERS_PER_LISTENER
-        value: 1
-      - name: GP_MAX_REPO_PROCESSING_SECONDS
-        value: 2700
       - name: GP_MAX_CONCURRENT_PROJECTS_PER_ORG
         value: 40
       - name: GP_SCHEDULED_TASK_SET
