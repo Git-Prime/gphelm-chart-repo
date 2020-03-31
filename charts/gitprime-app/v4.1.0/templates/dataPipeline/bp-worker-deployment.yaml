@@ -1,0 +1,13 @@
+{{- $templateData := dict "operationMode" "bp-worker" }}
+{{- $_ := set $templateData "replicaCount" .Values.dataPipeline.bpWorker.replicaCount }}
+{{- $_ := set $templateData "environment" .Values.dataPipeline.bpWorker.environment }}
+{{- $_ := set $templateData "javaOptions" .Values.dataPipeline.bpWorker.javaOptions }}
+{{- $_ := set $templateData "processorThreadCount" .Values.dataPipeline.bpWorker.processorThreadCount }}
+{{- $_ := set $templateData "maxConcurrentJobs" .Values.dataPipeline.bpWorker.maxConcurrentJobs }}
+{{- $_ := set $templateData "maxConcurrentProjectsPerOrg" .Values.dataPipeline.bpWorker.maxConcurrentProjectsPerOrg }}
+{{- $_ := set $templateData "resources" .Values.dataPipeline.bpWorker.resources }}
+{{- $_ := set $templateData "logLevel" .Values.dataPipeline.bpWorker.logLevel }}
+{{- $_ := set $templateData "bpListeners" .Values.dataPipeline.bpWorker.bpListeners }}
+{{- $_ := set $templateData "bpThreadsPerListener" .Values.dataPipeline.bpWorker.bpThreadsPerListener }}
+{{- $templateData := dict "Values" .Values "templateData" $templateData }}
+{{- include "dataPipeline.deploymentTemplate" $templateData }}

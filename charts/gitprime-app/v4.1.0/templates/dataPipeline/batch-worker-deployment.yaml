@@ -1,0 +1,9 @@
+{{- $templateData := dict "operationMode" "batch-worker" }}
+{{- $_ := set $templateData "replicaCount" .Values.dataPipeline.batchWorker.replicaCount }}
+{{- $_ := set $templateData "environment" .Values.dataPipeline.batchWorker.environment }}
+{{- $_ := set $templateData "javaOptions" .Values.dataPipeline.batchWorker.javaOptions }}
+{{- $_ := set $templateData "resources" .Values.dataPipeline.batchWorker.resources }}
+{{- $_ := set $templateData "logLevel" .Values.dataPipeline.batchWorker.logLevel }}
+{{- $_ := set $templateData "dockerImage" "gitprime-data-pipeline-batch" }}
+{{- $templateData := dict "Values" .Values "templateData" $templateData }}
+{{- include "dataPipeline.deploymentTemplate" $templateData }}
