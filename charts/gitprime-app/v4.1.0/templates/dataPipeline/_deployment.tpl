@@ -23,6 +23,10 @@ spec:
     metadata:
       labels:
         app: gitprime-dp-{{- template "helpers.environment.fullName" .}}-{{ .templateData.operationMode }}
+        {{ if (eq .Values.environment.parentName "production") or (eq .Values.environment.parentName "canary") or (eq .Values.environment.parentName "sandbox") -}}
+        annotations:
+          ad.datadoghq.com/gitprime-dp-{{- template "helpers.environment.fullName" .}}-{{ .templateData.operationMode }}.logs: '[{"source":"kubernetes.gitprime-dp-{{- template "helpers.environment.fullName" .}}","service":"gitprime-dp-{{- template "helpers.environment.fullName" .}}-{{ .templateData.operationMode }}"}]'
+        {{- end }}
     spec:
       containers:
         - name: gitprime-dp-{{- template "helpers.environment.fullName" .}}-{{ .templateData.operationMode }}
