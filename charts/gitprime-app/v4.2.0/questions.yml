@@ -557,6 +557,68 @@ questions:
       - ERROR
     default: "INFO"
 
+  # Consumer Worker Settings
+  - variable: dataPipeline.consumerWorker.replicaCount
+    type: string
+    required: true
+    group: "Data Pipeline / Consumer Workers"
+    label: Number of Pods for Consumer Workers
+    description: The number of pods to deploy for consumer workers.
+    default: 1
+
+  - variable: dataPipeline.consumerWorker.javaOptions
+    type: string
+    required: true
+    group: "Data Pipeline / Consumer Workers"
+    label: Consumer Worker Java Options
+    description: The Java options for the consumer workers.
+    default: "-d64 -Xms2g -Xmx4g"
+
+  - variable: dataPipeline.consumerWorker.resources.requests.cpu
+    type: string
+    required: true
+    group: "Data Pipeline / Consumer Workers"
+    label: Consumer Worker Requested CPU
+    description: The number of CPUs the consumer workers will request.
+    default: "2"
+
+  - variable: dataPipeline.consumerWorker.resources.requests.memory
+    type: string
+    required: true
+    group: "Data Pipeline / Consumer Workers"
+    label: Consumer Worker Requested Memory
+    description: The maximum amount of memory a consumer worker will request.
+    default: "4Gi"
+
+  - variable: dataPipeline.consumerWorker.resources.limits.cpu
+    type: string
+    required: true
+    group: "Data Pipeline / Consumer Workers"
+    label: Consumer CPU Limit
+    description: The maximum number of CPUs the consumer workers can use.
+    default: "4"
+
+  - variable: dataPipeline.consumerWorker.resources.limits.memory
+    type: string
+    required: true
+    group: "Data Pipeline / Consumer Workers"
+    label: Consumer Worker Memory Limit
+    description: The maximum amount of memory a consumer worker can use.
+    default: "8Gi"
+
+  - variable: dataPipeline.consumerWorker.logLevel
+    type: enum
+    required: true
+    group: "Data Pipeline / Consumer Workers"
+    label: Log Level
+    description: The level of logging for this deployment.
+    options:
+      - TRACE
+      - DEBUG
+      - INFO
+      - WARN
+      - ERROR
+    default: "INFO"
 
   # Reprocess Worker Settings
   - variable: dataPipeline.reprocessWorker.replicaCount

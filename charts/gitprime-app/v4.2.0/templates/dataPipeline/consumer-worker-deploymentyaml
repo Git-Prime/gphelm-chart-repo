@@ -1,0 +1,9 @@
+{{- $templateData := dict "operationMode" "consumer-worker" }}
+{{- $_ := set $templateData "replicaCount" .Values.dataPipeline.consumerWorker.replicaCount }}
+{{- $_ := set $templateData "environment" .Values.dataPipeline.consumerWorker.environment }}
+{{- $_ := set $templateData "javaOptions" .Values.dataPipeline.consumerWorker.javaOptions }}
+{{- $_ := set $templateData "resources" .Values.dataPipeline.consumerWorker.resources }}
+{{- $_ := set $templateData "logLevel" .Values.dataPipeline.consumerWorker.logLevel }}
+{{- $_ := set $templateData "dockerImage" "gitprime-data-pipeline-consumer" }}
+{{- $templateData := dict "Values" .Values "templateData" $templateData }}
+{{- include "dataPipeline.deploymentTemplate" $templateData }}

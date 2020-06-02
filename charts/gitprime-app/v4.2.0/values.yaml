@@ -314,6 +314,21 @@ dataPipeline:
         cpu: "2"
         memory: 4Gi
 
+  consumerWorker:
+    replicaCount: 1
+    javaOptions: "-d64 -Xms2g -Xmx4g"
+    logLevel: INFO
+    environment:
+      - name: GP_CONSUMER_PROCESSING
+        value: 1
+    resources:
+      limits:
+        cpu: "4"
+        memory: 8Gi
+      requests:
+        cpu: "2"
+        memory: 4Gi
+
   scheduleWorker:
     replicaCount: 1
     javaOptions: "-d64 -Xms2g -Xmx4g"
